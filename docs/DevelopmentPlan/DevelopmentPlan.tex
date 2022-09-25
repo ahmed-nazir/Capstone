@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 
-\title{Development Plan\\\progname}
+\title{Development Test\\\progname}
 
 \author{\authname}
 
@@ -20,7 +20,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
+Sept 25 & Muhanad Sada & Workflow Plan, POC Demo Plan\\
 Date2 & Name(s) & Description of changes\\
 ... & ... & ...\\
 \bottomrule
@@ -40,18 +40,55 @@ Date2 & Name(s) & Description of changes\\
 \section{Team Member Roles}
 
 \section{Workflow Plan}
+Team members will use the GitHub repository dedicated for the capstone project. The feature
+branch workflow will be used whenever there are any code changes except for simple fixes such as syntax errors, comments, variable renaming, etc. 
+Branches will also be utilized for any significant documentation changes such as section additions/modifications and diagram insertions. 
+Pull requests will be used in conjunction with branches to review/verify code and document changes.
+Branches will follow the following naming structure: scope/(description), ex. feat/adding new function
+
+\subsection{Issues}
+The issues feature in GitHub is used to track all of the tasks for the project. Once the team or individual members 
+identify a task, an issue will be created. When creating an issue, a team member will select one of the issue templates 
+based on the scope of the task. There are a total of five templates:
 
 \begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classificaiton, etc.?
+	\item Bug report - any tasks used to report a bug and fix it
+	\item Feature request – any tasks that involve requesting and implementing a feature
+	\item Enhancement - any tasks that require updating code for enhancement purposes
+	\item Documentation – tasks that involve adding or editing documentation
+	\item Miscellaneous – any tasks that are not covered under the scope of the other templates
+\end{itemize}
+
+\subsection{Project Board}
+The project board is used to organize and identify the status of each task. 
+The project contains five columns each describing the current status of the issue:
+
+\begin{itemize}
+	\item To-do - When tasks are first created, they are placed in this list
+	\item In-progress – The issue has been assigned to a team member and is currently being worked on
+	\item In-Review – The work has been completed and now to needs to be reviewed
+	\item Done – Once team member(s) review and approve the changes, the issue will be moved to this stage
+	\item Outdated/Ignored – issues that were created but later determined to be unnecessary 
 \end{itemize}
 
 \section{Proof of Concept Demonstration Plan}
 
-What is the main risk, or risks, for the success of your project?  What will you
-demonstrate during your proof of concept demonstration to convince yourself that
-you will be able to overcome this risk?
+The proof of concept demonstration should prove four essential 
+functionalities of the product. The first is the ability of sensors to measure 
+desired data and send that information to the hardware. The second is having the capability to receive/send 
+data at three different levels, which includes hardware, desktop application, and database. 
+The POC should be able to show that hardware can receive information from a sensor and send that 
+information to a simple desktop application. The application should then be able to receive that 
+data and display it on the GUI. At this point, the application would be able to send that 
+information to a database, which is populated accordingly. The third ability, 
+is to show live data on the application’s GUI, however implementation difficulties are expected. 
+This is due to the tediousness of creating a connection that provides both smooth and continuous 
+data transfer between the hardware and the application. In addition to these functionalities, there 
+is the risk of being constrained in testing as we might not have access to a formula E car or it will 
+be difficult to duplicate. Therefore, the POC should also have a testing environment that mirrors the 
+conditions/setup of the mechanical parts of a Formula E car upon taking measurements. If the implementation of 
+the above essential abilities and testing environment are verified then the level of confidence of creating 
+a successful data automation product. 
 
 \section{Technology}
 
