@@ -3,6 +3,7 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 
+
 \title{Problem Statement and Goals\\\progname}
 
 \author{\authname}
@@ -22,7 +23,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
+9/24/22 & Ahmed Nazir & Added our projects goals and stretch goals\\
 Date2 & Name(s) & Description of changes\\
 ... & ... & ...\\
 \bottomrule
@@ -50,7 +51,59 @@ Use abstraction so that you can avoid details.}
 \wss{Hardware and software}
 
 \section{Goals}
-
+    \begin{table}[!hbt]
+        \centering
+        \begin{tabular}{|p{4cm}|p{8cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\large \textbf{Goals}} & \multicolumn{1}{c|}{\large \textbf{Explanation}} 
+        \\ \hline
+        Hardware collects data points from tests
+        & Our final hardware component should be able to record test data for the main components we want to measure. It should measure vibration, shock, temperature and humidity.  
+        \newline                                
+        \\ \hline
+        A user interface which interacts and submits the data should be completed                                  
+        & A modern GUI which is easy to use and intuitive should be able to communicate with our hardware to receive the measurements from the sensor. The GUI should have two modes, the first showing the live data as it comes from the device. The second mode should allow for the user to preview the data from the test, and extract certain important parts before sending it into the database.   
+        \newline                                
+        \\ \hline
+        A record of the historical data should be organized                                
+        & To keep testing consistent and comparable, all previous test data should be organized into a database which cannot be edited to prevent users from tampering with test results. Historical data will allow Formula teams to be able to see how certain modifications to their design can improve or hurt motor test results. 
+        \newline                                
+        \\ \hline
+        The final product should have a website which displays the data in a useful way                                
+        & Once all the  tests are sent to the database, we will have a website which shows all the major test numbers in a data analytics platform to quickly and easily see if our product is hitting targets  
+        \newline                              
+        \\ \hline
+        Setup of our device should be quick and easy                               
+        & When a user would like to conduct a test our hardware should be hassle free and not add too much time to the overall setup
+        \newline                            
+        \\ \hline
+        \end{tabular}
+    \end{table}
+    
 \section{Stretch Goals}
+    \begin{table}[!hbt]
+        \centering
+        \begin{tabular}{|p{4cm}|p{8cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{Goals}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
+        \\ \hline
+        Custom Website
+        &  Creating a GUI from scratch would make the website more customizable to our particular application in terms of UI/UX   
+        \newline                              
+        \\ \hline
+        Critical Alert                              
+        & The critical alert feature would display to the user on both the App GUI and on the screen that the current test being performed is exceeding the operating conditions of the device being tested. This will bring attention to the user and they will be able to stop the test
+        \newline
+        \\ \hline
+        Predictive Data                              
+        & Since all the test case data and test condition data is being stored in our database, we could create a machine learning model which will be able to tell us how the motor will perform under certain conditions                         
+        \newline       
+        \\ \hline
+        Security                              
+        & When data is being transmitted from our hardware device to our computer, the data should be encrypted and secure to prevent tampering with data.    
+        \newline                           
+        \\ \hline
+        \end{tabular}
+    \end{table}
 
 \end{document}
