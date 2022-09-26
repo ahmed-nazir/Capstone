@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 
-\title{Development Test\\\progname}
+\title{Development Plan\\\progname}
 
 \author{\authname}
 
@@ -20,7 +20,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Sept 25 & Muhanad Sada & Workflow Plan, POC Demo Plan\\
+09/25/22 & Muhanad Sada & Workflow Plan, POC Demo Plan\\
 Date2 & Name(s) & Description of changes\\
 ... & ... & ...\\
 \bottomrule
@@ -53,20 +53,23 @@ Team members will use the GitHub repository dedicated for the capstone project. 
 branch workflow will be used whenever there are any code changes except for simple fixes such as syntax errors, comments, variable renaming, etc. 
 Branches will also be utilized for any significant documentation changes such as section additions/modifications and diagram insertions. 
 Pull requests will be used in conjunction with branches to review/verify code and document changes.
-Branches will follow the following naming structure: scope/(description), ex. feat/adding new function
+Branches will follow the following naming structure: scope/description, ex. feat/adding new function.
 
 \subsection{Issues}
-The issues feature in GitHub is used to track all of the tasks for the project. Once the team or individual members 
-identify a task, an issue will be created. When creating an issue, a team member will select one of the issue templates 
-based on the scope of the task. There are a total of five templates:
+The issues feature in GitHub is used to track all of the tasks for the project. Once the team or individual members identify a task, an issue will be created. In order to keep issues updated with commits related to it, the following commit message structure will be followed: (scope): [\#issue number] description. When creating an issue, a team member will select one of the issue templates based on the scope of the task. There are a total of five templates: 
 
 \begin{itemize}
 	\item Bug report - any tasks used to report a bug and fix it
-	\item Feature request – any tasks that involve requesting and implementing a feature
+	\item Feature – any tasks that involve requesting and implementing a feature
 	\item Enhancement - any tasks that require updating code for enhancement purposes
 	\item Documentation – tasks that involve adding or editing documentation
 	\item Miscellaneous – any tasks that are not covered under the scope of the other templates
 \end{itemize}
+
+\noindent
+Labels will also be added to issues to identify which component of the
+product is being worked on. The following labels will be utilized: 
+database, desktop application, GUI, hardware, and mechanical design.
 
 \subsection{Project Board}
 The project board is used to organize and identify the status of each task. 
@@ -110,11 +113,12 @@ The programming language of choice is Python. Python is the perfect language for
 	\item Pandas: Data manipulation library
 	\item Matplotlib: Math library to help visualize data in graphs
 	\item PyQT: Python GUI library
+	\item PyFirmata: python library to allow for serial communication between python and Arduino board
 \end{itemize}
 
 
-\subsection{Tools}
-To assist with developing our product we will be using the following tools
+\subsection{Software Tools}
+To assist with developing our product we will be using the following software tools.
 
 \begin{table}[!hbt]
 	\centering
@@ -138,11 +142,24 @@ To assist with developing our product we will be using the following tools
 	&  The linter extension we plan on using is Pylint, it will keep our coding style consistent between different people and it is specifically made for Python
 	\newline                              
 	\\ \hline
+	Arduino IDE
+	&  Software used to write and upload code onto Arduino board
+	\newline                     
+	\\ \hline
+	Amazon RDS
+	&  Also known as the Amazon Relational Database Service that allows you to create, connect to, and manage database instances
+	\newline                     
+	\\ \hline
 	\end{tabular}
 \end{table}
 
-
-
+\subsection{Hardware}
+\begin{itemize}
+	\item Arduino Board: Open-source microcontroller 
+	\item Wifi module: Gives Arduino Wifi access
+	\item Sensors: Measuring desired values
+	\item 3D Printer: Printing CAD designed hardware components
+\end{itemize}
 
 \section{Coding Standard}
 
