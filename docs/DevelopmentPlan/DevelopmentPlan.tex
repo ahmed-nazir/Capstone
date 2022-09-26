@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{float}
 
 \title{Development Test\\\progname}
 
@@ -145,6 +146,46 @@ To assist with developing our product we will be using the following tools
 
 
 \section{Coding Standard}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|p{4cm}|p{8cm}|}
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Coding Standard}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
+	\\ \hline
+	Coding readability
+	&  
+	\begin{itemize}
+		\item Capitalize SQL special words to differentiate them from columns and table names
+		\item Avoiding deep nested loops to help make it easier to follow and read
+		\item Not using lengthy functions, so avoiding the use of functions doing multiple tasks
+		\item Writing comments consistently explaining what is happening in each section of the code
+		\item Using meaningful variables to help make code more understandable
+		\item Using appropriate naming conventions
+	\end{itemize}                                 
+	\\ \hline
+	Module headers
+	&  
+	\begin{itemize}
+		\item Creating module name
+		\item Creation date
+		\item History of changes to modules
+		\item Summary of what each module does
+		\item Functions and variables changed in each modules
+	\end{itemize} 
+                             
+	\\ \hline
+	Proper indentation
+	&
+	\begin{itemize}
+		\item Proper space between two function arguments after a comma
+		\item Proper indentation and spaces for nested blocks in code
+		\item All braces should start from a new line and the end of the braces also start on a new line
+	\end{itemize}
+	                             
+	\\ \hline
+	\end{tabular}
+\end{table}
 
 \section{Project Scheduling}
 
