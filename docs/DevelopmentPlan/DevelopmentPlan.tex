@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{float}
 
 \title{Development Plan\\\progname}
 
@@ -163,8 +164,51 @@ To assist with developing our product we will be using the following software to
 
 \section{Coding Standard}
 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|p{4cm}|p{8cm}|}
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Coding Standard}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
+	\\ \hline
+	Coding readability
+	&  
+	\begin{itemize}
+		\item Capitalize SQL special words to differentiate them from columns and table names
+		\item Avoiding deep nested loops to help make it easier to follow and read
+		\item Not using lengthy functions, so avoiding the use of functions doing multiple tasks
+		\item Writing comments consistently explaining what is happening in each section of the code
+		\item Using meaningful variables to help make code more understandable
+		\item Using appropriate naming conventions
+	\end{itemize}                                 
+	\\ \hline
+	Module headers
+	&  
+	\begin{itemize}
+		\item Creating module names
+		\item Creation date
+		\item History of changes to modules
+		\item Summary of what each module does
+		\item Functions and variable name changed in each modules
+		\item Tracking various issues in each module
+	\end{itemize} 
+                             
+	\\ \hline
+	Proper indentation
+	&
+	\begin{itemize}
+		\item Proper space between two function arguments after a comma
+		\item Proper indentation and spaces for nested blocks in code
+		\item All braces should start from a new line and the end of the braces also start on a new line
+	\end{itemize}
+	                             
+	\\ \hline
+	\end{tabular}
+\end{table}
+
 \section{Project Scheduling}
 
 \wss{How will the project be scheduled?}
+
+In order to manage our project scheduling and hit deadlines we are prepared to have weekly meetings to see how the development of our product is going. In these meetings we will go over each person's delegated tasks and see if they were met. If they are not met we will see if this will affects the schedule we have set out and if it does we will put more resources into making sure it is completed before it delays our project. We will have major deadlines added to a calendar on teams in order for team members to see it as we work on our project. We will also be using software such as mondway.com which has ready made templates for project scheduling to help keep us on track and will be used to decompose larger tasks into smallers ones. Most of the decision with delegating tasks will be made during our weekly meetings and would based on the schedule of each individual and their expertise. Project scheduling will be a group discussion and we will be decided on what is most efficient and effective.
 
 \end{document}
