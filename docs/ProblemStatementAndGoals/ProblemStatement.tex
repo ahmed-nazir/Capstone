@@ -2,6 +2,7 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{float}
 
 
 \title{Problem Statement and Goals\\\progname}
@@ -39,7 +40,7 @@ Date2 & Name(s) & Description of changes\\
 
 Competitive engineering extracurricular activities at the University level revolves around the design, build, test, learn (DBTL) cycle. In teams that have not yet reached maturity in completing high quality and timely DBTL cycles, the design/building phases are over-prioritized, leaving the testing/learning phases under-resourced.     \\
 
-Most teams struggling to achieve timely DBTL cycles compete in deeply technical applications of engineering. Problematicly, deeply technical applications demand significant amounts of time into the design/build phase of a competition year to create a working prototype. \newpage
+Most teams struggling to achieve timely DBTL cycles compete in deeply technical applications of engineering. Problematically, deeply technical applications demand significant amounts of time into the design/build phase of a competition year to create a working prototype. \newpage
 
 \subsection{Problem}
 
@@ -84,18 +85,18 @@ As a result, our primary stakeholder will be McMaster's Formula Electric team be
 \wss{Hardware and software}
 
 \section{Goals}
-    \begin{table}[!hbt]
+    \begin{table}[H]
         \centering
         \begin{tabular}{|p{4cm}|p{8cm}|}
         \hline
-        \multicolumn{1}{|c|}{\large \textbf{Goals}} & \multicolumn{1}{c|}{\large \textbf{Explanation}} 
+        \multicolumn{1}{|c|}{\textbf{Goals}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
         \\ \hline
         Hardware collects data points from tests
-        & Our final hardware component should be able to record test data for the main components we want to measure. It should measure vibration, shock, temperature and humidity.  
+        & Our final hardware component should be able to record test data for the main components we want to measure. It should measure vibration, shock, temperature and humidity  
         \newline                                
         \\ \hline
         A user interface which interacts and submits the data should be completed                                  
-        & A modern GUI which is easy to use and intuitive should be able to communicate with our hardware to receive the measurements from the sensor. The GUI should have two modes, the first showing the live data as it comes from the device. The second mode should allow for the user to preview the data from the test, and extract certain important parts before sending it into the database.   
+        & A modern GUI which is easy to use and intuitive should be able to communicate with our hardware to receive the measurements from the sensor. The GUI should have two modes, the first showing the live data as it comes from the device. The second mode should allow for the user to preview the data from the test, and extract certain important parts before sending it into the database  
         \newline                                
         \\ \hline
         A record of the historical data should be organized                                
@@ -114,7 +115,7 @@ As a result, our primary stakeholder will be McMaster's Formula Electric team be
     \end{table}
     
 \section{Stretch Goals}
-    \begin{table}[!hbt]
+    \begin{table}[H]
         \centering
         \begin{tabular}{|p{4cm}|p{8cm}|}
         \hline
@@ -133,7 +134,7 @@ As a result, our primary stakeholder will be McMaster's Formula Electric team be
         \newline       
         \\ \hline
         Security                              
-        & When data is being transmitted from our hardware device to our computer, the data should be encrypted and secure to prevent tampering with data.    
+        & When data is being transmitted from our hardware device to our computer, the data should be encrypted and secure to prevent tampering with data
         \newline                           
         \\ \hline
         \end{tabular}
