@@ -1,7 +1,7 @@
 ---
 name: Documentation
 about: Adding or updating documents
-title: "[DOC} -"
+title: "[DOC] -"
 labels: ''
 assignees: ''
 
