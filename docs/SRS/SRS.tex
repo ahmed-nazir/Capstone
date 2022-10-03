@@ -127,7 +127,7 @@
 \begin{document}
 
 \title{Software Requirements Specification for \progname: subtitle describing software} 
-\author{Author Name(s)}
+\author{\authname}
 \date{\today}
 	
 \maketitle
@@ -239,6 +239,8 @@ which heat is transferred in
   SRS & Software Requirements Specification\\
   \progname{} & \plt{put an expanded version of your program name here (as appropriate)}\\
   T & Theoretical Model\\
+  DBTL & Design Build Test Learning\\
+  KPI & Key Performance Indicators\\
   \bottomrule
 \end{tabular}\\
 
@@ -333,9 +335,9 @@ a paragraph or two that describes the problem, followed by a ``roadmap''
 paragraph.  A roadmap orients the reader by telling them what sub-sections to
 expect in the Introduction section.}
 
-Effective test data collection and storage is a common challenge extra-curricular teams face in the technical domain. In teams who do not invest in streamlining data collection and storage, teams cannot fully utilize test data to validate designs. As a result, teams cannot prove design validity during competition, experience reduced competitiveness for presenting an under-validated system, and fail to generate trends on aggregated test data to efficiently find areas of improvement in design. \\
+Effective test data collection and storage is a common challenge extra-curricular teams face in the technical domain. In teams who do not invest in streamlining data collection and storage, teams cannot fully utilize test data to validate designs. As a result, teams encounter difficulty proving design validity during competition, experience reduced competitiveness when presenting an under-validated system, and fail to generate trends on aggregated test data to efficiently find areas of improvement in design. \\
 
-Project "Formulate" enables engineering teams to streamline data collection and storage, resulting in testing overhead reduction and increased control of raw test data gathered by automating aspects of the testing procedure.
+
 
 \subsection{Purpose of Document}
 
@@ -348,6 +350,10 @@ Project "Formulate" enables engineering teams to streamline data collection and 
   section will be similar between projects.  The purpose of the document is the
   purpose of the SRS, including communication, planning for the design stage,
   etc.}
+
+This document provides the set of Software Requirements Specifications (SRS) used to describe the system developed to assist testing efforts in technical teams. Both hardware and software system requirements were included to fully specify all system requirements. \\
+
+The user can expect to understand the system behavior under expected use cases, the functional and non-functional requirements the system must adhere to, supporting technical information used in the design of the system, and a development plan. 
 
 \subsection{Scope of Requirements} 
 
@@ -366,6 +372,23 @@ Project "Formulate" enables engineering teams to streamline data collection and 
   on the ``big picture'' assumptions.  The assumptions section lists, and
   describes, all of the assumptions.}
 
+  Project Formulate aims to provide the McMaster Formula Electric team with a well-documented and complete system. To accomplish the project goals within an 8 month timeline, the following scope of requirements were developed to set clear boundaries on deliverables.\\
+
+  In scope Items:\\
+1. Documentation for device integration into testing workflows for common tests.\\
+2. Hardware capable of collecting data from test equipment.\\
+3. User interface to interact with raw data and submit the data to a database.\\
+4. Record of organized, historical data.\\
+5. Visualization of test data stored in a database with auto-generated KPI metrics.\\
+6. Short setup time to integrate device into testing workflow, regardless of technical background.\\
+
+  Out of Scope Items:\\
+1. Custom website to visual test data results stored in a database.\\
+2. Security through data encryption.\\
+3. Predictive intelligence to estimate if rate of test data collected is on track to produce a fully validated product.\\
+
+
+
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
 \plt{This section summarizes the skills and knowledge of the readers of the
@@ -383,6 +406,18 @@ Project "Formulate" enables engineering teams to streamline data collection and 
   instance, is high school physics adequate, or should the reader have had a
   graduate course on advanced quantum mechanics?}
 
+  The intended reader possesses a multidisciplinary technical background in device electronics, embedded hardware and communication, database design, and front end development.\\
+
+  The reader should understand how common testing devices convert physical phenomena into equivalent and measurable electrical signals. This level of understanding can be achieved at an undergraduate level from an Embedded Systems 1 course.\\
+
+  The reader should understand how data collected by an embedded device can be distributed to a computing device via communication protocols. This level of understanding can be achieved at an undergraduate level from an Embedded Systems 2 course.\\
+
+  The reader should understand the underlying database model and methods to interact with the data stored in the database. This level of understanding can be achieved at an undergraduate level from a Database 1 course.\\
+
+  The reader should understand how front end applications interact with the data stored in a database. This level of understanding can be achieved at an undergraduate level from a Computer Science 1 course.\\
+
+
+
 \subsection{Organization of Document}
 
 \plt{This section provides a roadmap of the SRS document.  It will help the
@@ -390,12 +425,16 @@ Project "Formulate" enables engineering teams to streamline data collection and 
   select which sections they want to read, and in what order.  This section will
   be similar between project.}
 
+
+
 \section{General System Description}
 
 This section provides general information about the system.  It identifies the
 interfaces between the system and its environment, describes the user
 characteristics and lists the system constraints.  \plt{This text can likely be
-  borrowed verbatim.}
+borrowed verbatim.}
+
+Project "Formulate" enables engineering teams to streamline data collection and storage, resulting in testing overhead reduction and increased control of raw test data gathered by automating aspects of the testing procedure.
 
 \plt{The purpose of this section is to provide general information about the
   system so the specific requirements in the next section will be easier to
