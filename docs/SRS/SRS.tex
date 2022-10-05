@@ -122,23 +122,30 @@ The user can expect to understand the system behavior under expected use cases, 
 
 Effective test data collection and storage is a common challenge extra-curricular teams face in the technical domain. In teams who do not invest in streamlining data collection and storage, teams cannot fully utilize test data to validate designs. As a result, teams encounter difficulty proving design validity during competition, experience reduced competitiveness when presenting an under-validated system, and fail to generate trends on aggregated test data to efficiently find areas of improvement in design. \\
 
-Project "Formulate" enables engineering teams to streamline data collection and storage, resulting in testing overhead reduction and increased control of raw test data gathered by automating aspects of the testing procedure.\\
+Project "Formulate" enables Formula teams to streamline data collection and storage, resulting in testing overhead reduction and increased control of raw test data gathered by automating aspects of the testing procedure.\\
 
 \subsection{Project Scope}
 
 Project Formulate aims to provide the McMaster Formula Electric team with a well-documented and complete system. To accomplish the project goals within an 8 month timeline, the following scope of requirements were developed to set clear boundaries on deliverables.\\
 
-1. Documentation for tool integration into testing workflows for common tests.\\
-2. Hardware capable of collecting data from test equipment.\\
-3. User interface to interact with raw data and submit the data to a database.\\
-4. Record of organized, historical data.\\
-5. Visualization of test data stored in a database with auto-generated KPI metrics.\\
-6. Short setup time to integrate device into testing workflow, regardless of technical background.\\
+\newpage
 
-  Out of Scope Items:\\
-1. Custom website to visualize test data results stored in a database.\\
-2. Security through data encryption.\\
-3. Predictive intelligence to estimate if rate of test data collected is on track to produce a fully validated product.\\
+\noindent
+  In of Scope Items:
+  \begin{enumerate}
+\item Documentation for device integration into testing workflows for common tests
+\item Hardware capable of collecting data from test equipment
+\item User interface to interact with raw data and submit the data to a database
+\item Record of organized, historical data
+\item Visualization of test data stored in a database with auto-generated KPI metrics
+  \end{enumerate}
+  Out of Scope Items:
+
+  \begin{enumerate}
+\item Custom website to visualize test data results stored in a database
+\item Security through data encryption
+\item Predictive intelligence to estimate if rate of test data collected is on track to produce a fully validated product
+  \end{enumerate}
 
 \subsection{Table of Symbols}
 
@@ -161,22 +168,22 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
   \textbf{Symbol} & \textbf{Description}\\
   \midrule 
   SAE & Society of Automotive Engineers\\
-  DD & Data Definition\\
-  GD & General Definition\\
-  GS & Goal Statement\\
-  IM & Instance Model\\
   LC & Likely Change\\
-  PS & Physical System Description\\
-  R & Requirement\\
+  ULC & Unlikely to Change\\
   SRS & Software Requirements Specification\\
   DBTL & Design Build Test Learning\\
   KPI & Key Performance Indicators\\
+  FR & Functional Requirements\\
+  NFR & Non-functional Requirements\\
+  PC & Personal Computer\\
+  CAD & Computer Aided Design\\
+
+  
   \bottomrule
 %\end{tabular}\\
 \end{longtable*}
 
 
-Monitored Variable, Description, Type, Units
 \section{User Characteristics}
 
 
@@ -230,7 +237,8 @@ Monitored Variable, Description, Type, Units
     m\_data\_accepted & Digital & T/F & Determines if user has accepted the results and wants to send it to the database \\
     \hline
   \end{tabular}
-\\Table 1.0: Monitored Variables\\ \\ \\
+%\\Table 1.0: Monitored Variables
+\\ \\ \\
 \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
@@ -243,7 +251,8 @@ Monitored Variable, Description, Type, Units
     c\_sent\_to\_database & Digital & T/F & Determines if results displayed on the application are sent to the database \\
     \hline
   \end{tabular}
-  \\Table 2.0: Controlled Variables\\
+  %\\Table 2.0: Controlled Variables
+  \\ \\ \\
   \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
@@ -258,7 +267,8 @@ Monitored Variable, Description, Type, Units
     k\_max\_vibration & g & 20 & Maximum vibration resistance for a Formula Electric motor \\
     \hline
   \end{tabular}
-  \\Table 3.0: Controlled Variables\\
+%  \\Table 3.0: Controlled Variables
+\\
 \subsection{Functional Decomposition Diagram}
 \begin{figure}[h!]
   \begin{center}
@@ -269,10 +279,6 @@ Monitored Variable, Description, Type, Units
   \end{figure}
 
 \section{Requirements}
-
-This section provides the functional requirements, the business tasks that the
-software is expected to complete, and the nonfunctional requirements, the
-qualities that the software is expected to exhibit.
 
 \subsection{Functional Requirements}
 Formulate consists of 3 main components, each with its own functional requirements. The hardware section addresses the sensors and physical device which interacts directly with the user, the desktop application is the means for the user to select modes and submit data and the data analytics platform is for the user to view old test case data to check if KPIs are met.
@@ -346,11 +352,11 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Learning}\\
-    The user will be able to learn the tool's operation quickly to integrate into their testing workflow efficiently\\
+    The user will be able to learn the device's operation quickly to integrate into their testing workflow efficiently\\
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Use}\\
-    The system will be fast at processing data such that additional overhead through the use of the tool is less than if all components of the testing workflow were completed individually.\\
+    The system will be fast at processing data such that additional overhead through the use of the device is less than if all components of the testing workflow were completed individually.\\
 
 \subsubsection{Performance} 
 
@@ -366,7 +372,7 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
       \textbf{Expected Technological Environment}\\
-    The tool will be able to facilitate a variety of tests using a range of equipment, as long as the equipment is compatible with the data measuring hardware.\\
+    The device will be able to facilitate a variety of tests using a range of equipment, as long as the equipment is compatible with the data measuring hardware.\\
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Expected Physical Environment}
@@ -376,11 +382,11 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
       \textbf{Maintainability}\\
-    The system will be modular and have low cohesion such that users can adapt elements of the tool's hardware and software infrastructure to current needs without breaking other elements.\\
+    The system will be modular and have low cohesion such that users can adapt elements of the device's hardware and software infrastructure to current needs without breaking other elements.\\
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Portability}\\
-    The user's ability to conduct tests will not be affected by the physical constraints from the tool.\\
+    The user's ability to conduct tests will not be affected by the physical constraints from the device.\\
   
 \subsubsection{Security}
 
@@ -463,7 +469,7 @@ Phase 1 Deadline: October 28, 2022\\
   \\ \hline
 
   150                                
-  & Completion of tool chassis mechanical design and modelling
+  & Completion of device chassis mechanical design and modelling
   & Stephen 
   \newline                            
   \\ \hline
@@ -475,7 +481,7 @@ Phase 1 Deadline: October 28, 2022\\
   \\ \hline
 
   190                                
-  & Tool chassis manufactured
+  & Device chassis manufactured
   & Stephen 
   \newline                            
   \\ \hline
@@ -554,7 +560,7 @@ Phase 3 Deadline: February 3, 2023\\
   \multicolumn{1}{|c|}{\textbf{300 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
   \\ \hline
   310
-  & Mechanical design and modelling completion of physical user interface components on tool chassis and connection modules
+  & Mechanical design and modelling completion of physical user interface components on device chassis and connection modules
   & Stephen
   \newline                                
   \\ \hline
