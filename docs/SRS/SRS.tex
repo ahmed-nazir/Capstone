@@ -18,7 +18,6 @@
 \usepackage{afterpage}
 
 \usepackage[round]{natbib}
-
 %\usepackage{refcheck}
 
 \hypersetup{
@@ -67,12 +66,15 @@
 \newcommand{\itheinstnum}{IM\theinstnum}
 \newcommand{\iref}[1]{IM\ref{#1}}
 \newcounter{reqnum} %Requirement Number
+\newcounter{reqnumDA} %Requirement Number
+\newcounter{reqnumDAP} %Requirement Number
 \newcommand{\rthereqnum}{P\thereqnum}
 \newcommand{\rref}[1]{R\ref{#1}}
 \newcounter{nfrnum} %NFR Number
 \newcommand{\rthenfrnum}{NFR\thenfrnum}
 \newcommand{\nfrref}[1]{NFR\ref{#1}}
 \newcounter{lcnum} %Likely change number
+\newcounter{ulcnum}
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
@@ -90,7 +92,7 @@
 
 ~\newpage
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \tableofcontents
 
@@ -158,7 +160,7 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
   \toprule		
   \textbf{Symbol} & \textbf{Description}\\
   \midrule 
-  A & Assumption\\
+  SAE & Society of Automotive Engineers\\
   DD & Data Definition\\
   GD & General Definition\\
   GS & Goal Statement\\
@@ -174,8 +176,9 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
 \end{longtable*}
 
 
-
+Monitored Variable, Description, Type, Units
 \section{User Characteristics}
+
 
 \subsection{Stakeholders}
 
@@ -187,37 +190,152 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
 \subsection{Impact}
 
 
-\section{Requirements}
+\section{System Description}
 
-\plt{The requirements refine the goal statement.  They will make heavy use of
-  references to the instance models.}
+\subsection{Assumptions}
+
+\subsection{Context Diagram}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{sys_context_diagram}
+\caption{System Context Diagram}
+\label{Fig_SystemContext} 
+\end{center}
+\end{figure}
+
+\subsection{State Transition Diagram}
+
+\subsection{Monitored and Controlled Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Monitored Variable & Type & Units & Description\\
+    \hline
+    m\_vibration & Analog& V& A signal monitoring the vibration resistance of the motor \\
+    \hline
+    m\_humidity & Analog & V & A signal monitoring the humidity of the motor’s environment \\
+    \hline
+    m\_temperature & Analog & V & A signal monitoring the temperature of the motor’s environment \\
+    \hline
+    m\_shock & Analog & V & A signal monitoring the shock resistance of the motor \\
+    \hline
+    m\_conv\_vibration & Digital & g  & Converted vibration values that are in useful units \\
+    \hline
+    m\_conv\_humidity & Digital & \% & Converted humidity values that are in useful units \\
+    \hline
+    m\_conv\_temperature & Digital & \textdegree C & Converted temperature values that are in useful units \\
+    \hline
+    m\_conv\_shock & Digital & g & Converted shock values that are in useful units \\
+    \hline
+    m\_data\_accepted & Digital & T/F & Determines if user has accepted the results and wants to send it to the database \\
+    \hline
+  \end{tabular}
+\\Table 1.0: Monitored Variables\\ \\ \\
+\begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Controlled Variable & Type & Units & Description\\
+    \hline
+    c\_green\_light& Digital& 1/0& Green LED light on testing device that indicates passed measurements \\
+    \hline
+    c\_red\_light& Digital & 1/0 & Red LED light on testing device that indicates failed measurements \\
+    \hline
+    c\_sent\_to\_database & Digital & T/F & Determines if results displayed on the application are sent to the database \\
+    \hline
+  \end{tabular}
+  \\Table 2.0: Controlled Variables\\
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Constant & Units & Value & Description\\
+    \hline
+    k\_temperature\_range& \textdegree C& 5-40& Acceptable ambient temperature values for a Formula Electric motor \\
+    \hline
+    k\_humidity\_range& \% & 5-85 & Acceptable relative humidity values for a Formula electric motor \\
+    \hline
+    k\_max\_shock & g & 100 & Maximum shock resistance for a Formula Electric motor \\
+    \hline
+    k\_max\_vibration & g & 20 & Maximum vibration resistance for a Formula Electric motor \\
+    \hline
+  \end{tabular}
+  \\Table 3.0: Controlled Variables\\
+\subsection{Functional Decomposition Diagram}
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[width=0.9\textwidth]{functional_decomposition}
+  \caption{Functional Decomposition Diagram}
+  \label{Fig_FunctionalDecomposition} 
+  \end{center}
+  \end{figure}
+
+\section{Requirements}
 
 This section provides the functional requirements, the business tasks that the
 software is expected to complete, and the nonfunctional requirements, the
 qualities that the software is expected to exhibit.
 
 \subsection{Functional Requirements}
+Formulate consists of 3 main components, each with its own functional requirements. The hardware section addresses the sensors and physical device which interacts directly with the user, the desktop application is the means for the user to select modes and submit data and the data analytics platform is for the user to view old test case data to check if KPIs are met.
 
-\subsubsection{Hardware} 
+\subsubsection{Priority 1} 
 
 \begin{itemize}
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should contain a rechargeable battery
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should contain a rechargeable battery
+  \begin{description} \item[Rationale:] The base device needs its own independent power source which will allow for it to be placed in areas without a power socket. \end{description}
   
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should have a screen to display the current status to the user
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have a screen to display the current status to the user
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should easily mount to the base of a Formula SAE car
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should easily mount to the Formula SAE car
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should connect to a PC wirelessly to transmit data
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should connect to a PC wirelessly and wired to transmit data
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] 
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should alert the user if any tests exceed the operating condition of the car
+  \begin{description} \item[Rationale] If at any point during the test it exceed operating conditions, the base devices should make it obvious to the user  \end{description}
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have 5 connection ports to add module sensors to it
+  \begin{description} \item[Rationale] Each connection port will make the device more modular and allow for users to add more sensors in the future for other tests.  \end{description}
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The modular sensors should have a snap on mounting mechanism to connect to the base
+  \begin{description} \item[Rationale] Modular sensors need to have a rigid connection with the base board with minimal movement to get the most accurate values from the sensor  \end{description}
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have a start button which activates the telemetry between the PC and device and starts reading values
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have a stop button which stops the telemetry between the PC and device and stops reading values
   
   \end{itemize}
 
 
-\subsubsection{Desktop Application}
+\subsubsection{Priority 2}
+\begin{itemize}
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live raw data from the sensors
+  
+  
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow users to preview the data after a test
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to send the data to the database
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to configure the base device's settings
+  \begin{description} \item[Rationale:] The base device will need to have the wifi setting configured which will be done in the application \end{description}
+  
+  \end{itemize}
 
-\subsubsection{Data Analytics Platform}
+\subsubsection{Priority 3}
+\begin{itemize}
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should only allow users who have access to view the data
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should have the option to filter out the data by test conducted
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should show whether the tests passed according to threshold values
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] Any data pushed to the database should not be editable by the user
+  
+  \end{itemize}
 
 \newpage
 \subsection{Nonfunctional Requirements}
@@ -281,22 +399,25 @@ qualities that the software is expected to exhibit.
 \end{itemize}
 
 
-\section{Likely Changes}    
+\subsection{Likely Changes}    
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with a reference to the related assumption (aref), as appropriate.}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Starting and stopping the device to get data using hardware
+\begin{description} \item[Rationale:] When the device is connected to the computer we can remote start and stop it using software \end{description}
+
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] The base data we are collecting (Vibration, Shock, Temperature, Humidity)
+\begin{description} \item[Rationale:] Since the device is set to be modular we might change those initial values we are testing with other ones \end{description}
+
 
 \end{itemize}
 
-\section{Unlikely Changes}    
+\subsection{Unlikely Changes}    
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
+\item[ULC\refstepcounter{ulcnum}\theulcnum:] The sensors will remain modular to adapt to different tests that need to be conducted
+\begin{description} \item[Rationale:] The product should be expandable in the future to be able to test different values \end{description}
 
 \end{itemize}
 
