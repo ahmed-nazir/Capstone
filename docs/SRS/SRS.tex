@@ -116,7 +116,7 @@ Date 2 & 1.1 & Notes\\
 
 This document provides the set of Software Requirements Specifications (SRS) used to describe the system developed to assist testing efforts in technical teams. Both hardware and software system requirements were included to fully specify all system requirements. \\
 
-The user can expect to understand the system behavior under expected use cases, the functional and non-functional requirements the system must adhere to, and a phase in development plan.\\
+The user can expect to understand the system behavior under expected use cases, the functional and non-functional requirements the system must adhere to, and a phase in plan.\\
 
 \subsection{Project Description}
 
@@ -337,7 +337,7 @@ Formulate consists of 3 main components, each with its own functional requiremen
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device should easily mount to the Formula SAE car
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device should contain a rechargeable battery
-  \begin{description} \item[Rationale:] The device needs its own independent power source which will allow for it to be placed in areas without a power socket. \end{description}
+  \begin{description} \item[Rationale:] The device needs its own independent power source which will allow for it to be placed in areas without a power socket \end{description}
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device should connect to a PC wirelessly to transmit data
 
@@ -348,8 +348,6 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live raw data from the sensors
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
-  
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to configure the device's settings
   \begin{description} \item[Rationale:] The device will need to have the wifi setting configured which will be done in the application \end{description}
   
@@ -358,15 +356,15 @@ Formulate consists of 3 main components, each with its own functional requiremen
 \subsubsection{Priority 3}
 \begin{itemize}
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have 4 connection ports to add module sensors to it
-  \begin{description} \item[Rationale] Each connection port will make the device more modular and allow for users to add more sensors in the future for other tests.  \end{description}
+  \begin{description} \item[Rationale] Each connection port will make the device more modular and allow for users to add more sensors in the future for other tests  \end{description}
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The website should only allow users who have access to view the data
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The website should have the option to filter out the data by test conducted
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The website should show whether the tests passed according to threshold values
-  
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] Any data pushed to the database should not be editable by the user
   
@@ -384,55 +382,47 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Learning}\\
-    The user will be able to learn the device's operation quickly to integrate into their testing workflow efficiently\\
+    The user will be able to learn the device's operation quickly to integrate into their testing workflow efficiently
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Use}\\
-    The system will be fast at processing data such that additional overhead through the use of the device is less than if all components of the testing workflow were completed individually.\\
+    The system will be fast at processing data such that additional overhead through the use of the device is less than if all components of the testing workflow were completed individually
 
 \subsubsection{Performance} 
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Speed}\\
-    The system bandwidth will be high enough to support testing equipment with high data collection frequencies.\\
+    The system bandwidth will be high enough to support testing equipment with high data collection frequencies
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Reliability and Availability}\\
-    The system will be fail-safe to withstand single point of failures in components with high probability of operational failure.\\
+    The system will be fail-safe to withstand single point of failures in components with high probability of operational failure
 
 \subsubsection{Operational}
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
       \textbf{Expected Technological Environment}\\
-    The device will be able to facilitate a variety of tests using a range of equipment, as long as the equipment is compatible with the data measuring hardware.\\
+    The device will be able to facilitate a variety of tests using a range of equipment, as long as the equipment is compatible with the data measuring hardware
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
-    \textbf{Expected Physical Environment}
-    The system will be operational under a wide range of temperatures and operational vibrations.\\
+    \textbf{Expected Physical Environment}\\
+    The system will be operational under a wide range of temperatures and operational vibrations
 
 \subsubsection{Maintainability and Portability}
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
       \textbf{Maintainability}\\
-    The system will be modular and have low cohesion such that users can adapt elements of the device's hardware and software infrastructure to current needs without breaking other elements.\\
+    The system will be modular and have low cohesion such that users can adapt elements of the device's hardware and software infrastructure to current needs without breaking other elements
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Portability}\\
-    The user's ability to conduct tests will not be affected by the physical constraints from the device.\\
+    The user's ability to conduct tests will not be affected by the physical constraints from the device
   
 \subsubsection{Security}
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Software Integrity}\\
-    The system will be secure against malicious spam aimed at reducing validity of aggregate test data stored in the database.\\
-
-\subsubsection{Cultural and Political}
-
-    N/A\\
-
-\subsubsection{Legal}
-
-    N/A\\zzz
+    The system will be secure against malicious spam aimed at reducing validity of aggregate test data stored in the database
 
 \end{itemize}
 
@@ -440,15 +430,15 @@ Formulate consists of 3 main components, each with its own functional requiremen
 \subsection{Likely Changes}    
 
 \noindent \begin{itemize}
+%Starting and stopping the device to get data using hardware , When the device is connected to the computer we can remote start and stop it using software 
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Method to start and stop the test on the device
+\begin{description} \item[Rationale:] The user should have the ability to perform a hardware start/stop or a remote start/stop from their PC \end{description}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Starting and stopping the device to get data using hardware
-\begin{description} \item[Rationale:] When the device is connected to the computer we can remote start and stop it using software \end{description}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] The initial data we are collecting (Vibration, Shock, Temperature, Humidity)
+\begin{description} \item[Rationale:] Since the device is set to be modular, we may change the initial measured values we are testing with other ones \end{description}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] The base data we are collecting (Vibration, Shock, Temperature, Humidity)
-\begin{description} \item[Rationale:] Since the device is set to be modular we might change those initial values we are testing with other ones \end{description}
-
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] The number of modular ports on the base device
-\begin{description} \item[Rationale:] When the device is connected to the computer we can remote start and stop it using software \end{description}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] The number of modular ports on the device
+\begin{description} \item[Rationale:] Depending on the number of input ports available on the board used, the number of input signals available may vary \end{description}
 
 
 \end{itemize}
@@ -460,13 +450,16 @@ Formulate consists of 3 main components, each with its own functional requiremen
 \item[ULC\refstepcounter{ulcnum}\theulcnum:] The sensors will remain modular to adapt to different tests that need to be conducted
 \begin{description} \item[Rationale:] The product should be expandable in the future to be able to test different values \end{description}
 
+\item[ULC\refstepcounter{ulcnum}\theulcnum:] The communication methods between the data measurement hardware and the PC will be wired or wireless
+
+
 \end{itemize}
 
-\section{Development Plan}
+\section{Phase in Plan}
 
-The development plan is categorized into multiple sections, where each section represented a significant phase in the progress of project execution. A section is given a number in the hundreds (X00) to denote a significant phase in the project. Each section is subdivided further into segments given by numbers specified in the tens (XX0) to denote smaller steps within each phase. The expected order of segment completion follows the order of increasing number count; the lowest number segment should be completed first and the highest number segment should be completed last.\\
+The phase in plan is categorized into multiple sections, where each section represented a significant phase in the progress of project execution. A section is given a number in the hundreds (X00) to denote a significant phase in the project. Each section is subdivided further into segments given by numbers specified in the tens (XX0) to denote smaller steps within each phase. The expected order of segment completion follows the order of increasing number count; the lowest number segment should be completed first and the highest number segment should be completed last.\\
 
-Each segment has an overall goal that can include the coordination of multiple teammates. Upon completion of each segment, the team members relevant to the segment review and buyoff the readyness of the segment. Upon completion of buying off each segment within a section, the overall phase is considered to be bought off and completed with confidence. The relevant stakeholders must aim to buyoff each segment in a phase before the phase deadline.\\
+Each segment has an overall goal that can include the coordination of multiple team members. Upon completion of each segment, the team members relevant to the segment will review and buyoff the readyness of the segment. Upon completion of buying off each segment within a section, the overall phase is considered to be bought off and completed with confidence. The relevant stakeholders must aim to buyoff each segment in a phase before the phase deadline.\\
 
 
 \noindent
