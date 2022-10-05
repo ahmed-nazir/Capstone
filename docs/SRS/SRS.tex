@@ -18,7 +18,6 @@
 \usepackage{afterpage}
 
 \usepackage[round]{natbib}
-
 %\usepackage{refcheck}
 
 \hypersetup{
@@ -174,6 +173,13 @@ Monitored Variable, Description, Type, Units
 \subsection{Assumptions}
 
 \subsection{Context Diagram}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{sys_context_diagram}
+\caption{System Context Diagram}
+\label{Fig_SystemContext} 
+\end{center}
+\end{figure}
 
 \subsection{State Transition Diagram}
 
@@ -183,20 +189,62 @@ Monitored Variable, Description, Type, Units
     \rowcolor[gray]{0.9}
     Monitored Variable & Type & Units & Description\\
     \hline
-    & & & \\
-    \hline 
+    m\_vibration & Analog& V& A signal monitoring the vibration resistance of the motor \\
+    \hline
+    m\_humidity & Analog & V & A signal monitoring the humidity of the motor’s environment \\
+    \hline
+    m\_temperature & Analog & V & A signal monitoring the temperature of the motor’s environment \\
+    \hline
+    m\_shock & Analog & V & A signal monitoring the shock resistance of the motor \\
+    \hline
+    m\_conv\_vibration & Digital & g  & Converted vibration values that are in useful units \\
+    \hline
+    m\_conv\_humidity & Digital & \% & Converted humidity values that are in useful units \\
+    \hline
+    m\_conv\_temperature & Digital & \textdegree C & Converted temperature values that are in useful units \\
+    \hline
+    m\_conv\_shock & Digital & g & Converted shock values that are in useful units \\
+    \hline
+    m\_data\_accepted & Digital & T/F & Determines if user has accepted the results and wants to send it to the database \\
+    \hline
   \end{tabular}
 \\Table 1.0: Monitored Variables\\ \\ \\
-  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+\begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
     Controlled Variable & Type & Units & Description\\
     \hline
-    & & & \\
-    \hline 
+    c\_green\_light& Digital& 1/0& Green LED light on testing device that indicates passed measurements \\
+    \hline
+    c\_red\_light& Digital & 1/0 & Red LED light on testing device that indicates failed measurements \\
+    \hline
+    c\_sent\_to\_database & Digital & T/F & Determines if results displayed on the application are sent to the database \\
+    \hline
   \end{tabular}
   \\Table 2.0: Controlled Variables\\
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Constant & Units & Value & Description\\
+    \hline
+    k\_temperature\_range& \textdegree C& 5-40& Acceptable ambient temperature values for a Formula Electric motor \\
+    \hline
+    k\_humidity\_range& \% & 5-85 & Acceptable relative humidity values for a Formula electric motor \\
+    \hline
+    k\_max\_shock & g & 100 & Maximum shock resistance for a Formula Electric motor \\
+    \hline
+    k\_max\_vibration & g & 20 & Maximum vibration resistance for a Formula Electric motor \\
+    \hline
+  \end{tabular}
+  \\Table 3.0: Controlled Variables\\
 \subsection{Functional Decomposition Diagram}
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[width=0.9\textwidth]{functional_decomposition}
+  \caption{Functional Decomposition Diagram}
+  \label{Fig_FunctionalDecomposition} 
+  \end{center}
+  \end{figure}
 
 \section{Requirements}
 
