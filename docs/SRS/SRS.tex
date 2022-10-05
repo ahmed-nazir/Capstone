@@ -147,17 +147,6 @@ Project Formulate aims to provide the McMaster Formula Electric team with a well
 \item Predictive intelligence to estimate if rate of test data collected is on track to produce a fully validated product
   \end{enumerate}
 
-\subsection{Table of Symbols}
-
-\renewcommand{\arraystretch}{1.2}
-%\noindent \begin{tabularx}{1.0\textwidth}{l l X}
-\noindent \begin{longtable*}{l l p{12cm}} \toprule
-\textbf{Symbol} & \textbf{Unit} & \textbf{Description}\\
-\midrule 
-$A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
-\bottomrule
-\end{longtable*}
-
 
 \subsection{Abbreviations and Acronyms}
 
@@ -237,7 +226,7 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
   Sending to Database & User has accepted the results and they are now sent to the database \\
   \hline
 \end{tabular}
-\\Table 1.0: State descriptions\\ \\ \\
+\\\\ \indent Table 1.0: State descriptions\\ \\ \\
 
 \subsection{Monitored and Controlled Variables}
   \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
@@ -455,6 +444,25 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
 \end{itemize}
 
+\subsection{Traceability Table}
+
+  \begin{tabular}{| p{0.3\textwidth} | p{0.3\textwidth}| p{0.33\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Section & Functional Requirements & Non-Functional Requirements\\
+    \hline
+    Hardware & FR 1, FR 2, FR 3, FR 4, FR 8, FR 9, FR 10, FR 11, FR 12, FR 15, FR 21 & NFR 1, NFR 2, NFR 4, NFR  5, NFR 6, NFR 7, NFR 8 \\
+    \hline
+    Desktop Application & FR 5, FR 6, FR 13, FR 14, FR 16 & NFR 1, NFR 2, NFR 3, NFR 7, NFR 9\\
+    \hline
+    Database & FR 20 & NFR 7, NFR 9\\
+    \hline
+    Data Visualizer & FR 7, FR 17, FR 18 & NFR 1, NFR 2, NFR 7\\
+    \hline
+  \end{tabular}
+%\\Table 1.0: Monitored Variables
+\\
+
 \section{Phase in Plan}
 
 The phase in plan is categorized into multiple sections, where each section represented a significant phase in the progress of project execution. A section is given a number in the hundreds (X00) to denote a significant phase in the project. Each section is subdivided further into segments given by numbers specified in the tens (XX0) to denote smaller steps within each phase. The expected order of segment completion follows the order of increasing number count; the lowest number segment should be completed first and the highest number segment should be completed last.\\
@@ -464,7 +472,7 @@ Each segment has an overall goal that can include the coordination of multiple t
 ADD SECTION RELATING PRIORITIES FROM FUNCTIONAL REQUIREMENTS TO X00 BUYOFFS
 
 \noindent
-Phase 0: Preperation (000 series)\\
+\subsection{Phase 0: Preperation (000 Series)}
 Phase 0 Deadline: October 28, 2022\\
 
 \begin{table}[H]
@@ -520,7 +528,7 @@ Phase 0 Deadline: October 28, 2022\\
 \newpage
 
 \noindent
-Phase 1: Proof of Concept (100 series)\\
+\subsection{Phase 1: Proof of Concept (100 Series)}
 Phase 1 Deadline: November 11, 2022\\
 \begin{table}[H]
   \centering
@@ -582,7 +590,7 @@ Phase 1 Deadline: November 11, 2022\\
 
 \newpage
 \noindent
-Phase 2: Revision 0 Presentation (200 series)\\
+\subsection{Phase 2: Revision 0 Presentation (200 series)}
 Phase 2 Deadline: February 3, 2023\\
 
 \begin{table}[H]
