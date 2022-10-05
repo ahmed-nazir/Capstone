@@ -281,57 +281,56 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
 \section{Requirements}
 
 \subsection{Functional Requirements}
-Formulate consists of 3 main components, each with its own functional requirements. The base device addresses the sensors and physical device which interacts directly with the user, the desktop application is the means for the user to select modes and submit data and the data analytics platform (website) is for the user to view old test case data to check if KPIs are met.
+Formulate consists of 3 main components, each with its own functional requirements. The device addresses the sensors and physical device which interacts directly with the user. The desktop application is the means for the user to select modes and submit data, and the data analytics platform (website) is for the user to view old test case data to check if KPI's are met.
 
 \subsubsection{Priority 1} 
 
 \begin{itemize}
   
-
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should be able to measure vibration, temperature, humidity, and shock
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should connect to a PC wirelessly and wired to transmit data
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should connect to a PC wired to transmit data
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should alert the user if any tests exceed the operating condition of the car
-  \begin{description} \item[Rationale] If at any point during the test it exceed operating conditions, the base devices should make it obvious to the user  \end{description}
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a start button which activates the telemetry to start reading values between the PC and device 
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have a start button which activates the telemetry between the PC and device and starts reading values
-  
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have a stop button which stops the telemetry between the PC and device and stops reading values
-  
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have a screen to display the current status to the user
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a stop button which stops the telemetry stops reading values between the PC and device
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow users to preview the data after a test
-
-  \end{itemize}
-
-
-\subsubsection{Priority 2}
-\begin{itemize}
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should easily mount to the Formula SAE car
-
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should contain a rechargeable battery
-  \begin{description} \item[Rationale:] The base device needs its own independent power source which will allow for it to be placed in areas without a power socket. \end{description}
-
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The modular sensors should have a snap on mounting mechanism to connect to the base
-  \begin{description} \item[Rationale] Modular sensors need to have a rigid connection with the base board with minimal movement to get the most accurate values from the sensor  \end{description}
-
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live raw data from the sensors
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to send the data to the database
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The website should be able to read the data from the database
   
+  \end{itemize}
+
+
+\subsubsection{Priority 2}
+\begin{itemize}
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should easily mount to the Formula SAE car
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should contain a rechargeable battery
+  \begin{description} \item[Rationale:] The device needs its own independent power source which will allow for it to be placed in areas without a power socket. \end{description}
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should connect to a PC wirelessly to transmit data
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a screen to display the current status to the user
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The modular sensors should have a snap on mounting mechanism to connect to the base
+  \begin{description} \item[Rationale] Modular sensors need to have a rigid connection with the board with minimal movement to get the most accurate values from the sensor  \end{description}
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live raw data from the sensors
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to configure the base device's settings
-  \begin{description} \item[Rationale:] The base device will need to have the wifi setting configured which will be done in the application \end{description}
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to configure the device's settings
+  \begin{description} \item[Rationale:] The device will need to have the wifi setting configured which will be done in the application \end{description}
   
   \end{itemize}
 
 \subsubsection{Priority 3}
 \begin{itemize}
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have 4 connection ports to add module sensors to it
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have 4 connection ports to add module sensors to it
   \begin{description} \item[Rationale] Each connection port will make the device more modular and allow for users to add more sensors in the future for other tests.  \end{description}
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The website should only allow users who have access to view the data
@@ -343,6 +342,9 @@ Formulate consists of 3 main components, each with its own functional requiremen
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] Any data pushed to the database should not be editable by the user
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should alert the user if any tests exceed the operating condition of the car
+  \begin{description} \item[Rationale] If at any point during the test it exceed operating conditions, the devices should make it obvious to the user  \end{description}
   
   \end{itemize}
 
@@ -440,53 +442,53 @@ The development plan is categorized into multiple sections, where each section r
 Each segment has an overall goal that can include the coordination of multiple teammates. Upon completion of each segment, the team members relevant to the segment review and buyoff the readyness of the segment. Upon completion of buying off each segment within a section, the overall phase is considered to be bought off and completed with confidence. The relevant stakeholders must aim to buyoff each segment in a phase before the phase deadline.\\
 
 
-
-Phase 1: Preperation (100 series)\\
-Phase 1 Deadline: October 28, 2022\\
+\noindent
+Phase 0: Preperation (000 series)\\
+Phase 0 Deadline: October 28, 2022\\
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|p{2cm}|p{10cm}|p{2cm}|}
   \hline
-  \multicolumn{1}{|c|}{\textbf{100 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
+  \multicolumn{1}{|c|}{\textbf{000 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
   \\ \hline
-  110
+  010
   & Purchase sensor equipment, data measurement hardware, 3D print material.
   & Stephen
   \newline                                
   \\ \hline
 
-  120                              
+  020                              
   & Obtain licenses for 3D CAD software use and database access
   & Stephen
   \newline                                
   \\ \hline
 
-  130                          
+  030                          
   & Document material costs and licensing constraints
   & Stephen
   \newline                                
   \\ \hline
 
-  140                                
+  040                                
   & Distribute materials and licensing to relevant project area Stakeholder
   & Stephen 
   \newline                            
   \\ \hline
 
-  150                                
+  050                                
   & Completion of device chassis mechanical design and modelling
   & Stephen 
   \newline                            
   \\ \hline
 
-  160                                
+  060                                
   & Completion of electrical connection hardware circuit design and schematic
   & Stephen 
   \newline                            
   \\ \hline
 
-  190                                
+  090                                
   & Device chassis manufactured
   & Stephen 
   \newline                            
@@ -496,57 +498,58 @@ Phase 1 Deadline: October 28, 2022\\
 \end{table}
 \newpage
 
-Phase 2: Proof of Concept (200 series)\\
-Phase 2 Deadline: November 11, 2022\\
+\noindent
+Phase 1: Proof of Concept (100 series)\\
+Phase 1 Deadline: November 11, 2022\\
 \begin{table}[H]
   \centering
   \begin{tabular}{|p{2cm}|p{10cm}|p{2cm}|}
   \hline
-  \multicolumn{1}{|c|}{\textbf{200 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
+  \multicolumn{1}{|c|}{\textbf{100 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
   \\ \hline
-  210
+  110
   & Desktop application program developed with basic user interface
   & Stephen
   \newline                                
   
   \\ \hline
-  220                              
+  120                              
   & Desktop application program can recieve data from data measurement device using a wired connection
   & Stephen
   \newline                                
 
   \\ \hline
-  230                          
+  130                          
   & Desktop application program can interface with database to send data
   & Stephen
   \newline                                
 
   \\ \hline
-  240                                
+  140                                
   & Desktop application program can edit data from data measurement device before sending it to the database
   & Stephen 
   \newline                            
 
     \\ \hline
-  250                                
+  150                                
   & Visualization application can pull data and generate KPI metrics from the database
   & Stephen 
   \newline 
 
   \\ \hline
-  260                                
+  160                                
   & Integration between data measurement device and desktop application
   & Stephen 
   \newline 
 
   \\ \hline
-  270                                
+  170                                
   & Integration between desktop application and visualization application
   & Stephen 
   \newline 
 
   \\ \hline
-  290                                
+  190                                
   & Integration between data measurement device, desktop application, and data measurement device
   & Stephen 
   \newline 
@@ -556,34 +559,36 @@ Phase 2 Deadline: November 11, 2022\\
   \end{tabular}
 \end{table}
 
-Phase 3: Revision 0 Presentation (300 series)\\
-Phase 3 Deadline: February 3, 2023\\
+\newpage
+\noindent
+Phase 2: Revision 0 Presentation (200 series)\\
+Phase 2 Deadline: February 3, 2023\\
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|p{2cm}|p{10cm}|p{2cm}|}
   \hline
-  \multicolumn{1}{|c|}{\textbf{300 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
+  \multicolumn{1}{|c|}{\textbf{200 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
   \\ \hline
-  310
+  210
   & Mechanical design and modelling completion of physical user interface components on device chassis and connection modules
   & Stephen
   \newline                                
   \\ \hline
 
-  320                              
+  220                              
   & Completion of wireless communication between data measurement device and desktop application 
   & Stephen
   \newline                                
   \\ \hline
 
-  330                          
+  230                          
   & Completion of database security against tests that break utility of database
   & Stephen
   \newline                                
   \\ \hline
 
-  390                                
+  290                                
   & Completion of extended KPI features for visualization application
   & Stephen 
   \newline                            
@@ -593,8 +598,9 @@ Phase 3 Deadline: February 3, 2023\\
 \end{table}
 \newpage
 
-Phase 4: Final Demonstrations (400 series)\\
-Phase 4 Deadline: March 17, 2023\\
+\noindent
+Phase 3: Final Demonstrations (300 series)\\
+Phase 3 Deadline: March 17, 2023\\
 
 
 
