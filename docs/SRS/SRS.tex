@@ -110,11 +110,33 @@ Date 2 & 1.1 & Notes\\
 
 \section{Introduction}
 
+\subsection{Document Purpose}
+
+This document provides the set of Software Requirements Specifications (SRS) used to describe the system developed to assist testing efforts in technical teams. Both hardware and software system requirements were included to fully specify all system requirements. \\
+
+The user can expect to understand the system behavior under expected use cases, the functional and non-functional requirements the system must adhere to, and a phase in development plan.\\
+
 \subsection{Project Description}
 
-\subsection{Purpose}
+Effective test data collection and storage is a common challenge extra-curricular teams face in the technical domain. In teams who do not invest in streamlining data collection and storage, teams cannot fully utilize test data to validate designs. As a result, teams encounter difficulty proving design validity during competition, experience reduced competitiveness when presenting an under-validated system, and fail to generate trends on aggregated test data to efficiently find areas of improvement in design. \\
+
+Project "Formulate" enables engineering teams to streamline data collection and storage, resulting in testing overhead reduction and increased control of raw test data gathered by automating aspects of the testing procedure.\\
 
 \subsection{Project Scope}
+
+Project Formulate aims to provide the McMaster Formula Electric team with a well-documented and complete system. To accomplish the project goals within an 8 month timeline, the following scope of requirements were developed to set clear boundaries on deliverables.\\
+
+1. Documentation for tool integration into testing workflows for common tests.\\
+2. Hardware capable of collecting data from test equipment.\\
+3. User interface to interact with raw data and submit the data to a database.\\
+4. Record of organized, historical data.\\
+5. Visualization of test data stored in a database with auto-generated KPI metrics.\\
+6. Short setup time to integrate device into testing workflow, regardless of technical background.\\
+
+  Out of Scope Items:\\
+1. Custom website to visualize test data results stored in a database.\\
+2. Security through data encryption.\\
+3. Predictive intelligence to estimate if rate of test data collected is on track to produce a fully validated product.\\
 
 \subsection{Table of Symbols}
 
@@ -197,17 +219,64 @@ qualities that the software is expected to exhibit.
 
 \subsubsection{Data Analytics Platform}
 
+\newpage
 \subsection{Nonfunctional Requirements}
 
+\noindent\begin{itemize}
 
-\noindent \begin{itemize}
+\subsubsection{Usability} 
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum:]
-  \textbf{Maintainability} 
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+    \textbf{Ease of Learning}\\
+    The user will be able to learn the tool's operation quickly to integrate into their testing workflow efficiently\\
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum:]
-  \textbf{Portability} 
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+    \textbf{Ease of Use}\\
+    The system will be fast at processing data such that additional overhead through the use of the tool is less than if all components of the testing workflow were completed individually.\\
 
+\subsubsection{Performance} 
+
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+    \textbf{Speed}\\
+    The system bandwidth will be high enough to support testing equipment with high data collection frequencies.\\
+
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+    \textbf{Reliability and Availability}\\
+    The system will be fail-safe to withstand single point of failures in components with high probability of operational failure.\\
+
+\subsubsection{Operational}
+
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+      \textbf{Expected Technological Environment}\\
+    The tool will be able to facilitate a variety of tests using a range of equipment, as long as the equipment is compatible with the data measuring hardware.\\
+
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+    \textbf{Expected Physical Environment}
+    The system will be operational under a wide range of temperatures and operational vibrations.\\
+
+\subsubsection{Maintainability and Portability}
+
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+      \textbf{Maintainability}\\
+    The system will be modular and have low cohesion such that users can adapt elements of the tool's hardware and software infrastructure to current needs without breaking other elements.\\
+
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+    \textbf{Portability}\\
+    The user's ability to conduct tests will not be affected by the physical constraints from the tool.\\
+  
+\subsubsection{Security}
+
+    \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
+    \textbf{Software Integrity}\\
+    The system will be secure against malicious spam aimed at reducing validity of aggregate test data stored in the database.\\
+
+\subsubsection{Cultural and Political}
+
+    N/A\\
+
+\subsubsection{Legal}
+
+    N/A\\zzz
 
 \end{itemize}
 
@@ -232,6 +301,170 @@ qualities that the software is expected to exhibit.
 \end{itemize}
 
 \section{Development Plan}
+
+The development plan is categorized into multiple sections, where each section represented a significant phase in the progress of project execution. A section is given a number in the hundreds (X00) to denote a significant phase in the project. Each section is subdivided further into segments given by numbers specified in the tens (XX0) to denote smaller steps within each phase. The expected order of segment completion follows the order of increasing number count; the lowest number segment should be completed first and the highest number segment should be completed last.\\
+
+Each segment has an overall goal that can include the coordination of multiple teammates. Upon completion of each segment, the team members relevant to the segment review and buyoff the readyness of the segment. Upon completion of buying off each segment within a section, the overall phase is considered to be bought off and completed with confidence. The relevant stakeholders must aim to buyoff each segment in a phase before the phase deadline.\\
+
+
+
+Phase 1: Preperation (100 series)\\
+Phase 1 Deadline: October 28, 2022\\
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|p{2cm}|p{10cm}|p{2cm}|}
+  \hline
+  \multicolumn{1}{|c|}{\textbf{100 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
+  \\ \hline
+  110
+  & Purchase sensor equipment, data measurement hardware, 3D print material.
+  & Stephen
+  \newline                                
+  \\ \hline
+
+  120                              
+  & Obtain licenses for 3D CAD software use and database access
+  & Stephen
+  \newline                                
+  \\ \hline
+
+  130                          
+  & Document material costs and licensing constraints
+  & Stephen
+  \newline                                
+  \\ \hline
+
+  140                                
+  & Distribute materials and licensing to relevant project area Stakeholder
+  & Stephen 
+  \newline                            
+  \\ \hline
+
+  150                                
+  & Completion of tool chassis mechanical design and modelling
+  & Stephen 
+  \newline                            
+  \\ \hline
+
+  160                                
+  & Completion of electrical connection hardware circuit design and schematic
+  & Stephen 
+  \newline                            
+  \\ \hline
+
+  190                                
+  & Tool chassis manufactured
+  & Stephen 
+  \newline                            
+  \\ \hline
+
+  \end{tabular}
+\end{table}
+\newpage
+
+Phase 2: Proof of Concept (200 series)\\
+Phase 2 Deadline: November 11, 2022\\
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|p{2cm}|p{10cm}|p{2cm}|}
+  \hline
+  \multicolumn{1}{|c|}{\textbf{200 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
+  \\ \hline
+  210
+  & Desktop application program developed with basic user interface
+  & Stephen
+  \newline                                
+  
+  \\ \hline
+  220                              
+  & Desktop application program can recieve data from data measurement device using a wired connection
+  & Stephen
+  \newline                                
+
+  \\ \hline
+  230                          
+  & Desktop application program can interface with database to send data
+  & Stephen
+  \newline                                
+
+  \\ \hline
+  240                                
+  & Desktop application program can edit data from data measurement device before sending it to the database
+  & Stephen 
+  \newline                            
+
+    \\ \hline
+  250                                
+  & Visualization application can pull data and generate KPI metrics from the database
+  & Stephen 
+  \newline 
+
+  \\ \hline
+  260                                
+  & Integration between data measurement device and desktop application
+  & Stephen 
+  \newline 
+
+  \\ \hline
+  270                                
+  & Integration between desktop application and visualization application
+  & Stephen 
+  \newline 
+
+  \\ \hline
+  290                                
+  & Integration between data measurement device, desktop application, and data measurement device
+  & Stephen 
+  \newline 
+  \\ \hline
+
+
+  \end{tabular}
+\end{table}
+
+Phase 3: Revision 0 Presentation (300 series)\\
+Phase 3 Deadline: February 3, 2023\\
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|p{2cm}|p{10cm}|p{2cm}|}
+  \hline
+  \multicolumn{1}{|c|}{\textbf{300 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
+  \\ \hline
+  310
+  & Mechanical design and modelling completion of physical user interface components on tool chassis and connection modules
+  & Stephen
+  \newline                                
+  \\ \hline
+
+  320                              
+  & Completion of wireless communication between data measurement device and desktop application 
+  & Stephen
+  \newline                                
+  \\ \hline
+
+  330                          
+  & Completion of database security against tests that break utility of database
+  & Stephen
+  \newline                                
+  \\ \hline
+
+  390                                
+  & Completion of extended KPI features for visualization application
+  & Stephen 
+  \newline                            
+  \\ \hline
+
+  \end{tabular}
+\end{table}
+\newpage
+
+Phase 4: Final Demonstrations (400 series)\\
+Phase 4 Deadline: March 17, 2023\\
+
+
+
 
 
 
