@@ -83,7 +83,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification \progname: Formulate} 
+\title{Software Requirements Specification \\ \progname: Formulate} 
 
 \author{\authname}
 \date{\today}
@@ -308,7 +308,7 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
 \section{Requirements}
 
 \subsection{Functional Requirements}
-Formulate consists of 3 main components, each with its own functional requirements. The device addresses the sensors and physical device which interacts directly with the user. The desktop application is the means for the user to select modes and submit data, and the data analytics platform (website) is for the user to view old test case data to check if KPI's are met.
+Formulate consists of 3 main components, each with its own functional requirements. The device addresses the sensors and physical device which interacts directly with the user. The desktop application is the means for the user to select modes and submit data, and the data visualizer (website) is for the user to view old test case data to check if KPI's are met.
 
 \subsubsection{Priority 1} 
 
@@ -431,13 +431,13 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
 \noindent \begin{itemize}
 %Starting and stopping the device to get data using hardware , When the device is connected to the computer we can remote start and stop it using software 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Method to start and stop the test on the device
+\item[LC\refstepcounter{lcnum}\thelcnum:] Method to start and stop the test on the device
 \begin{description} \item[Rationale:] The user should have the ability to perform a hardware start/stop or a remote start/stop from their PC \end{description}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] The initial data we are collecting (Vibration, Shock, Temperature, Humidity)
+\item[LC\refstepcounter{lcnum}\thelcnum:] The initial data we are collecting (Vibration, Shock, Temperature, Humidity)
 \begin{description} \item[Rationale:] Since the device is set to be modular, we may change the initial measured values we are testing with other ones \end{description}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] The number of modular ports on the device
+\item[LC\refstepcounter{lcnum}\thelcnum:] The number of modular ports on the device
 \begin{description} \item[Rationale:] Depending on the number of input ports available on the board used, the number of input signals available may vary \end{description}
 
 
@@ -628,7 +628,7 @@ Phase 3 Deadline: March 17, 2023\\
 
 \subsection{Knowledge Requirement}
 \begin{enumerate}
-  \item \textbf{Sensors/Embedded Systems:} To successfully complete this project our group needs to collectivly understand how sensors and microcontrollers work.
+  \item \textbf{Sensors/Embedded Systems:} To successfully complete this project our group needs to collectively understand how sensors and microcontrollers work. The main premise of our project is to automate testing of key components in a Formula Electric vehicle, this can only be done using a variety of sensors to monitor those components. To create almost any hardware device sensors are required as it is equivalent to being the eyes of the device, it allows for hardware to understand and map it's environment. These measurements that the sensor collects can be used by a microcontroller to make decisions on what to do according to the requirements. In our project specifically our hardware device needs to collect measurements from its environment and react accordingly with it, (i.e transmit it to a PC, alert the user if thresholds are exceeded, etc.)
   
   \item \textbf{Project Management:} STEPHEN
   
@@ -642,7 +642,7 @@ Phase 3 Deadline: March 17, 2023\\
 \subsection{Knowledge Acquirement }
 
 \begin{enumerate}
-  \item \textbf{Sensors/Embedded Systems:} Ahmed
+  \item \textbf{Sensors/Embedded Systems:} There are many resources to help in mastering the skill, McMaster provides access to a platform called LinkedIn Learning, it provides useful relevant courses to programming an Arduino and how to use sensors. Other online resources such as YouTube also provides similar knowledge in these topics. The best way to learn something in my opinion is by experimenting with the technology, this is called the discovery phase. Getting familiar with the technology by messing around with it drastically improves how comfortable you are with it and how to use it. Ahmed will pursue this because he has some relevant coop experience in sensors and embedded systems and he would like to get more hands on experience working on these technologies. These skills are relevant to the type of work he wants to do in the future.
   
   \item \textbf{Project Management:} STEPHEN
   
