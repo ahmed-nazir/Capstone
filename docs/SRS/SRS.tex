@@ -67,6 +67,8 @@
 \newcommand{\itheinstnum}{IM\theinstnum}
 \newcommand{\iref}[1]{IM\ref{#1}}
 \newcounter{reqnum} %Requirement Number
+\newcounter{reqnumDA} %Requirement Number
+\newcounter{reqnumDAP} %Requirement Number
 \newcommand{\rthereqnum}{P\thereqnum}
 \newcommand{\rref}[1]{R\ref{#1}}
 \newcounter{nfrnum} %NFR Number
@@ -90,7 +92,7 @@
 
 ~\newpage
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \tableofcontents
 
@@ -136,7 +138,7 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
   \toprule		
   \textbf{Symbol} & \textbf{Description}\\
   \midrule 
-  A & Assumption\\
+  SAE & Society of Automotive Engineers\\
   DD & Data Definition\\
   GD & General Definition\\
   GS & Goal Statement\\
@@ -152,8 +154,9 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
 \end{longtable*}
 
 
-
+Monitored Variable, Description, Type, Units
 \section{User Characteristics}
+
 
 \subsection{Stakeholders}
 
@@ -165,37 +168,96 @@ $A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area\\
 \subsection{Impact}
 
 
-\section{Requirements}
+\section{System Description}
 
-\plt{The requirements refine the goal statement.  They will make heavy use of
-  references to the instance models.}
+\subsection{Assumptions}
+
+\subsection{Context Diagram}
+
+\subsection{State Transition Diagram}
+
+\subsection{Monitored and Controlled Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Monitored Variable & Type & Units & Description\\
+    \hline
+    & & & \\
+    \hline 
+  \end{tabular}
+\\Table 1.0: Monitored Variables\\ \\ \\
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Controlled Variable & Type & Units & Description\\
+    \hline
+    & & & \\
+    \hline 
+  \end{tabular}
+  \\Table 2.0: Controlled Variables\\
+\subsection{Functional Decomposition Diagram}
+
+\section{Requirements}
 
 This section provides the functional requirements, the business tasks that the
 software is expected to complete, and the nonfunctional requirements, the
 qualities that the software is expected to exhibit.
 
 \subsection{Functional Requirements}
+Formulate consists of 3 main components, each with its own functional requirements. The hardware section addresses the sensors and physical device which interacts directly with the user, the desktop application is the means for the user to select modes and submit data and the data analytics platform is for the user to view old test case data to check if KPIs are met.
 
 \subsubsection{Hardware} 
 
 \begin{itemize}
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should contain a rechargeable battery
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should contain a rechargeable battery
+  \begin{description} \item[Rationale] tEST \end{description}
   
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should have a screen to display the current status to the user
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have a screen to display the current status to the user
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should easily mount to the base of a Formula SAE car
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should easily mount to the Formula SAE car
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] The device should connect to a PC wirelessly to transmit data
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should connect to a PC wirelessly and wired to transmit data
   
-  \item[RH\refstepcounter{reqnum}\thereqnum:] 
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should alert the user if any tests exceed the operating condition of the car
+
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The base device should have 5 connection ports to add module sensors to it
+  
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The modular sensors should have a snap on mounting mechanism to connect to the base
   
   \end{itemize}
 
 
 \subsubsection{Desktop Application}
+\begin{itemize}
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live raw data from the sensors
+  \subitem[\textbf Rationale:] The device should contain a rechargeable battery
+  
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow users to preview the data after a test
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to send the data to the database
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
+  
+  \item[FR\refstepcounter{reqnum}\thereqnum:] 
+  
+  \end{itemize}
 
 \subsubsection{Data Analytics Platform}
+\begin{itemize}
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should only allow users who have access to view the data
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should have the option to filter out the data by test conducted
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should show whether the tests passed according to threshold values
+  
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
+  
+  \item[FR\refstepcounter{reqnum}\thereqnum:] 
+  
+  \end{itemize}
 
 \subsection{Nonfunctional Requirements}
 
@@ -212,16 +274,15 @@ qualities that the software is expected to exhibit.
 \end{itemize}
 
 
-\section{Likely Changes}    
+\subsection{Likely Changes}    
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with a reference to the related assumption (aref), as appropriate.}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] 
 
 \end{itemize}
 
-\section{Unlikely Changes}    
+\subsection{Unlikely Changes}    
 
 \noindent \begin{itemize}
 
