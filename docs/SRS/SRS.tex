@@ -78,6 +78,7 @@
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
+
 \usepackage{fullpage}
 
 
@@ -197,12 +198,31 @@ Project Formulate aims to provide the McMaster Formula Electric team with a well
 
 \subsection{Stakeholders}
 
+The stakeholder for the capstone group project is MAC Formula Electric which is a student-run team on from McMaster University and their purpose is to design, build and compete with a fully electric formula-style racecar. Our product is designed to aid them in these tasks by making testing for their designs and builds faster and more efficient. The product will be a portable device with capability to test vibrations, shock, temperature, and humidity which then be saved to a database. This will help get and store data for testing ultimately making it faster to see the desired results of each test.
 
 \subsection{Use Cases} 
+\begin{itemize}
+  
+  \item The device is turned on and test functioning can begin
+  
+  \item The device would be modular so depending on what test is required the device would be able to change from testing shock, vibrations, temperature, and humidity by just switching the module into the device.
+  
+  \item The device will continually send receive information through an Arduino board, the values from the Arduino board will then get converted into a desktop application
+  
+  \item The converted values from the desktop application will be sent to a remote database where the user will be able to access the data and use the information for what it is needed for.
+  
+  \item The device will be able to tell the user if the equipment being tested is going above or is below the equipment threshold. This will allow the user to stop the testing before any important components get compromised on the unit.
+
+  \item In event of the the devicee turning of prematurely the data will be automatically saved on the database and stored for later use.
+  
+  \item The user can then access the data on a website where all the info will be stored through our database.
+  
+\end{itemize}
 
 \subsection{User Consideration}
-
+The design of the device is made with the user in mind, our users will be mainly engineering students trying to collect data on equipment they have designed. Since this is the case they will be able to customize the output parameters for what they need such as the gain and or the initial value of the test. This will allow for a more fluid way to setup the test for them. Since it is student run club we would like to make cost effective as well, other data collecting devices are expensive and are
 \subsection{Impact}
+This design could allow for dangerous testing conditions for an unsupervised tester or a person who does not have full knowledge on what they are testing. Since this product is made for people who fully understand and created what they are testing they will be able to test the equipment in a safe and unsupervised manner. If this device was given to a person without full knowledge on what they are testing, there would be potential to cause damage to what they are testing or even worse themselves. Another impact would be how testing done, it would create faster and more efficient testing allowing for faster production of parts and equipment. This will increase the productivity of numerous companies who are in need of new ways to store their testing data in an efficient and easily accessible way.
 
 
 \section{System Description}
@@ -661,7 +681,7 @@ Phase 3 Deadline: March 17, 2023\\
   
   \item \textbf{Databases:} An essential function of Formulate is to collect test results and store them in a database. Therefore, a complete understanding of creating, accessing, securing, and editing databases is required to achieve that functionality. We are aiming to use a relational database, so all research on these topics will specific to relational databases.
   
-  \item \textbf{Presentations:} TIO
+  \item \textbf{Presentations:} In order to 
   
 \end{enumerate}
 
@@ -675,7 +695,7 @@ Phase 3 Deadline: March 17, 2023\\
   
   \item \textbf{Databases:} Muhanad is currently taking a databases course (3DB3) at McMaster which is an introduction to all the fundamentals of relational databases. This includes the design and creation of legal databases based on relational constraints and the manipulation of data using SQL (Structured Query Language). This course will be very useful in terms of creating a fundamentally sound database. However, online resources will be used to determine where to host a database and how to make it secure in a way where only the application has write access to it. Muhanad is pursuing databases because he interacted with them briefly during his coop and found SQL to be very interesting. Therefore, he wishes to take a more in-depth look at databases and querying languages to gain a full understanding of them.
   
-  \item \textbf{Presentations:} TIO
+  \item \textbf{Presentations:} For our presentation we will all play a part in presenting and demonstrating how our new device. In our presention we will require the knowledge of how the device works and the usefulness of our device. Our knowledge will be learnt throughout the making of our capstone project as we get more familiar with software and hardware. Our presentation will be a demonstration of our knowledge as we will show how we made it and how it is uniquely designed by us. In order for our presentation to be a success wee will have practice and create a unique way to entertain our audience. This will require creativity from our to stand out from the rest of the presentations which we will discuss more and more during our weekly meetings.
   
 \end{enumerate}
 
