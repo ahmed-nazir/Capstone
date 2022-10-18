@@ -3,6 +3,13 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{colortbl}
+\usepackage{fullpage}
+\usepackage{longtable}
+\newcounter{fmeanum}
+\newcounter{fmeanumDA}
+\newcounter{fmeanumD}
+\newcounter{fmeanumDAW}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -36,9 +43,8 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
+10/12/2022 & Ahmed & Added FMEA analysis\\
 Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -68,11 +74,140 @@ minimize the number of assumptions that remove potential hazards.  For instance,
 you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
 
+\newpage
 \section{Failure Mode and Effect Analysis}
+\begin{longtable}{| p{0.12\textwidth} | p{0.04\textwidth}| p{0.15\textwidth}| p{0.20\textwidth}| p{0.20\textwidth}| p{0.18\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    \textbf{Component} 
+    & \textbf{Ref}
+    & \textbf{Failure Mode}
+    & \textbf{Effects of Failure} 
+    & \textbf{Cause of Failure}
+    & \textbf{Recommended Actions} \\
+    %Component & Ref & Failure Mode & Effects of Failure & Cause of Failure & Recommended Actions\\
+    \hline 
+    Hardware & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Sensor data is not sent to PC
+    & Test data is not captured by our device
+    &   $\bullet$ Wi-Fi Module is broken \newline
+        $\bullet$ USB Device is not connected \newline
+        $\bullet$ Device is not connected to Wi-Fi network \newline 
+    & Using the LCD display show the systems connectivity \\
+    \cline{2-6}
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & System does not have power
+    & Device is off and not operational
+    &   $\bullet$ Battery died \newline
+        $\bullet$ Power cables are disconnected \newline
+        $\bullet$ Too much current is drawn from Arduino \newline 
+    & $\bullet$ Add a battery indicator to the screen to alert the user if the battery is low \newline
+      $\bullet$ Make the sensors get their power directly from the power source and not the arduino \newline \\
+
+    \cline{2-6}
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Hardware falls off the mount
+    &   $\bullet$ Hardware device breaks/gets damaged \newline
+        $\bullet$ Sensors capture incorrect data \newline
+        $\bullet$ Potential injury to those in vehicle \newline
+    &  $\bullet$ User didn’t affix Hardware properly \newline
+       $\bullet$ Mounting mechanism failed \newline
+    & The mounting mechanism should give the user feedback when the device is mounted correctly\\
+    \cline{2-6}
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Display turns off
+    & Cannot view the status of the device
+    &   $\bullet$ LCD display failure \newline
+        $\bullet$ LCD is improperly connected \newline
+        $\bullet$ Arduino is drawing too much current \newline 
+    &\\
+    
+    \endfirsthead
+    \cline{2-6}
+    
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Threshold alert not displaying
+    & User will not be notified
+    & $\bullet$ Sensor failure \newline
+      $\bullet$ Refer to H1.4 \newline
+      $\bullet$ Threshold not set up by user in the Desktop App \newline
+    &\\
+    
+    \hline
+    Desktop \space Application & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & App cant see hardware device
+    & Refer to H1.1
+    & $\bullet$ Refer to H1.1 \newline
+      $\bullet$ COM Port is being used by another application \newline
+    &\\
+
+    \cline{2-6}
+     & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & Data from the hardware device is lost
+    & Test results will all be lost
+    & $\bullet$ Application suddenly closes during test \newline
+      $\bullet$ Hardware device disconnects from PC \newline
+    &Store last test data into local storage\\
+
+    \cline{2-6}
+     & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & Cannot view live data
+    & User will not be able to see data during test runs
+    & $\bullet$ Sensors are not connected\newline
+      $\bullet$ Refer to H1.1 \newline
+    &\\
+
+    \cline{2-6}
+     & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & Data cannot be sent to database
+    & Test results will all be lost and will not be viewable in the analytics platform
+    & $\bullet$ Database failure \newline
+      $\bullet$ Connection failure \newline
+      $\bullet$ PC not connected to the internet \newline
+    &\\
+
+    \hline
+
+    Database & H3.\refstepcounter{fmeanumD}\thefmeanumD
+    & Too much data is sent to the database
+    & The database is getting overloaded with data causing it to crash or freeze
+    & User submits too much data within a very short time period
+    & Add a cool down timer after the user submits the data to the database so they wont be able to spam it constantly\\
+    \hline
+
+    Data \newline Analytics Website & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
+    & User cannot login
+    & User will not have access to dashboard
+    & $\bullet$ User does not have an account \newline
+      $\bullet$ User’s credentials don’t match \newline
+    &\\
+    \cline{2-6}
+
+    & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
+    & User cannot view the dashboard
+    & Users cannot view KPIs of tests
+    & $\bullet$ User does not have required permissions \newline
+    &\\
+    \cline{2-3}\cline{5-6}
+
+    & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
+    & Data not being displayed
+    & 
+    & $\bullet$ Database failure \newline
+    $\bullet$ Authentication error \newline
+    &\\
+    \hline
+
+
+    \end{longtable}
+    
+
 
 \wss{Include your FMEA table here}
 
 \section{Safety and Security Requirements}
+
+
 
 \wss{Newly discovered requirements.  These should also be added to the SRS.  (A
 rationale design process how and why to fake it.)}
