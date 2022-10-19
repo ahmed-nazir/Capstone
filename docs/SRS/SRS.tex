@@ -474,13 +474,15 @@ Formulate consists of 3 main components, each with its own functional requiremen
 %Starting and stopping the device to get data using hardware , When the device is connected to the computer we can remote start and stop it using software 
 \item[LC\refstepcounter{lcnum}\thelcnum:] Method to start and stop the test on the device
 \begin{description} \item[Rationale:] The user should have the ability to perform a hardware start/stop or a remote start/stop from their PC \end{description}
+\begin{description} \item[Affected Requirements:] FR3, FR4 \end{description}
 
 \item[LC\refstepcounter{lcnum}\thelcnum:] The initial data we are collecting (Vibration, Shock, Temperature, Humidity)
 \begin{description} \item[Rationale:] Since the device is set to be modular, we may change the initial measured values we are testing with other ones \end{description}
+\begin{description} \item[Affected Requirements:] FR1 \end{description}
 
 \item[LC\refstepcounter{lcnum}\thelcnum:] The number of modular ports on the device
 \begin{description} \item[Rationale:] Depending on the number of input ports available on the board used, the number of input signals available may vary \end{description}
-
+\begin{description} \item[Affected Requirements:] FR15 \end{description}
 
 \end{itemize}
 
@@ -490,9 +492,10 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
 \item[ULC\refstepcounter{ulcnum}\theulcnum:] The sensors will remain modular to adapt to different tests that need to be conducted
 \begin{description} \item[Rationale:] The product should be expandable in the future to be able to test different values \end{description}
+\begin{description} \item[Referenced Requirements:] FR12, NFR5 \end{description}
 
 \item[ULC\refstepcounter{ulcnum}\theulcnum:] The communication methods between the data measurement hardware and the PC will be wired or wireless
-
+\begin{description} \item[Referenced Requirements:] FR10 \end{description}
 
 \end{itemize}
 
