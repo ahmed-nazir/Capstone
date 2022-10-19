@@ -248,18 +248,14 @@ this potential failure mode.}
   \item[SR \refstepcounter{reqnum}\thereqnum:] The device should give a warning indicating that battery is low after a certain time amount of usage.
     \begin{description} \item[Rationale] If the battery dies during testing, measurement values will be lost as it is the power source of the device.  \end{description}
     \begin{description} \item[Associated Hazards] H1.2  \end{description}
-  
-  \item[SR \refstepcounter{reqnum}\thereqnum:] In order to send values to the database from the application, user must log into the application.
-    \begin{description} \item[Rationale] This ensures that only testers have the ability to send and write values to the database.   \end{description}
-    \begin{description} \item[Associated Hazards] H4.1, H4.2, H4.3 \end{description}
-    
+
   \item[SR \refstepcounter{reqnum}\thereqnum:] Every user should have a login when accessing the data analytics website which would be the same login as the application's.
     \begin{description} \item[Rationale] This ensures that only testers have view access to values on the website.   \end{description}
     \begin{description} \item[Associated Hazards] H4.1, H4.2, H4.3 \end{description}
   
   \item[SR \refstepcounter{reqnum}\thereqnum:] The device should save a certain amount of values in case the connection to the application fails during testing.
-    \begin{description} \item[Rationale] This ensures that the most recent data is not lost if there is a system failure.   \end{description}
-    \begin{description} \item[Associated Hazards] H2.2  \end{description}
+    \begin{description} \item[Rationale] This ensures that the most recent data is not lost if there is a connection failure.   \end{description}
+    \begin{description} \item[Associated Hazards] H1.1, H2.2  \end{description}
   
   \item[SR \refstepcounter{reqnum}\thereqnum:] The device should have an audible click to indicate that the device and sensors have mounted correctly.
     \begin{description} \item[Rationale] The audible click aids the user in mounting the hardware correctly to ensure that it does not fall off.   \end{description}
