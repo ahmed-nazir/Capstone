@@ -3,6 +3,13 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{colortbl}
+\usepackage{fullpage}
+\usepackage{longtable}
+\newcounter{fmeanum}
+\newcounter{fmeanumDA}
+\newcounter{fmeanumD}
+\newcounter{fmeanumDAW}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -36,9 +43,8 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
+10/12/2022 & Ahmed & Added FMEA analysis\\
 Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -55,11 +61,31 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Introduction}
 
+A hazard is the combination of a system property with an environmental condition that can cause harm to the intended user.\\
+
+Hazard analysis is a critical consideration in the design of all systems. When done correctly, hazards to the end user are identified and can be mitigated or eliminated completely. While it is not possible to guarantee the safety of a system, applying hazard analysis methods is a neccesary step in supporting the safety of the system. \\
+
+Formulate's area of work combines hardware and software sub-systems and as a result, requires hazard analysis to obtain a comprehensive understanding of the overall system. \\
+
 \wss{You can include your definition of what a hazard is here.}
 
 \section{Scope and Purpose of Hazard Analysis}
 
+In this document, Formulate details the hazards a user can experience through the Failure Mode and Effect Analysis method. As a result, the group systematically outlined the hazards and measures that were considered to mitigate or eliminate the hazard.
+
 \section{System Boundaries and Components}
+
+The device that is referred to in this document is made up of 5 major components that hazard and failure analysis would have to be done for:
+
+\begin{enumerate}
+\item Hardware
+\item Desktop Application
+\item Database
+\item Data Website Analytics
+\item The Physical Device
+\end{enumerate}
+
+Each component has there own system boundaries based on the software and hardware we use. Since this is the case we will have to design the system based on the type of the test that is required to be performed by the MAC Formula Electric Team. An example of this would be if the client had to test their motor at an operating speed we would choose hardware components that are within that temperature range to avoid any failure reading the data correctly or damaging the component.
 
 \section{Critical Assumptions}
 
@@ -68,18 +94,146 @@ minimize the number of assumptions that remove potential hazards.  For instance,
 you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
 
+\newpage
 \section{Failure Mode and Effect Analysis}
+\begin{longtable}{| p{0.12\textwidth} | p{0.04\textwidth}| p{0.15\textwidth}| p{0.20\textwidth}| p{0.20\textwidth}| p{0.18\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    \textbf{Component} 
+    & \textbf{Ref}
+    & \textbf{Failure Mode}
+    & \textbf{Effects of Failure} 
+    & \textbf{Cause of Failure}
+    & \textbf{Recommended Actions} \\
+    %Component & Ref & Failure Mode & Effects of Failure & Cause of Failure & Recommended Actions\\
+    \hline 
+    Hardware & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Sensor data is not sent to PC
+    & Test data is not captured by our device
+    &   $\bullet$ Wi-Fi Module is broken \newline
+        $\bullet$ USB Device is not connected \newline
+        $\bullet$ Device is not connected to Wi-Fi network \newline 
+    & Using the LCD display show the systems connectivity \\
+    \cline{2-6}
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & System does not have power
+    & Device is off and not operational
+    &   $\bullet$ Battery died \newline
+        $\bullet$ Power cables are disconnected \newline
+        $\bullet$ Too much current is drawn from Arduino \newline 
+    & $\bullet$ Add a battery indicator to the screen to alert the user if the battery is low \newline
+      $\bullet$ Make the sensors get their power directly from the power source and not the arduino \newline \\
+
+    \cline{2-6}
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Hardware falls off the mount
+    &   $\bullet$ Hardware device breaks/gets damaged \newline
+        $\bullet$ Sensors capture incorrect data \newline
+        $\bullet$ Potential injury to those in vehicle \newline
+    &  $\bullet$ User didn’t affix Hardware properly \newline
+       $\bullet$ Mounting mechanism failed \newline
+    & The mounting mechanism should give the user feedback when the device is mounted correctly\\
+    \cline{2-6}
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Display turns off
+    & Cannot view the status of the device
+    &   $\bullet$ LCD display failure \newline
+        $\bullet$ LCD is improperly connected \newline
+        $\bullet$ Arduino is drawing too much current \newline 
+    &\\
+    
+    \endfirsthead
+    \cline{2-6}
+    
+        & H1.\refstepcounter{fmeanum}\thefmeanum
+    & Threshold alert not displaying
+    & User will not be notified
+    & $\bullet$ Sensor failure \newline
+      $\bullet$ Refer to H1.4 \newline
+      $\bullet$ Threshold not set up by user in the Desktop App \newline
+    &\\
+    
+    \hline
+    Desktop \space Application & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & App cant see hardware device
+    & Refer to H1.1
+    & $\bullet$ Refer to H1.1 \newline
+      $\bullet$ COM Port is being used by another application \newline
+    &\\
+
+    \cline{2-6}
+     & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & Data from the hardware device is lost
+    & Test results will all be lost
+    & $\bullet$ Application suddenly closes during test \newline
+      $\bullet$ Hardware device disconnects from PC \newline
+    &Store last test data into local storage\\
+
+    \cline{2-6}
+     & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & Cannot view live data
+    & User will not be able to see data during test runs
+    & $\bullet$ Sensors are not connected\newline
+      $\bullet$ Refer to H1.1 \newline
+    &\\
+
+    \cline{2-6}
+     & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
+    & Data cannot be sent to database
+    & Test results will all be lost and will not be viewable in the analytics platform
+    & $\bullet$ Database failure \newline
+      $\bullet$ Connection failure \newline
+      $\bullet$ PC not connected to the internet \newline
+    &\\
+
+    \hline
+
+    Database & H3.\refstepcounter{fmeanumD}\thefmeanumD
+    & Too much data is sent to the database
+    & The database is getting overloaded with data causing it to crash or freeze
+    & User submits too much data within a very short time period
+    & Add a cool down timer after the user submits the data to the database so they wont be able to spam it constantly\\
+    \hline
+
+    Data \newline Analytics Website & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
+    & User cannot login
+    & User will not have access to dashboard
+    & $\bullet$ User does not have an account \newline
+      $\bullet$ User’s credentials don’t match \newline
+    &\\
+    \cline{2-6}
+
+    & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
+    & User cannot view the dashboard
+    & Users cannot view KPIs of tests
+    & $\bullet$ User does not have required permissions \newline
+    &\\
+    \cline{2-3}\cline{5-6}
+
+    & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
+    & Data not being displayed
+    & 
+    & $\bullet$ Database failure \newline
+    $\bullet$ Authentication error \newline
+    &\\
+    \hline
+
+
+    \end{longtable}
+    
+
 
 \wss{Include your FMEA table here}
 
 \section{Safety and Security Requirements}
+
+
 
 \wss{Newly discovered requirements.  These should also be added to the SRS.  (A
 rationale design process how and why to fake it.)}
 
 \section{Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+All these requirements will try be implemented during the course of the capstone. The safety and security requirements are important for a complete and safe testing device. As this  is the case most, but hopefully all of them will be implemented but if we can not implement all of them due to our time constraint the ones essential to the design will be implemented while the others that only improve user functionality will be added towards the end.
 
 \end{document}
