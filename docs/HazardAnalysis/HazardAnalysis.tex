@@ -44,7 +44,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-10/12/2022 & Ahmed & Added FMEA analysis\\
+10/12/2022 & Ahmed & Added Failure Mode and Effect Analysis\\
 10/13/2022 & Stephen & Added Introduction and Scope\\
 10/13/2022 & Muhanad & Added Critical Assumptions and Safety Requirements\\
 10/14/2022 & Tioluwalayomi & Added System Boundaries and Roadmap\\
@@ -52,6 +52,8 @@
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\listoftables
 
 ~\newpage
 
@@ -211,25 +213,25 @@ this potential failure mode.}
     & User will not have access to dashboard
     & $\bullet$ User does not have an account \newline
       $\bullet$ User’s credentials do not match \newline
-    &\\
+    &Redirect user to either create a new login or to reset their login\\
     \cline{2-6}
 
     & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
     & User cannot view the dashboard
     & Users cannot view KPIs of tests
     & $\bullet$ User does not have required permissions \newline
-    &\\
-    \cline{2-3}\cline{5-6}
+    &User can request permission which needs to be approved by an admin\\
+    \cline{2-6}
 
     & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
-    & Data not being displayed
-    & 
-    & $\bullet$ Database failure \newline
+    & Data is not displayed on the dashboard
+    & Refer to H4.2
+    & $\bullet$ Database does not contain test data \newline
     $\bullet$ Authentication error \newline
-    &\\
+    &Validate that the database contains data\\
     \hline
 
-
+  \caption{Failure Mode and Effect Analysis}
     \end{longtable}
     
 
