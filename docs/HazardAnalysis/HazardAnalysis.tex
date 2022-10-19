@@ -45,7 +45,10 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 10/12/2022 & Ahmed & Added FMEA analysis\\
-Date2 & Name(s) & Description of changes\\
+10/13/2022 & Stephen & Added Introduction and Scope\\
+10/13/2022 & Muhanad & Added Critical Assumptions and Safety Requirements\\
+10/14/2022 & Tioluwalayomi & Added System Boundaries and Roadmap\\
+10/19/2022 & All & General edits\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -53,6 +56,8 @@ Date2 & Name(s) & Description of changes\\
 ~\newpage
 
 \tableofcontents
+
+
 
 ~\newpage
 
@@ -82,11 +87,10 @@ The device that is referred to in this document is made up of 5 major components
 \item Hardware
 \item Desktop Application
 \item Database
-\item Data Website Analytics
-\item The Physical Device
+\item Data Analytics Website 
 \end{enumerate}
 
-Each component has there own system boundaries based on the software and hardware we use. Since this is the case we will have to design the system based on the type of the test that is required to be performed by the MAC Formula Electric Team. An example of this would be if the client had to test their motor at an operating speed we would choose hardware components that are within that temperature range to avoid any failure reading the data correctly or damaging the component.
+Each component has there own system boundaries based on the software and hardware we use. Since this is the case we will have to design the system based on the type of the test that is required to be performed by the MAC Formula Electric Team. An example of this would be if the client had to test the car under specific conditions, we would choose hardware components that are within that temperature range to ensure ensure data is read correctly.
 
 \section{Critical Assumptions}
 
@@ -115,11 +119,11 @@ this potential failure mode.}
     %Component & Ref & Failure Mode & Effects of Failure & Cause of Failure & Recommended Actions\\
     \hline 
     Hardware & H1.\refstepcounter{fmeanum}\thefmeanum
-    & Sensor data is not sent to PC
-    & Test data is not captured by our device
-    &   $\bullet$ Wi-Fi Module is broken \newline
-        $\bullet$ USB Device is not connected \newline
-        $\bullet$ Device is not connected to Wi-Fi network \newline 
+    & Connection Failure
+    & Test data is not captured by our PC
+    &   $\bullet$ The Wi-Fi module is broken \newline
+        $\bullet$ USB Device is not connected to PC \newline
+        $\bullet$ Device is not connected to Wi-Fi a network \newline 
     & Using the LCD display show the systems connectivity \\
     \cline{2-6}
         & H1.\refstepcounter{fmeanum}\thefmeanum
@@ -147,26 +151,26 @@ this potential failure mode.}
     &   $\bullet$ LCD display failure \newline
         $\bullet$ LCD is improperly connected \newline
         $\bullet$ Arduino is drawing too much current \newline 
-    &\\
+    &Replace the display and ensure the display is connected properly prior to installation\\
     
     \endfirsthead
     \cline{2-6}
     
         & H1.\refstepcounter{fmeanum}\thefmeanum
     & Threshold alert not displaying
-    & User will not be notified
+    & User will not be notified when testing components go out of their operating range
     & $\bullet$ Sensor failure \newline
       $\bullet$ Refer to H1.4 \newline
       $\bullet$ Threshold not set up by user in the Desktop App \newline
-    &\\
+    &Warn user that threshold value is not set in the Desktop App\\
     
     \hline
     Desktop \space Application & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
-    & App cant see hardware device
+    & Application cannot read hardware device output
     & Refer to H1.1
     & $\bullet$ Refer to H1.1 \newline
       $\bullet$ COM Port is being used by another application \newline
-    &\\
+    &Ensure that the COM port is open for communication\\
 
     \cline{2-6}
      & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
@@ -179,34 +183,34 @@ this potential failure mode.}
     \cline{2-6}
      & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
     & Cannot view live data
-    & User will not be able to see data during test runs
-    & $\bullet$ Sensors are not connected\newline
+    & User will not be able to see live data during test runs
+    & $\bullet$ Refer to H2.1\newline
       $\bullet$ Refer to H1.1 \newline
-    &\\
+    & Device will default to record the entire test run and save the test data into local storage\\
 
     \cline{2-6}
      & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
     & Data cannot be sent to database
-    & Test results will all be lost and will not be viewable in the analytics platform
+    & Test results will not be saved to the database and will not be viewable in the analytics platform
     & $\bullet$ Database failure \newline
-      $\bullet$ Connection failure \newline
+      $\bullet$ Connection failure between Desktop App and Database  \newline
       $\bullet$ PC not connected to the internet \newline
-    &\\
+    &Validate connection between desktop app and database to ensure data will be sent correctly\\
 
     \hline
 
     Database & H3.\refstepcounter{fmeanumD}\thefmeanumD
-    & Too much data is sent to the database
+    & Database Overload
     & The database is getting overloaded with data causing it to crash or freeze
     & User submits too much data within a very short time period
-    & Add a cool down timer after the user submits the data to the database so they wont be able to spam it constantly\\
+    & Add a cool down timer after the user submits the data to the database so they will not be able to spam it constantly\\
     \hline
 
     Data \newline Analytics Website & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
     & User cannot login
     & User will not have access to dashboard
     & $\bullet$ User does not have an account \newline
-      $\bullet$ User’s credentials don’t match \newline
+      $\bullet$ User’s credentials do not match \newline
     &\\
     \cline{2-6}
 
@@ -240,7 +244,7 @@ this potential failure mode.}
     \begin{description} \item[Associated Hazards] H1.1, H2.1, H2.2, H2.3, H2.4  \end{description}
   
   \item[SR \refstepcounter{reqnum}\thereqnum:] The device should give a warning indicating that battery is low after a certain time amount of usage.
-    \begin{description} \item[Rationale] If the battery dies during testing, measurement values will be lost as it is power source of the device.  \end{description}
+    \begin{description} \item[Rationale] If the battery dies during testing, measurement values will be lost as it is the power source of the device.  \end{description}
     \begin{description} \item[Associated Hazards] H1.2  \end{description}
   
   \item[SR \refstepcounter{reqnum}\thereqnum:] In order to send values to the database from the application, user must log into the application.
@@ -251,12 +255,12 @@ this potential failure mode.}
     \begin{description} \item[Rationale] This ensures that only testers have view access to values on the website.   \end{description}
     \begin{description} \item[Associated Hazards] H4.1, H4.2, H4.3 \end{description}
   
-  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should save a certain amount of values in case the connection to application fails during testing.
+  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should save a certain amount of values in case the connection to the application fails during testing.
     \begin{description} \item[Rationale] This ensures that the most recent data is not lost if there is a system failure.   \end{description}
     \begin{description} \item[Associated Hazards] H2.2  \end{description}
   
-  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should have an audible click to indicate that the device has mounted on the vehicle correctly.
-    \begin{description} \item[Rationale] The audible click aids the user in mounting the device correctly to ensure that it does not fall off.   \end{description}
+  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should have an audible click to indicate that the device and sensors have mounted correctly.
+    \begin{description} \item[Rationale] The audible click aids the user in mounting the hardware correctly to ensure that it does not fall off.   \end{description}
     \begin{description} \item[Associated Hazards] H1.3  \end{description}
 \end{itemize}
 
@@ -265,6 +269,6 @@ rationale design process how and why to fake it.)}
 
 \section{Roadmap}
 
-All these requirements will try be implemented during the course of the capstone. The safety and security requirements are important for a complete and safe testing device. As this  is the case most, but hopefully all of them will be implemented but if we can not implement all of them due to our time constraint the ones essential to the design will be implemented while the others that only improve user functionality will be added towards the end.
+All these requirements will try to be implemented during the course of the capstone. The safety and security requirements are important for a complete and safe testing device. As this  is the case most, but hopefully all of them will be implemented but if we can not implement all of them due to our time constraint the ones essential to the design will be implemented while the others that only improve user functionality will be added towards the end.
 
 \end{document}
