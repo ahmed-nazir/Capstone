@@ -213,24 +213,64 @@ How test will be performed:
 \wss{Tests related to usability could include conducting a usability test and
   survey.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Performance}
 		
-\paragraph{Title for Test}
+\paragraph{Operational in physical environment}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{Operational in physical enviornment\\}
 
-Type: 
+Type: Dynamic, Manual
+					
+Initial State: Device is on and mounted to the device, has connected to the application and is waiting to start measuring.
+					
+Input/Condition: Vehicle's motor starts and values start to get picked up by device
+					
+Output/Result: Device is operational and stays physically intact in all types of weather and at 20\% greater than threshold values.
+					
+How test will be performed: The device will be tested outdoors under various weather conditions including rain, windy, etc.
+The device will also be tested in temperature and vibration conditions that are above threshold values. This will be performed by placing the device in a hot environment
+and vigoursly shaking it while being on a stationary mount.
+					
+\item{Viewing live data\\}
+
+Type: Dynamic, Manual
+					
+Initial State: Device is on and mounted to the device, has connected to the application and is waiting to start measuring.
+					
+Input: Vehicle's motor starts and values start to get picked up by device
+					
+Output/Result: Data latency should be less than 30 seconds to simulate viewing live data.
+					
+How test will be performed: The amount of time for data to start being viewable on the application will be inspected to be less than 30 seconds.
+The application will also be inspected to ensure that data is smooth and not lagging while measurements are being performed.
+
+\item{Modularity and Maintainability\\}
+
+Type: Dynamic, Manual
+					
+Initial State: Device is on measuring and sending values to the application, and connection to database has been verified
+					
+Input: Either the device, application, or database is disconnected or turned off
+					
+Output: The other two components are still functional even though communication between them is broken.
+					
+How test will be performed: While device, application, and database are fully functional and communicating successfully, different combinations of either one or two components
+will be turned off. The other component(s) will be inspected to ensure that they are operational and indicating that the other component(s) are disconnected.
+
+\item{test-id2\\}
+
+Type: Functional, Dynamic, Manual, Static etc.
 					
 Initial State: 
 					
-Input/Condition: 
+Input: 
 					
-Output/Result: 
+Output: 
 					
 How test will be performed: 
-					
+
 \item{test-id2\\}
 
 Type: Functional, Dynamic, Manual, Static etc.
@@ -245,9 +285,49 @@ How test will be performed:
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Usability}
 
-...
+\begin{enumerate}
+
+\item{Mounting hardware and starting measurements\\}
+
+Type: Dynamic, Manual
+          
+Initial State: Device is turned off and nothing is connected, only the application is loaded on to the computer
+          
+Input: Users will be asked to setup device and start taking measurements, rate setup process using a survey
+          
+Output: Time for setup and data to appear on the application should be less than 5 minutes and 
+          
+How test will be performed: A test group will be educated on the setup and connection of the device, then they will attempt to do that process. 
+Each person will be timed and compared to the 5 minute threshold. In addition, they will be given a survey to rate the setup process on a scale from 
+1 to 5 the following categories: ease of use, need for assistance,  
+
+\item{test-id2\\}
+
+Type: Dynamic, Manual
+					
+Initial State: Device is given to McMaster's Formula E team to use
+					
+Input: Using a survey, Formula E members will compare their current testing process to the Formulate process
+					
+Output: All users need to select Formulate in at least 2 of the 3 categories
+					
+How test will be performed: Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use
+
+\item{test-id2\\}
+
+Type: Dynamic, Manual
+					
+Initial State: 
+					
+Input: 
+					
+Output: 
+					
+How test will be performed: 
+
+\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
