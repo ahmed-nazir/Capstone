@@ -3,6 +3,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -18,7 +19,7 @@
 \begin{document}
 
 \title{Project Title: System Verification and Validation Plan for \progname{}} 
-\author{Author Name}
+\author{\authname}
 \date{\today}
 	
 \maketitle
@@ -28,9 +29,9 @@
 \section{Revision History}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\toprule {\bf Date} & {\bf Developer} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
+October 30 & Stephen & Added General Information and Plan\\
 Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -75,6 +76,20 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 \wss{Say what software is being tested.  Give its name and a brief overview of
   its general functions.}
 
+  Formulate consists of four subsystems, one hardware subsystem and three software subsystems, which interact to provide the user with a testing device designed to eliminate automatable processes in common testing procedures.\\
+
+  A physical data collection device is the hardware subsystem used as the first point of contact with the measured quantity through a sensor. The sensor obtains physical quantities for the device to buffer, before sending the data to a desktop application for user verification.\\
+
+  The user has the ability to view the data collected by the physical device after a completed test using a desktop application software subsystem. The desktop application enables the user to either accept the test results to then store a collection of data from a test to a database, or reject the test and prevent the test from being stored to a database.\\
+
+  Accepted test data sent from the desktop application aggregates and saves verified test results to a database software subsystem. Users can query the database to obtain common statistics in test data and generate new or obscure relationships by leveraging database language capabilities.\\
+
+  A final dashboard software subsystem then queries the database to visualize key performance indicators on the test data collected and stored in the database.\newpage
+
+
+
+
+
 \subsection{Objectives}
 
 \wss{State what is intended to be accomplished.  The objective will be around
@@ -83,6 +98,14 @@ This document ... \wss{provide an introductory blurb and roadmap of the
   ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
   just those that are most important.}
 
+  The objective of the system Verification and Validation (VnV) plan for Formulate is to ensure the intended project qualities are present.\\
+
+  Ease in user understanding is a quality Formulate will achieve to support the system's usability.  Specifically, ease in user understanding of each subsystem's function and how subsystems interface will be key qualities of the overall project.\\
+
+  The system will also demonstrate the quality of adequate portability and physical robustness to support system maintainability, portability, and operationality.\\
+
+
+
 \subsection{Relevant Documentation}
 
 \wss{Reference relevant documentation.  This will definitely include your SRS
@@ -90,18 +113,75 @@ This document ... \wss{provide an introductory blurb and roadmap of the
   before they are written, since by the time the project is done, they will be
   written.}
 
-\citet{SRS}
+  Talk about how this document draws from the system requirements gathered during software requirements specification (SRS) and hazard analysis.\\
 
+  This document references a variety of requirements generated during the Software Requirements Specification (SRS) process and the Hazard Analysis (HA) process for the Formulate system. \\
+
+
+\citet{SRS}
+\newpage
 \section{Plan}
 
 \wss{Introduce this section.   You can provide a roadmap of the sections to
   come.}
+  
+  \subsection{Roadmap}
+
+  The intention of testing for Formulate is to generate confidence that the project meets qualities relating to usability, maintainability, portability, operationality, and safety set out as requirements in SRS and HA documentation. Through sets of unit and system tests that will prove if the system has met the above requirements, Formulate will understand if the project has achieved the desired qualities.\\
+
+  Specifically, requirements that are functional, non-functional, and safety-security related from the SRS and HA documents will be referenced in the Plan, System Test Description, and Unit Test Description sections of this document.\\
 
 \subsection{Verification and Validation Team}
 
 \wss{You, your classmates and the course instructor.  Maybe your supervisor.
   You shoud do more than list names.  You should say what each person's role is
   for the project.  A table is a good way to summarize this information.}
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{Role}} & \multicolumn{1}{|c|}{\textbf{Explanation}}
+    \\ \hline
+    Stephen
+    & Desktop Application Tester
+    & VnV for software application design and integration with hardware and database
+    \newline                                
+    \\ \hline
+  
+    Ahmed                              
+    & Hardware Device Tester
+    & VnV for embedded program design, chassis design, and integration with desktop application
+    \newline                                
+    \\ \hline
+  
+    Muhanad                          
+    & Database and Visualization Application Tester
+    & VnV for database design and integration with desktop application and dashboard
+    \newline                                
+    \\ \hline
+  
+    Tioluwalayomi                                
+    & Dashboard Application Tester
+    & VnV for dashboard application design and integration with database
+    \newline                            
+    \\ \hline
+
+    Timofey                                
+    & Project and Course Teaching Assistant
+    & Detailed low level feedback on planned VnV tests
+    \newline                            
+    \\ \hline
+  
+    Dr. Smith                                
+    & Course Instructor
+    & General high level feedback on planned VnV tests 
+    \newline                            
+    \\ \hline
+  
+    \end{tabular}
+  \end{table}
+  \newpage
 
 \subsection{SRS Verification Plan}
 
@@ -111,7 +191,13 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 
 \wss{Remember you have an SRS checklist}
 
+SRS Verification will be composed of two approaches to verify that functional and non-functional requirements are met. The first approach is engaging in read through's of the SRS document each month. Individual member progress will be evaluated against the relevenat sections(s) of the SRS document to ensure system  development is on track to meet the requirements. The second approach is evaluating issues created by classmates on GitHub and incorporating their concerns and suggestions as seen fit.\\
+
+Stephen will lead the group wide discussion for SRS verification activities on the first Tuesday of each month.\\
+
 \subsection{Design Verification Plan}
+
+
 
 \wss{Plans for design verification}
 
