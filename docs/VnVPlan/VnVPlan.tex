@@ -156,7 +156,7 @@ This document ... \wss{provide an introductory blurb and roadmap of the
     \\ \hline
   
     Muhanad                          
-    & Database and Visualization Application Tester
+    & Database Application Tester
     & VnV for database design and integration with desktop application and dashboard
     \newline                                
     \\ \hline
@@ -191,19 +191,21 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 
 \wss{Remember you have an SRS checklist}
 
-SRS Verification will be composed of two approaches to verify that functional and non-functional requirements are met. The first approach is engaging in read through's of the SRS document each month. Individual member progress will be evaluated against the relevenat sections(s) of the SRS document to ensure system  development is on track to meet the requirements. The second approach is evaluating issues created by classmates on GitHub and incorporating their concerns and suggestions as seen fit.\\
+SRS verification will be composed of two approaches to verify that functional and non-functional requirements are met. The first approach is engaging in read through's of the SRS document each month. Individual member progress will be evaluated against the relevenat sections(s) of the SRS document to ensure system  development is on track to meet the requirements. The second approach is evaluating issues created by classmates on GitHub and incorporating their concerns and suggestions as seen fit.\\
 
-Stephen will lead the group wide discussion for SRS verification activities on the first Tuesday of each month.\\
+Stephen and Tioluwalayomi will lead the group wide discussion for SRS verification activities on the first Tuesday of each month.\\
 
 \subsection{Design Verification Plan}
-
-
 
 \wss{Plans for design verification}
 
 \wss{The review will include reviews by your classmates}
 
 \wss{Remember you have MG and MIS checklists}
+
+Design verification will be composed of two approaches. The first planned approach is completing read through's of each individual's high level design documentation for their respective sub-system. The design documentation covered during these read through's will likely entail mechanical, electrical, and or software schematics or diagrams outlining the architecture of the subsystem. Members will voice concerns during the read through of design decisions made by the individual responsible for the sub-system architecture. The second planned approach is evaluating issues created by classmates on GitHub and incorporating their concerns and suggestions as seen fit.\\
+
+Ahmed will lead the group wide discussion for design verification activities on the second Tuesday of each month.\newpage
 
 \subsection{Implementation Verification Plan}
 
@@ -213,6 +215,14 @@ Stephen will lead the group wide discussion for SRS verification activities on t
 \wss{In this section you would also give any details of any plans for static verification of
   the implementation.  Potential techniques include code walkthroughs, code
   inspection, static analyzers, etc.}
+
+  Implementation verification will be composed of techniques in both static and dynamic analysis. \\
+
+  Content walkthrough is the primary type of static implementation verification technique the group plans on using. Three similar types of content walkthrough's are planned for use depending on the sub-system under analysis. Software implementation's will receive a code walkthrough, mechanical implementation's will receive a Computer Aided Design (CAD) spin, and electrical implementation's will receive a schematic walkthrough. During the content walkthrough, unit and system tests relevant to the implementation will be considered to critique the quality of the implementation. A meeting will be organized for each content walkthrough once the implementation has reached a notable milestone worthwile for group analysis.\\
+  
+  Live execution of the implementation using a proof of concept style demonstration to the group is the primary type of dynamic implementation technique the group plans on using. During the live demonstration of the implementation, system and unit tests relevant to the implementation will be considered to critique the quality of the implementation. Using the initial state and inputs of the test outlined in the system and unit test sections, the quality of implementation is passed or failed depending on if the actual output of the implementation matches the expeted output.\\
+
+Ahmed and Muhanad will lead the group wide discussion for design verification activities on the second Tuesday of each month.\newpage
 
 \subsection{Automated Testing and Verification Tools}
 
@@ -225,6 +235,14 @@ Stephen will lead the group wide discussion for SRS verification activities on t
   that verify that coding standards have been respected, like flake9 for
   Python.}
 
+  Tools will not be used to automate testing, profile, or code coverage for software flashed on embedded hardware because of the available tools incur high additional overhead to testing effort and times. The group plans on completing extensive unit testing for embedded software to compensate for the absence of automated testing and coverage tools.\\
+
+  The desktop application will likely use Visual Studio's memory usage tool to profile the program during execution.\\
+
+  PyLint and SQLFluff will be used as the static code analysis tools to support uniformity in the desktop application and database programs respectively.\\
+
+  Code coverage will be completed manually for the desktop, database, and the dashboard programs. This decision will be feasible as the expected size of software for the applications listed above is relatively small. As a result, it is reasonable for to manually check the amount of code coverage achieved through tests.\\
+
 \wss{The details of this section will likely evolve as you get closer to the
   implementation.}
 
@@ -233,6 +251,8 @@ Stephen will lead the group wide discussion for SRS verification activities on t
 \wss{If there is any external data that can be used for validation, you should
   point to it here.  If there are no plans for validation, you should state that
   here.}
+
+  There are no current plans to use external data for validation.\newpage
 
 \section{System Test Description}
 	
