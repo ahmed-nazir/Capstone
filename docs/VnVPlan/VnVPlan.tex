@@ -596,7 +596,7 @@ through user's perspective.
 		
 \begin{enumerate}
 
-\item{SS1\\}
+\item{\bf{ST-P 1}}
 
 Type: Dynamic, Manual
 					
@@ -610,7 +610,7 @@ How test will be performed: The device will be tested outdoors under various wea
 The device will also be tested in temperature and vibration conditions that are above threshold values. This will be performed by placing the device in a hot environment
 and vigorously shaking it.
 					
-\item{SS2\\}
+\item{\bf{ST-P 2}}
 
 Type: Dynamic, Manual
 					
@@ -623,7 +623,7 @@ Output/Result: Data latency should be less than 10 seconds to simulate viewing l
 How test will be performed: The amount of time for data to be viewable on the application will be inspected to be less than 10 seconds.
 The application UI will also be inspected to ensure that data is smooth and not lagging while measurements are being performed.
 
-\item{SS3\\}
+\item{\bf{ST-P 3}}
 
 Type: Dynamic, Manual
 					
@@ -636,37 +636,13 @@ Output: The other two components are still functional even though communication 
 How test will be performed: While device, application, and database are fully functional and communicating successfully, different combinations of either one or two components
 will be turned off. The other component(s) will be inspected to ensure that they are operational and indicating that the other component(s) are disconnected.
 
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
 \end{enumerate}
 
 \subsubsection{Usability}
 
 \begin{enumerate}
 
-\item{SS4\\}
+\item{\bf{ST-U 1}}
 
 Type: Dynamic, Manual
           
@@ -680,7 +656,7 @@ How test will be performed: A test group will be educated on the setup and conne
 Each person will be timed and compared to the 5 minute threshold. In addition, they will be given a survey to rate the difficulty of the setup process on a scale from 
 1 to 5 on the following categories: overall setup, sensor mount, device mount, start up procedure, and measuring procedure.  
 
-\item{SS5\\}
+\item{\bf{ST-U 2}}
 
 Type: Dynamic, Manual
 					
@@ -692,7 +668,7 @@ Output/Result: All users need to select Formulate in at least 2 of the 3 categor
 					
 How test will be performed: Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use, and portability
 
-\item{SS6\\}
+\item{\bf{ST-U 3}}
 
 Type: Dynamic, Manual
 					
@@ -755,6 +731,20 @@ How test will be performed: A test group will be asked to use the application UI
   FR 22 & ST-D 1 \\
   \hline
   FR 23 & ST-DH 5 \\
+  \hline
+  NFR 1 & ST-U 1 ST-U 2 ST-U 3 \\
+  \hline
+  NFR 2 & ST-U 1 ST-U 2 ST-U 3 \\
+  \hline
+  NFR 3 & ST-P 2 \\
+  \hline
+  NFR 4 & ST-P 1 ST-P 3 \\
+  \hline
+  NFR 6 & ST-P 1 \\
+  \hline
+  NFR 7 & ST-P 3 \\
+  \hline
+  NFR 8 & ST-U 2 \\
   \hline
   
 \end{tabular}
