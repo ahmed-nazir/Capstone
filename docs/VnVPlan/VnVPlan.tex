@@ -281,7 +281,7 @@ Ahmed and Muhanad will lead the group wide discussion for design verification ac
 
 Type: Manual
 					
-Initial State: Device is on measuring and sending values to the application, and connection to database has been verified
+Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
 					
 Input: The device is placed in temperature controlled box at 25$^{\circ}$C
 					
@@ -296,13 +296,25 @@ How test will be performed: The device will be placed in a styrofoam insulated b
 
 Type: Manual
 					
-Initial State: Device is on measuring and sending values to the application, and connection to database has been verified
+Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
 					
 Input: The device will be placed in an humidity controlled box which will be around 40\% humidity
 					
 Output: The humidity sensor on the device should consistently read 40\% humidity
 
 How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box. Using a digital humidity monitor we will compare the results of our device to the digital sensor
+
+\item{\bf{ST-SV 3}}
+
+Type: Manual
+					
+Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
+					
+Input: The device will be placed on a constantly vibrating platform with a known vibration
+					
+Output: The accelerometer sensor should consistently read the known vibration
+
+How test will be performed: The device will be placed on a constantly vibrating platform which is set to a known vibration. We will start a test on our device and compare the output of our accelerometer with the known vibration
 
 \end{enumerate}
 
@@ -376,12 +388,11 @@ How test will be performed: The device will be placed in a styrofoam insulated b
               
     Initial State: Device is on and is connected to a PC, no sensors are attached
               
-    Input: A sensor is connected and start is pressed
+    Input: A sensor is connected using the snap on connector and start is pressed
               
-    Output: The device should start sending data to the PC
-    
+    Output: The device should start sending data to the PC and should be firmly attached to the device
               
-    How test will be performed: While the device is connected to the PC a sensor is connected to the modular port on the device and the start button is pressed\\
+    How test will be performed: While the device is connected to the PC a sensor is connected to the modular port on the device and the start button is pressed, the sensor will be nudged around and it should still continue to send data\\
   
     \item{\bf{ST-DH 2}}
     
@@ -424,6 +435,20 @@ How test will be performed: The device will be placed in a styrofoam insulated b
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
     How test will be performed: While someone is mounting the device another person is timing them \\
+
+    \item{\bf{ST-DH 5}}
+    
+    Type: Manual
+              
+    Initial State: Device is on and is connected to a PC via cable or via Wi-Fi. The operating conditions need to be set
+              
+    Input: User will place the device in an environment at 30$^{\circ}$C
+              
+    Output: The device should alert the user that operating conditions are exceeded via the screen and speaker
+    
+    %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+              
+    How test will be performed: The operating condition of the device will be set to 25$^{\circ}$C using the desktop application and the device will then be placed in a 30$^{\circ}$C environment\\
   
     \end{enumerate}
 
@@ -501,6 +526,7 @@ How test will be performed: The device will be placed in a styrofoam insulated b
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
   How test will be performed: The hardware device will be plugged into the PC and once we hit the live data button on the application all the sensors will display their output\\
+  
 
 \end{enumerate}
 
@@ -686,7 +712,7 @@ How test will be performed: A test group will be asked to use the application UI
   \rowcolor[gray]{0.9}
   Requirement & Test \\
   \hline
-  FR 1 & ST-SV 1, ST-SV 2 \\
+  FR 1 & ST-SV 1, ST-SV 2, ST-SV 3 \\
   \hline
   FR 2 & ST-DT 1, ST-DT 2, ST-DT 3, ST-DT 4 \\
   \hline
@@ -694,7 +720,7 @@ How test will be performed: A test group will be asked to use the application UI
   \hline
   FR 4 & ST-DT 3, ST-DT 4 \\
   \hline
-  FR 5 & ST-SV 1, ST-SV 2 \\
+  FR 5 & ST-SV 1, ST-SV 2, ST-SV 3 \\
   \hline
   FR 6 & ST-DA 1 \\
   \hline
@@ -710,13 +736,11 @@ How test will be performed: A test group will be asked to use the application UI
   \hline
   FR 12 & ST-DT 1, ST-DT 2 \\
   \hline
-  FR 13 &  \\
-  \hline
-  FR 14 &  \\
+  FR 14 & ST-DH 1 \\
   \hline
   FR 15 & ST-DA 5\\
   \hline
-  FR 16 &  \\
+  FR 16 & ST-DH 5 \\
   \hline
   FR 17 & ST-DA 1 \\
   \hline
@@ -730,7 +754,7 @@ How test will be performed: A test group will be asked to use the application UI
   \hline
   FR 22 & ST-D 1 \\
   \hline
-  FR 23 &  \\
+  FR 23 & ST-DH 5 \\
   \hline
   
 \end{tabular}
