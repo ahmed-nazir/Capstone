@@ -321,7 +321,7 @@ How test will be performed: The device will be placed in a styrofoam insulated b
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: While the deivce is connected to the PC the start button will be pressed to check if telemetry data is being sent to the PC\\
+  How test will be performed: While the device is connected to the PC the start button will be pressed to check if telemetry data is being sent to the PC\\
 
   \item{\bf{ST-DT 2}}
   
@@ -337,6 +337,34 @@ How test will be performed: The device will be placed in a styrofoam insulated b
             
   How test will be performed: While the device is connected to the PC the start button will be pressed and then after a few seconds pressed again 2 more times to check if telemetry data is still being sent to the PC\\
 
+  \item{\bf{ST-DT 3}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+            
+  Input: The stop button is pressed
+            
+  Output: All the readings from all the different sensors should stop being sent to the PC
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: While the device is connected to the PC the stop button will be pressed to check if telemetry data is stopped\\
+
+  \item{\bf{ST-DT 4}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+            
+  Input: The stop button is pressed multiple times
+            
+  Output: The device should not send data to the PC regardless of how many times the stop button is pressed
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: While the device is connected to the PC the stop button will be pressed in an interval of 2 seconds to check if telemetry data is has stopped\\
+
   \end{enumerate}
 
   \paragraph{Device Hardware}	
@@ -348,27 +376,54 @@ How test will be performed: The device will be placed in a styrofoam insulated b
               
     Initial State: Device is on and is connected to a PC, no sensors are attached
               
-    Input: The temperature sensor is connected and start is pressed
+    Input: A sensor is connected and start is pressed
               
     Output: The device should start sending data to the PC
     
-    %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
-    How test will be performed: While the device is connected to the PC the temperature sensor is connected to the modular port on the device and the start button is pressed\\
+    How test will be performed: While the device is connected to the PC a sensor is connected to the modular port on the device and the start button is pressed\\
   
-    \item{\bf{ST-DT 2}}
+    \item{\bf{ST-DH 2}}
     
     Type: Manual
               
-    Initial State: 
+    Initial State: Device is on but is low on battery
               
-    Input: 
+    Input: User plugs the battery in with a charger
               
-    Output: 
+    Output: The battery should begin to charge
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
-    How test will be performed: \\
+    How test will be performed: We will continue to use the device until the battery is completely drained, once its low we will start to charge it and check if the battery increases\\
+
+    \item{\bf{ST-DH 3}}
+    
+    Type: Manual
+              
+    Initial State: Device is fully mounted on a test platform
+              
+    Input: User will apply 49N of force on every side of the device
+              
+    Output: The device should not move at all
+    
+    %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+              
+    How test will be performed: Once the device is mounted we will place 5kg on top of different sides of the device to check if the mount can withstand it \\
+
+    \item{\bf{ST-DH 4}}
+    
+    Type: Manual
+              
+    Initial State: Device is not mounted on anything
+              
+    Input: User will begin to mount the device on the Formula SAE car
+              
+    Output: The device should be fully installed under 5 minutes
+    
+    %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+              
+    How test will be performed: While someone is mounting the device another person is timing them \\
   
     \end{enumerate}
 
@@ -433,6 +488,20 @@ How test will be performed: The device will be placed in a styrofoam insulated b
             
   How test will be performed: No tests will be performed and an empty table will be shown. Submit to database will be clicked \\
 
+  \item{\bf{ST-DA 5}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC, the desktop application is open
+            
+  Input: User select live data viewing on the application
+            
+  Output: The application should start to receive live data from the device
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: The hardware device will be plugged into the PC and once we hit the live data button on the application all the sensors will display their output\\
+
 \end{enumerate}
 
 \subsubsection{Data Analytics Website}
@@ -466,6 +535,23 @@ How test will be performed: The device will be placed in a styrofoam insulated b
             
   How test will be performed: One team member will not have privileges to view the dashboard and will attempt to login\\
 
+\end{enumerate}
+
+\subsubsection{Database}
+
+\begin{enumerate}
+  
+  \item{\bf{ST-D 1}}
+  
+  Type: Manual
+            
+  Initial State: Database is active
+            
+  Input: User User submits data multiple times within 5 seconds
+            
+  Output: Database stops accepting new data and alerts user
+            
+  How test will be performed: After a test is completed on the device, it will be previewed using the desktop app and the submit to database button will be pressed repeatedly\\
 \end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
@@ -601,49 +687,49 @@ How test will be performed:
   \hline
   FR 1 & ST-SV 1, ST-SV 2 \\
   \hline
-  FR 2 & ST-DT 1, ST-DT 2 \\
+  FR 2 & ST-DT 1, ST-DT 2, ST-DT 3, ST-DT 4 \\
   \hline
-  FR 3 & ST-SV 1, ST-SV 2 \\
+  FR 3 & ST-DT 1, ST-DT 2 \\
   \hline
-  FR 4 & ST-SV 1, ST-SV 2 \\
+  FR 4 & ST-DT 3, ST-DT 4 \\
   \hline
   FR 5 & ST-SV 1, ST-SV 2 \\
   \hline
-  FR 6 & ST-SV 1, ST-SV 2 \\
+  FR 6 & ST-DA 1 \\
   \hline
-  FR 7 & ST-SV 1, ST-SV 2 \\
+  FR 7 & ST-DA 3 ST-DA 4 \\
   \hline
-  FR 8 & ST-SV 1, ST-SV 2 \\
+  FR 8 & ST-DAW 1 \\
   \hline
-  FR 9 & ST-SV 1, ST-SV 2 \\
+  FR 9 & ST-DH 3 \\
   \hline
-  FR 10 & ST-SV 1, ST-SV 2 \\
+  FR 10 & ST-DH 4 \\
   \hline
-  FR 11 & ST-SV 1, ST-SV 2 \\
+  FR 11 & ST-DH 2 \\
   \hline
-  FR 12 & ST-SV 1, ST-SV 2 \\
+  FR 12 & ST-DT 1, ST-DT 2 \\
   \hline
-  FR 13 & ST-SV 1, ST-SV 2 \\
+  FR 13 &  \\
   \hline
-  FR 14 & ST-SV 1, ST-SV 2 \\
+  FR 14 &  \\
   \hline
-  FR 15 & ST-SV 1, ST-SV 2 \\
+  FR 15 & ST-DA 5\\
   \hline
-  FR 16 & ST-SV 1, ST-SV 2 \\
+  FR 16 &  \\
   \hline
-  FR 17 & ST-SV 1, ST-SV 2 \\
+  FR 17 & ST-DA 1 \\
   \hline
-  FR 18 & ST-SV 1, ST-SV 2 \\
+  FR 18 & ST-DA 2 \\
   \hline
-  FR 19 & ST-SV 1, ST-SV 2 \\
+  FR 19 & ST-DAW 2 \\
   \hline
-  FR 20 & ST-SV 1, ST-SV 2 \\
+  FR 20 & ST-DAW 1 \\
   \hline
-  FR 21 & ST-SV 1, ST-SV 2 \\
+  FR 21 & ST-DAW 1 \\
   \hline
-  FR 22 & ST-SV 1, ST-SV 2 \\
+  FR 22 & ST-D 1 \\
   \hline
-  FR 23 & ST-SV 1, ST-SV 2 \\
+  FR 23 &  \\
   \hline
   
 \end{tabular}
