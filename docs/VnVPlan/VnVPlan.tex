@@ -1,6 +1,7 @@
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{booktabs}
+\usepackage{colortbl}
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{float}
@@ -265,50 +266,207 @@ Ahmed and Muhanad will lead the group wide discussion for design verification ac
 \wss{Include a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Hardware Device}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.  If a section
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
 		
-\paragraph{Title for Test}
+\paragraph{Sensor Validation}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{\bf{ST-SV 1}}
 
-Control: Manual versus Automatic
+Type: Manual
 					
-Initial State: 
+Initial State: Device is on measuring and sending values to the application, and connection to database has been verified
 					
-Input: 
+Input: The device is placed in temperature controlled box at 25$^{\circ}$C
 					
-Output: \wss{The expected result for the given inputs}
+Output: The temperature sensor on the device should consistently read 25$^{\circ}$C
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+%Test Case Derivation: \wss{Justify the expected value given in the Output field}
 					
-How test will be performed: 
-					
-\item{test-id2\\}
+How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box. Using a digital thermometer we will compare the results of our device to the digital thermometer\\
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+		
+\item{\bf{ST-SV 2}}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Type: Manual
+					
+Initial State: Device is on measuring and sending values to the application, and connection to database has been verified
+					
+Input: The device will be placed in an humidity controlled box which will be around 40\% humidity
+					
+Output: The humidity sensor on the device should consistently read 40\% humidity
 
-How test will be performed: 
+How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box. Using a digital humidity monitor we will compare the results of our device to the digital sensor
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\paragraph{Device Telemetry}	
+\begin{enumerate}
 
-...
+  \item{\bf{ST-DT 1}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+            
+  Input: The start button is pressed
+            
+  Output: All the readings from all the different sensors should be sent to the PC
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: While the deivce is connected to the PC the start button will be pressed to check if telemetry data is being sent to the PC\\
+
+  \item{\bf{ST-DT 2}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+            
+  Input: The start button is pressed multiple times
+            
+  Output: The device should continue to send data to the PC regardless of how many times the start button is pressed
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: While the device is connected to the PC the start button will be pressed and then after a few seconds pressed again 2 more times to check if telemetry data is still being sent to the PC\\
+
+  \end{enumerate}
+
+  \paragraph{Device Hardware}	
+  \begin{enumerate}
+  
+    \item{\bf{ST-DH 1}}
+    
+    Type: Manual
+              
+    Initial State: Device is on and is connected to a PC, no sensors are attached
+              
+    Input: The temperature sensor is connected and start is pressed
+              
+    Output: The device should start sending data to the PC
+    
+    %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+              
+    How test will be performed: While the device is connected to the PC the temperature sensor is connected to the modular port on the device and the start button is pressed\\
+  
+    \item{\bf{ST-DT 2}}
+    
+    Type: Manual
+              
+    Initial State: 
+              
+    Input: 
+              
+    Output: 
+    
+    %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+              
+    How test will be performed: \\
+  
+    \end{enumerate}
+
+
+\subsubsection{Desktop Application}
+
+\begin{enumerate}
+  
+  \item{\bf{ST-DA 1}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC, the desktop application is open and connected to the device
+            
+  Input: User selects the most recent test case
+            
+  Output: A table with all the raw test data should populate the screen
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: After a test is completed on the device, it will be connected to the PC and the user should be able to view the most recent test after clicking view\\
+
+  \item{\bf{ST-DA 2}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC, the desktop application is open and test data is open
+            
+  Input: User selects rows and columns to delete and hits the delete key
+            
+  Output: The table with the test data should update to reflect the newly deleted rows
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: A test will be conducted but the start button will be pressed early, the initial 20 seconds of the test does not provide useful data and the user will select and delete those rows\\
+
+  \item{\bf{ST-DA 3}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC, the desktop application is open and test data is open
+            
+  Input: User hits the submit to database button
+            
+  Output: The test data in the table should be sent to the database
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: After a test is conducted and the data will be viewed on the desktop app, the user will preview the data and click submit to database \\
+
+  \item{\bf{ST-DA 4}}
+  
+  Type: Manual
+            
+  Initial State: Device is on and is connected to a PC, the desktop application is open but no tests are done
+            
+  Input: User hits the submit to database button
+            
+  Output: The application should alert the user that no data was recorded and not send anything to the database
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: No tests will be performed and an empty table will be shown. Submit to database will be clicked \\
+
+\end{enumerate}
+
+\subsubsection{Data Analytics Website}
+\begin{enumerate}
+  
+  \item{\bf{ST-DAW 1}}
+  
+  Type: Manual
+            
+  Initial State: The database contains test data and is connected to the analytics platform
+            
+  Input: User logs into the analytics platform and selects a test
+            
+  Output: The test data is displayed showing the results over time for that particular test
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: We will populate the database with different tests and the user once logged in will select a specific test to view\\
+
+  \item{\bf{ST-DAW 2}}
+  
+  Type: Manual
+            
+  Initial State: The database contains test data and is connected to the analytics platform
+            
+  Input: Unauthorized user attempts to login
+            
+  Output: The website alerts the user they are not authorized to view the dashboard
+  
+  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+            
+  How test will be performed: One team member will not have privileges to view the dashboard and will attempt to login\\
+
+\end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
 
@@ -436,6 +594,59 @@ How test will be performed:
 \end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
+\begin{tabular}{| p{0.45\textwidth} | p{0.45\textwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Requirement & Test \\
+  \hline
+  FR 1 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 2 & ST-DT 1, ST-DT 2 \\
+  \hline
+  FR 3 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 4 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 5 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 6 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 7 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 8 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 9 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 10 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 11 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 12 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 13 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 14 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 15 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 16 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 17 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 18 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 19 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 20 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 21 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 22 & ST-SV 1, ST-SV 2 \\
+  \hline
+  FR 23 & ST-SV 1, ST-SV 2 \\
+  \hline
+  
+\end{tabular}
 
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
@@ -553,6 +764,8 @@ How test will be performed:
 ...
 
 \subsection{Traceability Between Test Cases and Modules}
+
+
 
 \wss{Provide evidence that all of the modules have been considered.}
 				
