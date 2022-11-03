@@ -680,7 +680,53 @@ Output/Result: An average score of 3 should be achieved on each user's survey
 					
 How test will be performed: A test group will be asked to use the application UI and rate it on the following categories on a scale from 1 to 5: login process, responsiveness, accessibility, and sending results to database 
 
+\item{\bf{ST-U 4}}
+
+Type: Dynamic, Manual
+					
+Initial State: Device is set up and waiting to start measuring, application is loaded onto the computer
+					
+Input/Condition: Users will begin testing a variety of test on the equipment.
+					
+Output/Result: Users will either be allowed to continue test or not depending of the compatability of the test to our device.
+					
+How test will be performed: Users will begin testing doing different tests with different equipment and based on the the compatability of the equipment to the test this it will either allow you or stop you from running the test to help avoid 
+
 \end{enumerate}
+
+\subsubsection{Security}
+
+\begin{enumerate}
+
+  \item{\bf{ST-S 1}}
+
+  Type: Dynamic, Manual
+            
+  Initial State: The device will have measurements stored in the database after a test is completed.
+            
+  Input: User will input multiple usernames and passwords to try open the database and see the data that has been stored.
+            
+  Output: Depending on the username and password inputed the user will either be able to see the data or be prompted with an error message.
+            
+  How test will be performed: After the user has conducted a test and wants to view their data they will be asked for a username and password to verify that they are the intended user of the device. Depending on the username and password they will either be allowed to view the data or be blocked off.
+
+  
+  \item{\bf{ST-S 2}}
+  
+  Type: Dynamic, Manual
+            
+  Initial State:The device will have measurements stored in the database after a test is completed.
+            
+  Input: Multiple fake data points will be attempted to be added by an unauthorized user.
+            
+  Output: The data points taken from the device will not be affected and will remain the same regardless of attempts to alter it.
+            
+  How test will be performed: A user will attempt to change and compromise the data points that are being stored in the database. A security feature will stop this from happening unless the user is authorized to do so.
+  
+
+  
+\end{enumerate}
+
 
 \subsection{Traceability Between Test Cases and Requirements}
 \begin{tabular}{| p{0.45\textwidth} | p{0.45\textwidth}|}
@@ -740,11 +786,15 @@ How test will be performed: A test group will be asked to use the application UI
   \hline
   NFR 4 & ST-P 1 ST-P 3 \\
   \hline
+  NFR 5 & ST-U 4 \\
+  \hline
   NFR 6 & ST-P 1 \\
   \hline
   NFR 7 & ST-P 3 \\
   \hline
   NFR 8 & ST-U 2 \\
+  \hline
+  NFR 9 & ST-S 1 ST-S 2 \\
   \hline
   
 \end{tabular}
