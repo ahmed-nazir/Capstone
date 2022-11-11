@@ -13,6 +13,7 @@ import serial
 import time
 import pandas as pd
 import datetime
+import serial.tools.list_ports
 
 import threading
 
@@ -72,7 +73,7 @@ class PandasModel(QtCore.QAbstractTableModel):
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1014, 719)
+        MainWindow.resize(1064, 716)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -223,8 +224,22 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        self.startButton = QtWidgets.QPushButton(self.centralwidget)
-        self.startButton.setStyleSheet("QPushButton {\n"
+        self.declineButton = QtWidgets.QPushButton(self.centralwidget)
+        self.declineButton.setObjectName("declineButton")
+        self.gridLayout.addWidget(self.declineButton, 6, 0, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox.setStyleSheet("border: 3px solid rgb(52, 59, 72);\n"
+"    border-radius: 5px;    \n"
+"    background-color: rgb(52, 59, 72);\n"
+"    \n"
+"    color: rgb(255, 255, 255)")
+        self.comboBox.setEditable(True)
+        self.comboBox.setObjectName("comboBox")
+        self.horizontalLayout.addWidget(self.comboBox)
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setStyleSheet("QPushButton {\n"
 "    border: 3px solid rgb(52, 59, 72);\n"
 "    border-radius: 5px;    \n"
 "    background-color: rgb(52, 59, 72);\n"
@@ -241,17 +256,29 @@ class Ui_MainWindow(object):
 "    border: 3px solid rgb(43, 50, 61);\n"
 "    color: rgb(255, 255, 255);\n"
 "}")
-        self.startButton.setObjectName("startButton")
-        self.gridLayout.addWidget(self.startButton, 1, 0, 1, 2)
-        self.declineButton = QtWidgets.QPushButton(self.centralwidget)
-        self.declineButton.setObjectName("declineButton")
-        self.gridLayout.addWidget(self.declineButton, 5, 0, 1, 1)
-        self.submitButton = QtWidgets.QPushButton(self.centralwidget)
-        self.submitButton.setObjectName("submitButton")
-        self.gridLayout.addWidget(self.submitButton, 5, 1, 1, 2)
-        self.tableView = QtWidgets.QTableView(self.centralwidget)
-        self.tableView.setObjectName("tableView")
-        self.gridLayout.addWidget(self.tableView, 4, 0, 1, 3)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout.addWidget(self.pushButton)
+        self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 2)
+        self.connectButton = QtWidgets.QPushButton(self.centralwidget)
+        self.connectButton.setStyleSheet("QPushButton {\n"
+"    border: 3px solid rgb(52, 59, 72);\n"
+"    border-radius: 5px;    \n"
+"    background-color: rgb(52, 59, 72);\n"
+"    \n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(57, 65, 80);\n"
+"    border: 3px solid rgb(61, 70, 86);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"    background-color: rgb(35, 40, 49);\n"
+"    border: 3px solid rgb(43, 50, 61);\n"
+"    color: rgb(255, 255, 255);\n"
+"}")
+        self.connectButton.setObjectName("connectButton")
+        self.gridLayout.addWidget(self.connectButton, 0, 2, 1, 1)
         self.stopButton = QtWidgets.QPushButton(self.centralwidget)
         self.stopButton.setStyleSheet("QPushButton {\n"
 "    border: 3px solid rgb(52, 59, 72);\n"
@@ -272,17 +299,8 @@ class Ui_MainWindow(object):
 "}")
         self.stopButton.setObjectName("stopButton")
         self.gridLayout.addWidget(self.stopButton, 1, 2, 1, 1)
-        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setStyleSheet("border: 3px solid rgb(52, 59, 72);\n"
-"    border-radius: 5px;    \n"
-"    background-color: rgb(52, 59, 72);\n"
-"    \n"
-"    color: rgb(255, 255, 255)")
-        self.comboBox.setEditable(True)
-        self.comboBox.setObjectName("comboBox")
-        self.gridLayout.addWidget(self.comboBox, 0, 0, 1, 1)
-        self.connectButton = QtWidgets.QPushButton(self.centralwidget)
-        self.connectButton.setStyleSheet("QPushButton {\n"
+        self.startButton = QtWidgets.QPushButton(self.centralwidget)
+        self.startButton.setStyleSheet("QPushButton {\n"
 "    border: 3px solid rgb(52, 59, 72);\n"
 "    border-radius: 5px;    \n"
 "    background-color: rgb(52, 59, 72);\n"
@@ -299,31 +317,59 @@ class Ui_MainWindow(object):
 "    border: 3px solid rgb(43, 50, 61);\n"
 "    color: rgb(255, 255, 255);\n"
 "}")
-        self.connectButton.setObjectName("connectButton")
-        self.gridLayout.addWidget(self.connectButton, 0, 1, 1, 1)
+        self.startButton.setObjectName("startButton")
+        self.gridLayout.addWidget(self.startButton, 1, 0, 1, 2)
+        self.submitButton = QtWidgets.QPushButton(self.centralwidget)
+        self.submitButton.setObjectName("submitButton")
+        self.gridLayout.addWidget(self.submitButton, 6, 1, 1, 2)
+        self.line = QtWidgets.QFrame(self.centralwidget)
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.gridLayout.addWidget(self.line, 2, 0, 1, 3)
+        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView.setObjectName("tableView")
+        self.gridLayout.addWidget(self.tableView, 5, 0, 1, 2)
+        self.widget = QtWidgets.QWidget(self.centralwidget)
+        self.widget.setObjectName("widget")
+        self.gridLayout.addWidget(self.widget, 5, 2, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1014, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1064, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
         #Button Connections
         self.connectButton.clicked.connect(self.connectToArduino)
         self.startButton.clicked.connect(self.runProg)
         self.stopButton.clicked.connect(self.stopTest)
+        self.comboBox.activated.connect(self.setCommunication)
+        self.pushButton.clicked.connect(self.refresh)
+
+        #COM Port Connections
+        self.portData = serial.tools.list_ports.comports()
+        i = 1
+        if len(self.portData) != 0:
+            for i in range(0,len(self.portData)):
+                print(i)
+                self.portData[i] = str(self.portData[i])
+                print(self.portData)
+        self.comboBox.addItems(self.portData)
 
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Formulate"))
-        self.startButton.setText(_translate("MainWindow", "Start"))
         self.declineButton.setText(_translate("MainWindow", "Decline"))
-        self.submitButton.setText(_translate("MainWindow", "Submit"))
-        self.stopButton.setText(_translate("MainWindow", "Stop"))
+        self.pushButton.setText(_translate("MainWindow", "Refresh"))
         self.connectButton.setText(_translate("MainWindow", "Connect"))
+        self.stopButton.setText(_translate("MainWindow", "Stop"))
+        self.startButton.setText(_translate("MainWindow", "Start"))
+        self.submitButton.setText(_translate("MainWindow", "Submit"))
 
 
 
@@ -332,7 +378,7 @@ class Ui_MainWindow(object):
     def connectToArduino(self):
         _translate = QtCore.QCoreApplication.translate
         if(self.a == 0):
-            self.ser = serial.Serial('COM3', 9600, timeout=1)
+            self.ser = serial.Serial(self.comPort, 9600, timeout=1)
             self.a = 1
             self.connectButton.setText(_translate("MainWindow", "Disconnect"))
         else:
@@ -369,6 +415,27 @@ class Ui_MainWindow(object):
         print(self.df)
         model = PandasModel(self.df)
         self.tableView.setModel(model)
+
+
+    def refresh(self):
+        self.comboBox.clear()
+        #self.comboBox.addItem("Refresh")
+        self.portData = serial.tools.list_ports.comports()
+        i = 1
+        print(self.portData)
+        if len(self.portData) != 0:
+
+            for i in range(0,len(self.portData)):
+                print(i)
+                self.portData[i] = str(self.portData[i])
+        self.comboBox.addItems(self.portData)
+        #print(self.comboBox.itemText(0))
+
+    def setCommunication(self):
+        #CHANGE THIS: Must be dynamic to user selection
+        print(print(self.portData[0][0:4]))
+        self.comPort = self.portData[0][0:4]
+        print(self.comPort)
 
 
 if __name__ == "__main__":
