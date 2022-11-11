@@ -376,6 +376,7 @@ class Ui_MainWindow(object):
     #Functions
     a = 0
     def connectToArduino(self):
+        #Connects and disconnects to arduino
         _translate = QtCore.QCoreApplication.translate
         if(self.a == 0):
             self.ser = serial.Serial(self.comPort, 9600, timeout=1)
@@ -386,11 +387,8 @@ class Ui_MainWindow(object):
             self.connectButton.setText(_translate("MainWindow", "Connect"))
             self.a = 0
 
-
-        
-        
-
     def startTest(self):
+        #Start button function, starts the test
         self.run = 1
         self.data = []
         self.df = pd.DataFrame(self.data,columns=['Temperature'])
@@ -404,11 +402,13 @@ class Ui_MainWindow(object):
                 self.data.append([now.strftime("%Y-%m-%d %H:%M:%S"),string[0:5]])
 
     def runProg(self):
+        #Start Button threading function
         t1 = threading.Thread(target=self.startTest)
         t1.start()
     
-        
+    
     def stopTest(self):
+        #Stop Button Function
         self.run = 0
         self.ser.write(b'S')
         self.df = pd.DataFrame(self.data,columns=['Time','Temperature'])
@@ -418,6 +418,8 @@ class Ui_MainWindow(object):
 
 
     def refresh(self):
+        #Refreshes connected COM ports when button is pressed
+        #Clear/empty box until selection occurs
         self.comboBox.clear()
         #self.comboBox.addItem("Refresh")
         self.portData = serial.tools.list_ports.comports()
@@ -432,6 +434,7 @@ class Ui_MainWindow(object):
         #print(self.comboBox.itemText(0))
 
     def setCommunication(self):
+        #Set program variable equal to desired COM port
         #CHANGE THIS: Must be dynamic to user selection
         print(print(self.portData[0][0:4]))
         self.comPort = self.portData[0][0:4]
