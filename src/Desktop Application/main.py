@@ -328,9 +328,21 @@ class Ui_MainWindow(object):
 
 
     #Functions
-
+    a = 0
     def connectToArduino(self):
-        self.ser = serial.Serial('COM3', 9600, timeout=1)
+        _translate = QtCore.QCoreApplication.translate
+        if(self.a == 0):
+            self.ser = serial.Serial('COM3', 9600, timeout=1)
+            self.a = 1
+            self.connectButton.setText(_translate("MainWindow", "Disconnect"))
+        else:
+            self.ser.close()
+            self.connectButton.setText(_translate("MainWindow", "Connect"))
+            self.a = 0
+
+
+        
+        
 
     def startTest(self):
         self.run = 1
@@ -343,7 +355,7 @@ class Ui_MainWindow(object):
             if line:
                 string = line.decode()  # convert the byte string to a unicode string
                 print(string)
-                self.data.append([now.strftime("%Y-%m-%d %H:%M:%S"),string])
+                self.data.append([now.strftime("%Y-%m-%d %H:%M:%S"),string[0:5]])
 
     def runProg(self):
         t1 = threading.Thread(target=self.startTest)
@@ -353,7 +365,6 @@ class Ui_MainWindow(object):
     def stopTest(self):
         self.run = 0
         self.ser.write(b'S')
-        #self.ser.close()
         self.df = pd.DataFrame(self.data,columns=['Time','Temperature'])
         print(self.df)
         model = PandasModel(self.df)
