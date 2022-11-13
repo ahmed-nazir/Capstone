@@ -16,6 +16,7 @@ import datetime
 import serial.tools.list_ports
 
 import threading
+import pyodbc
 
 
 class PandasModel(QtCore.QAbstractTableModel):
@@ -350,6 +351,7 @@ class Ui_MainWindow(object):
         self.comboBox.activated.connect(self.setCommunication)
         self.pushButton.clicked.connect(self.refresh)
         self.declineButton.clicked.connect(self.declineData)
+        self.submitButton.clicked.connect(self.submitData)
 
 
         #COM Port Connections
@@ -451,6 +453,23 @@ class Ui_MainWindow(object):
         self.df = pd.DataFrame()
         model = PandasModel(self.df)
         self.tableView.setModel(model)
+    
+    def submitData(self):
+        df = self.df.iloc[1: , :]
+        conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        cursor = conn.cursor()
+
+        cursor.execute("INSERT INTO Test VALUES (?)", df.columns[1])
+
+        cursor.execute('SELECT MAX(ID) FROM TEST')
+        last_index = cursor.fetchone()[0]
+        print(last_index)
+
+        for index, row in df.iterrows():
+            #cursor.execute('INSERT INTO Test VALUES (?)', row.Measurement)
+            cursor.execute("INSERT INTO Temperature VALUES (?, ?, ?)", last_index, row.Temperature, row.Time)
+            print('Insert Successful')
+        conn.commit()
 
 if __name__ == "__main__":
     import sys
