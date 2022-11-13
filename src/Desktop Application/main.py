@@ -358,7 +358,10 @@ class Ui_MainWindow(object):
                 print(i)
                 self.portData[i] = str(self.portData[i])
                 print(self.portData)
+        self.comboBox.addItem("")
         self.comboBox.addItems(self.portData)
+        #self.comboBox.setItemText(0, "")
+        
 
 
     def retranslateUi(self, MainWindow):
@@ -430,14 +433,16 @@ class Ui_MainWindow(object):
             for i in range(0,len(self.portData)):
                 print(i)
                 self.portData[i] = str(self.portData[i])
+        self.comboBox.addItem("")
         self.comboBox.addItems(self.portData)
         #print(self.comboBox.itemText(0))
 
     def setCommunication(self):
         #Set program variable equal to desired COM port
-        #CHANGE THIS: Must be dynamic to user selection
-        print(print(self.portData[0][0:4]))
-        self.comPort = self.portData[0][0:4]
+        #CHANGE THIS: Must be dynamic to user selection, DONE
+        self.comUserSelect = self.comboBox.currentText()
+        print(self.comUserSelect[0:4])
+        self.comPort = self.comUserSelect[0:4]
         print(self.comPort)
 
 
@@ -449,3 +454,8 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
+#Test Plan:
+
+
+
