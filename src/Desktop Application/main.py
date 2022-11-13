@@ -349,6 +349,8 @@ class Ui_MainWindow(object):
         self.stopButton.clicked.connect(self.stopTest)
         self.comboBox.activated.connect(self.setCommunication)
         self.pushButton.clicked.connect(self.refresh)
+        self.declineButton.clicked.connect(self.declineData)
+
 
         #COM Port Connections
         self.portData = serial.tools.list_ports.comports()
@@ -440,6 +442,10 @@ class Ui_MainWindow(object):
         self.comPort = self.portData[0][0:4]
         print(self.comPort)
 
+    def declineData(self):
+        self.df = pd.DataFrame()
+        model = PandasModel(self.df)
+        self.tableView.setModel(model)
 
 if __name__ == "__main__":
     import sys
@@ -449,3 +455,7 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
+
+
+
