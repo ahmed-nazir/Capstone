@@ -381,9 +381,10 @@ class Ui_MainWindow(object):
 
 
     #Functions
-    a = 0
+    
     def connectToArduino(self):
         #Connects and disconnects to arduino
+        self.a = 0
         _translate = QtCore.QCoreApplication.translate
         if(self.a == 0):
             self.ser = serial.Serial(self.comPort, 9600, timeout=1)
@@ -398,15 +399,16 @@ class Ui_MainWindow(object):
         #Start button function, starts the test
         self.run = 1
         self.data = []
-        self.df = pd.DataFrame(self.data,columns=['Temperature'])
         self.ser.write(b'G')
         while(self.run):
             now = datetime.datetime.now()
             line = self.ser.readline()   # read a byte
             if line:
-                string = line.decode()  # convert the byte string to a unicode string
-                print(string)
-                self.data.append([now.strftime("%Y-%m-%d %H:%M:%S"),string[0:5]])
+                string = line.decode()
+                if string[0] == "B" and string[len(string)-3] == "E":
+                    arr = string[1:len(string)-3].split('S')  #bytestring format [X,Y,Z,Temp]
+                    self.data.append([now.strftime("%Y-%m-%d %H:%M:%S"),arr[0],arr[1],arr[2],arr[3]])
+    
 
     def runProg(self):
         #Start Button threading function
@@ -418,7 +420,7 @@ class Ui_MainWindow(object):
         #Stop Button Function
         self.run = 0
         self.ser.write(b'S')
-        self.df = pd.DataFrame(self.data,columns=['Time','Temperature'])
+        self.df = pd.DataFrame(self.data,columns=['Time','X','Y','Z','Temperature'])
         print(self.df)
         model = PandasModel(self.df)
         self.tableView.setModel(model)
