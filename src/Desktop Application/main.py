@@ -381,10 +381,9 @@ class Ui_MainWindow(object):
 
 
     #Functions
-    
+    a = 0
     def connectToArduino(self):
         #Connects and disconnects to arduino
-        self.a = 0
         _translate = QtCore.QCoreApplication.translate
         if(self.a == 0):
             self.ser = serial.Serial(self.comPort, 9600, timeout=1)
