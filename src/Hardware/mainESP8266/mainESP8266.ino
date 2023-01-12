@@ -1,55 +1,50 @@
 #include <ESP8266WiFi.h>
 
-#define SendKey 0  //Button to send data Flash BTN on NodeMCU
+// ============================================================= 
+// Set AP SSID & Password == //
+const char *ssid = "Formulate";
+const char *password = "capstone";
 
-int port =8080;  //Port number
+// == Set Port Number == //
+int port = 8080;
+// =============================================================
+
 WiFiServer server(port);
 
-//Server connect to WiFi Network
-const char *ssid = "";  //Enter your wifi SSID
-const char *password = "";  //Enter your wifi Password
-
-int count=0;
-//=======================================================================
-//                    Power on setup
-//=======================================================================
 void setup() 
 {
   Serial.begin(9600);
   pinMode(D1, OUTPUT);
   pinMode(D2, OUTPUT);
-  WiFi.mode(WIFI_STA);
-  digitalWrite(D1, LOW);
-  WiFi.begin(ssid, password); //Connect to wifi
- 
-  // Wait for connection  
-  Serial.println("Connecting to Wifi");
-  while (WiFi.status() != WL_CONNECTED) {   
-    delay(500);
-    Serial.print(".");
-    delay(500);
-  }
   
+  WiFi.mode(WIFI_STA);
+  WiFi.softAP(ssid, password);
 
-  Serial.println("");
   Serial.print("Connected to ");
   Serial.println(ssid);
-  digitalWrite(D1, HIGH);
 
   Serial.print("IP address: ");
-  Serial.println(WiFi.localIP()); 
+  Serial.println(WiFi.softAPIP()); 
    
   server.begin();
 }
-//=======================================================================
-//                    Loop
-//=======================================================================
+
 
 void loop() 
 {
+  // == Turn on LED when device is connected == //
+  int conn = WiFi.softAPgetStationNum();
+  if(conn == 1){
+    digitalWrite(D1, HIGH);
+  }
+  else if(conn == 0){
+    digitalWrite(D1, LOW);
+  }
+
+
+  // == Communicate with Arduino == //
   WiFiClient client = server.available();
   if (client) {
-    
     if(client.connected())
     {
       Serial.println("Client Connected");
@@ -57,17 +52,19 @@ void loop()
       
     }
     
-    while(client.connected()){      
-      /*while(client.available()>0){
-        // read data from the connected client
+    while(client.connected()){  
+
+      // == Send Data from Network to Arduino == //
+      while(client.available()>0){
         Serial.write(client.read()); 
-      }*/
-      //Send Data to connected client
-      while(Serial.available()>0)
-      {
+      }
+  
+      // == Send Data to Network from Arduino == //
+      while(Serial.available()>0){
         client.print(Serial.readString());
       }
     }
+    
     client.stop();
     Serial.println("Client disconnected");
     digitalWrite(D2, LOW);
