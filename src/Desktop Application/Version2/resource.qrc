@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/user-32.png</file>
+    <file>icons/paper-32.png</file>
+    <file>icons/edit-2-32.png</file>
+    <file>icons/home-7-24.png</file>
+    <file>icons/menu-4-24.png</file>
+  </qresource>
+</RCC>
