@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage[table]{xcolor} 
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -122,12 +123,65 @@ your system and the environment around it.)}
 \wss{Include this section for Mechatronics projects}
 
 \subsection{Monitored Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Monitored Variable & Type & Units & Description\\
+    \hline
+    m\_vibration & Analog& V& A signal monitoring the vibration resistance of the motor \\
+    \hline
+    m\_humidity & Analog & V & A signal monitoring the humidity of the motor’s environment \\
+    \hline
+    m\_temperature & Analog & V & A signal monitoring the temperature of the motor’s environment \\
+    \hline
+    m\_shock & Analog & V & A signal monitoring the shock resistance of the motor \\
+    \hline
+    m\_conv\_vibration & Digital & g  & Converted vibration values that are in useful units \\
+    \hline
+    m\_conv\_humidity & Digital & \% & Converted humidity values that are in useful units \\
+    \hline
+    m\_conv\_temperature & Digital & \textdegree C & Converted temperature values that are in useful units \\
+    \hline
+    m\_conv\_shock & Digital & g & Converted shock values that are in useful units \\
+    \hline
+    m\_data\_accepted & Digital & T/F & Determines if user has accepted the results and wants to send it to the database \\
+    \hline
+  \end{tabular}
 
 \subsection{Controlled Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Controlled Variable & Type & Units & Description\\
+    \hline
+    c\_green\_light& Digital& 1/0& Green LED light on testing device that indicates passed measurements \\
+    \hline
+    c\_red\_light& Digital & 1/0 & Red LED light on testing device that indicates failed measurements \\
+    \hline
+    c\_sent\_to\_database & Digital & T/F & Determines if results displayed on the application are sent to the database \\
+    \hline
+  \end{tabular}
 
 \subsection{Constants Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Constant & Units & Value & Description\\
+    \hline
+    k\_temperature\_range& \textdegree C& 5-40& Acceptable ambient temperature values for a Formula Electric motor \\
+    \hline
+    k\_humidity\_range& \% & 5-85 & Acceptable relative humidity values for a Formula electric motor \\
+    \hline
+    k\_max\_shock & g & 100 & Maximum shock resistance for a Formula Electric motor \\
+    \hline
+    k\_max\_vibration & g & 20 & Maximum vibration resistance for a Formula Electric motor \\
+    \hline
+  \end{tabular}
 
 \section{User Interfaces}
+
+\subsection{Desktop Application}
+The user interface for the desktop application is designed through Qt designer, a software for designing and building GUIs through the Qt library. Qt designer generates UI files which can be converted to python scripts that build the static design and layout of the GUI. The desktop application is essentially multiple pages stacked on each other that change based on which buttons are clicked. The GUI is comprised of a left bar menu, top bar, and content pages being in the center, refer to figure 1 and 2 in the Appendix. Navigation through the application is done using the sidebar menu, where users can toggle the full menu and press on which page they want to go. The top bar will be used for extra functionality such as accessing user details, minimizing screen, etc. Users interact with the application using buttons to perform a variety of functions and form fields in which they can enter test/user information.
 
 \wss{Design of user interface for software and hardware.  Attach an appendix if
 needed. Drawings, Sketches, Figma}
@@ -163,6 +217,21 @@ circuit diagrams, etc}
 \appendix
 
 \section{Interface}
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[width=0.9\textwidth]{GUI_sketch}
+  \caption{Basic layout of GUI}
+  \label{Fig_SystemContext} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[hbt!]
+  \begin{center}
+  \includegraphics[width=0.9\textwidth]{GUI_designer}
+  \caption{GUI design in Qt Designer}
+  \label{Fig_SystemContext} 
+  \end{center}
+  \end{figure}
 
 \wss{Include additional information related to the appearance of, and
 interaction with, the user interface}
