@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{colortbl}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -101,14 +102,46 @@ your system and the environment around it.)}
 \section{Project Overview}
 
 \subsection{Normal Behaviour}
+During normal operation the device should work as follows, the user has an option to either connect wired or wirelessly to our device, regardless of which method they choose the results will be consistent between the two. To connect to the device the user will open our desktop application and either create and account or login to an existing account, this will lead them to the home page where they user will select the connection method wireless or wired.
+
+Before the user can start any testing they will need to secure our device on vehicle they sre testing. Our device has 2 methods of mounting, either the hose clamp holes can be used or the custom mount. After the device is secure the user will need to ensure that all the correct sensors are attached to the device.
+
+To conduct any testing the user will first fill out the test parameters of the specific test they are conducting and they will also upload pictures of the current configuration of the car. The user will then go to the test page in our application and start the test, during testing our hardware will collect the sensor data and send it to the PC. When the user stops the test they will be able to preview all the raw data collected from the test and either decline the data or send it to the database. When the user sends data to the database all the sensor data will be sent along with the test parameters and pictures.
+
+If the user wants to view previous test data they will be able to using a Power Bi dashboard, this dashboard will read all the data from the database and display it to the user in a more presentable way. The Power Bi dashboard will allow the user to do comparisons between tests and take a quick glance if the tests they conducted passed spec.
 
 \subsection{Undesired Event Handling}
+There might be cases where undesired events occur and to minimize any issues caused to the user we tried to account for them
+\subsubsection{Loss of Power/Connection}
+If at any point the connection between the PC and the device fails, i.e the power goes out or the device gets unplugged, we have implemented a back up system to ensure that no testing data is lost. Whenever data is sent to the PC it is also simultaneously sent to the local storage on the device its self. The on board MicroSD Card will have all the data saved and the user will be able to recover it if anything where to go wrong.
+
+\subsubsection{Excessive Vibration/Shaking}
+Since our device will be in an environment where there might be lots of vibration we decided to create a custom PCB instead of using normal jumper cables. This ensures thats regardless of the amount of motion the connections between the components inside our device will be fixed.
+
+\subsubsection{Loss of Data Packets}
+When data from our device is being sent to the PC there might be situations where some data is lost or the entire string of data is not sent correctly. To make sure that we are only reading data from complete bytestrings each bytestring start with 'B' and ends with 'E' and our python program checks to make sure that the data we are saving has both those values.
 
 \wss{How you will approach undesired events}
 
 \subsection{Component Diagram}
 
 \subsection{Connection Between Requirements and Design} \label{SecConnection}
+The following requirements are from the SRS document.
+
+\begin{itemize}
+  \item[FR1,FR5:] To measure vibration we chose to use an accelerometer which outputs in units of G's. For temperature we are using an LM35 temperature sensor which provides temperature in celsius and has an accuracy of +- 1 degree. To measure humidity we are using a DHT11 sensor which gives us the relative humidity in percent.
+  \item[FR2:] The device transmits data using the UART protocol to the PC when it is connected via a wire.
+  \item[FR3,FR4:] The device will have the start and stop button to control the tests inside the desktop application so the user can conduct tests remotely.
+  \item[FR6:] The user can preview the data after a test once they stop the test. A table will populate with all the raw data from the test on the testing page of the desktop application
+  \item[FR7:] After the user previews the test they will be able to decline or submit the test to our database. The table of test values will be sent to our Azure database once the user approves.
+  \item[FR8:] The Power Bi dashboard will connect to the Azure database and will be able to read all the test data
+  \item[FR9:]
+  \item[FR10:]
+  \item[FR11:] Our device is going to contain 4 AA batteries to power the entire thing, this allows for the user to be able to quickly swap out old batteries for new ones if they die.
+  \item[FR12:] Using an ESP8266 our device will wirelessley communicate with our desktop application through Wi-Fi and will be using TCP to send data back and forth.
+  \item[]        
+  
+\end{itemize}
 
 \wss{The intention of this section is to document decisions that are made
   ``between'' the requirements and the design.  To satisfy some requirements,
@@ -134,6 +167,8 @@ needed. Drawings, Sketches, Figma}
 
 \section{Design of Hardware}
 
+The hardware for our project will include a 3D printed chassis which will house all our electrical components. Our chassis was designed to meet the requirements outlined in our SRS document. The main requirements our chassis needs to meet is how easily it mounts to the Formula E car. We are currently implementing 2 methods of mounting the device onto the car, the first method consists of attaching a clickbond mount to the base of the car and out device will have a mechanism which connects to the mount. The second method is for attaching the device to any other surface of the vehicle, our chassis has slots at the bottom which hose clamps can fit though to allow the device to be clamped to any surface. A priliminary design can be found on Figure XX
+
 \wss{Most relevant for mechatronics projects}
 \wss{Show what will be acquired}
 \wss{Show what will be built, with detail on fabrication and materials}
@@ -147,7 +182,42 @@ needed. Drawings, Sketches, Figma}
 \wss{Include appendices as appropriate, possibly with sketches, drawings,
 circuit diagrams, etc}
 
+
+\newpage
 \section{Design of Communication Protocols}
+Our project mainly uses two ways to communicate. The user will either directly plug the device into their computer or they will wirelessly communicate with the device over Wi-Fi. Each of the sensors that are connected to the Arduino use different protocols to send data.
+
+\begin{tabular}{| p{0.50\textwidth} | p{0.30\textwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Device & Communication Protocol \\
+  \hline
+  MicroSD Card Module & UART?\\
+  \hline
+  Accelerometer (ADXL345) &  SPI?\\
+  \hline
+  Temperature Sensor (L535) & Serial \\
+  \hline
+  Humidity Sensor (DHT11) & uart? \\
+  \hline
+  Wi-Fi Module (ESP8266, NodeMCU 1.0) & Serial \\
+  \hline
+\end{tabular}
+
+
+
+To simplify the communication protocol, after the Arduino reads all the values from the sensors it formats them into bytestring to send to either the Wi-Fi module or the PC directly via USB. The bytestring takes the form
+
+\begin{verbatim}
+B<X-VAL>S<Y-VAL>S<Z-VAL>S<TEMP-VAL>S<HUMIDITY-VAL>E
+\end{verbatim}
+
+The order in which the sensor values are sent are in the following order; Vibration in X, Vibration in Y, Vibration in Z, Temperature, Humidity.
+
+Each bytestring starts with 'B' and ends with 'E', after the data is sent to the PC our python program parses through the received bytestring and only stores values from complete bytestrings, it checks for the 'B' and the 'E'. When the device is directly plugged into the PC it sends the data over USB via serial and data is sent every second. The other way of receiving data is over Wi-Fi, the Arduino take the bytestring and sends it using the TX and RX pins to the NodeMCU which then relays the information to the PC via a TCP connection.
+
+To connect the device to our PC wirelessly there are two main methods we have implemented. The first method is to make our device act as an access point, this means the PC will directly connect to the the device and they will exchange information via a TCP connection. The second method would be to connect our device to a central hub and also connect our PC to the same hub, this would require an ethernet connection to be present to plug the hub in. Using both methods our ESP8266 acts a relay device which passes the information from the Arduino to the PC via TCP.
+
 
 \wss{If appropriate}
 
@@ -174,6 +244,12 @@ interaction with, the user interface}
 \section{Communication Protocols}
 
 \section{Reflection}
+\subsection{Ahmed}
+\begin{enumerate}
+  \item Some of the limitations of our device would be the range that our device can connect wirelessly. We are currently using an ESP8266 NodeMCU as the wireless module for our device, it acts as an access point and and broadcasts a network which our PC connects to. The NodeMCU operates on a 2.4GHz wifi network which does have long range but if we had unlimited resources we could have used another wireless protocol like LoRaWAN.
+  
+\end{enumerate}
+
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Problem Analysis and Design.  Please answer the following questions:
