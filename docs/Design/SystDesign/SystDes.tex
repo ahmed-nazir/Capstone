@@ -151,11 +151,14 @@ The following requirements are from the SRS document.
   requirements, a specific design decision may be made to satisfy those
   requirements with a password.}
 
+
+\newpage
 \section{System Variables}
 
 \wss{Include this section for Mechatronics projects}
 
 \subsection{Monitored Variables}
+  \begin{table}[!h]
   \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
@@ -180,8 +183,11 @@ The following requirements are from the SRS document.
     m\_data\_accepted & Digital & T/F & Determines if user has accepted the results and wants to send it to the database \\
     \hline
   \end{tabular}
+  \caption{Monitored Variables}
+  \end{table}
 
 \subsection{Controlled Variables}
+  \begin{table}[!h]
   \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
@@ -194,8 +200,11 @@ The following requirements are from the SRS document.
     c\_sent\_to\_database & Digital & T/F & Determines if results displayed on the application are sent to the database \\
     \hline
   \end{tabular}
+  \caption{Controlled Variables}
+  \end{table}
 
 \subsection{Constants Variables}
+  \begin{table}[!h]
   \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
@@ -210,6 +219,8 @@ The following requirements are from the SRS document.
     k\_max\_vibration & g & 20 & Maximum vibration resistance for a Formula Electric motor \\
     \hline
   \end{tabular}
+  \caption{Constants Variables}
+  \end{table}
 
 \section{User Interfaces}
 
@@ -346,8 +357,8 @@ interaction with, the user interface}
 
 \subsection{Application GUI}
 \begin{enumerate}
-  \item Application GUI: Designing GUIs through the Qt library has many advantages including having the Designer tool, which allows you to create the GUI visually instead of manually coding every aspect. Furthermore, it has a variety of classes and functions that allow for flexibility and advanced functionality when handling GUI events such as pressing a button, and have it do something on the application. However, the Qt is a huge library that takes time to understand all of possible features and details. Therefore, due to time constraints of the semester and other course loads, a polished GUI with advanced features may not be feasible since not all features of Qt can be explored.
-  \item Application GUI: All team members were proficient or at least had experience with python, therefore for programming the GUI, the Tkinter and PyQt libraries were considered. The advantages of using Tkinter were that it is a native python library meaning it was easy to incorporate and execute in a python script. In addition, the Tkinter’s API is simple to understand allowing for fast creation and testing of GUIs. However, the simplicity of Tkinter was ultimately its downfall since PyQt allowed for more advanced animation and objects inside the GUI. Therefore, PyQt was chosen to build a more polished GUI that is presentable to a Formula E team.
+  \item Designing GUIs through the Qt library has many advantages including having the Designer tool, which allows you to create the GUI visually instead of manually coding every aspect. Furthermore, it has a variety of classes and functions that allow for flexibility and advanced functionality when handling GUI events such as pressing a button, and have it do something on the application. However, Qt is a huge library that takes time to understand all of its possible features and details. Therefore, due to time constraints of the semester and other course loads, a polished GUI with advanced features may not be feasible since not all features of Qt can be explored.
+  \item All team members were proficient or at least had experience with python, therefore for programming the GUI, the Tkinter and PyQt libraries were considered. The advantages of using Tkinter were that it is a native python library meaning it was easy to incorporate and execute in a python script. In addition, the Tkinter’s API is simple to understand allowing for fast creation and testing of GUIs. However, the simplicity of Tkinter was ultimately its downfall since PyQt allowed for more advanced animation and objects inside the GUI. Therefore, PyQt was chosen to build a more polished GUI that is presentable to a Formula E team.
 \end{enumerate}
 
 
