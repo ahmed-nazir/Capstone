@@ -157,11 +157,13 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The color scheme of the GUI which means a change in the stylesheet.
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The layout of the pages and buttons in the GUI which means a change in the ui files and animation modules.
+\item[\refstepcounter{acnum} \actheacnum \label{acGuiInfo}:] Information that is displayed on each GUI page.
+\item[\refstepcounter{acnum} \actheacnum \label{acDbStoring}:] The method of storing information in the database to accommodate for large amounts of data.
+\item[\refstepcounter{acnum} \actheacnum \label{acAccountFields}:] The fields required for creating an account.
+\item[\refstepcounter{acnum} \actheacnum \label{acDataStructures}:] The data structures for storing and manipulating data inside the software.
+\item[\refstepcounter{acnum} \actheacnum \label{acBackendFrontend}:] The method of decomposing front and back-end functionality of GUI.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -174,9 +176,13 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input device will be a keyboard and output device will be a screen. 
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucQt}:] The Qt library for creating the GUI
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucHardware}:] The hardware the GUI is running on
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucPython}:] The programming language (python) for the GUI
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucStoringUser}:] Storing test and user information in a database
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucAzure}:] Hosting the database on an Azure SQL Server
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucPowerBi}:] Visually displaying stored test information in Power BI
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}

@@ -8,6 +8,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{colortbl}
+\usepackage[table]{xcolor} 
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -116,14 +118,46 @@ This document in particular focuses on the considerations for the user interface
 \section{Project Overview}
 
 \subsection{Normal Behaviour}
+During normal operation the device should work as follows, the user has an option to either connect wired or wirelessly to our device, regardless of which method they choose the results will be consistent between the two. To connect to the device the user will open our desktop application and either create and account or login to an existing account, this will lead them to the home page where they user will select the connection method wireless or wired.
+
+Before the user can start any testing they will need to secure our device on vehicle they sre testing. Our device has 2 methods of mounting, either the hose clamp holes can be used or the custom mount. After the device is secure the user will need to ensure that all the correct sensors are attached to the device.
+
+To conduct any testing the user will first fill out the test parameters of the specific test they are conducting and they will also upload pictures of the current configuration of the car. The user will then go to the test page in our application and start the test, during testing our hardware will collect the sensor data and send it to the PC. When the user stops the test they will be able to preview all the raw data collected from the test and either decline the data or send it to the database. When the user sends data to the database all the sensor data will be sent along with the test parameters and pictures.
+
+If the user wants to view previous test data they will be able to using a Power Bi dashboard, this dashboard will read all the data from the database and display it to the user in a more presentable way. The Power Bi dashboard will allow the user to do comparisons between tests and take a quick glance if the tests they conducted passed spec.
 
 \subsection{Undesired Event Handling}
+There might be cases where undesired events occur and to minimize any issues caused to the user we tried to account for them
+\subsubsection{Loss of Power/Connection}
+If at any point the connection between the PC and the device fails, i.e the power goes out or the device gets unplugged, we have implemented a back up system to ensure that no testing data is lost. Whenever data is sent to the PC it is also simultaneously sent to the local storage on the device its self. The on board MicroSD Card will have all the data saved and the user will be able to recover it if anything where to go wrong.
+
+\subsubsection{Excessive Vibration/Shaking}
+Since our device will be in an environment where there might be lots of vibration we decided to create a custom PCB instead of using normal jumper cables. This ensures thats regardless of the amount of motion the connections between the components inside our device will be fixed.
+
+\subsubsection{Loss of Data Packets}
+When data from our device is being sent to the PC there might be situations where some data is lost or the entire string of data is not sent correctly. To make sure that we are only reading data from complete bytestrings each bytestring start with 'B' and ends with 'E' and our python program checks to make sure that the data we are saving has both those values.
 
 \wss{How you will approach undesired events}
 
 \subsection{Component Diagram}
 
 \subsection{Connection Between Requirements and Design} \label{SecConnection}
+The following requirements are from the SRS document.
+
+\begin{itemize}
+  \item[FR1,FR5:] To measure vibration we chose to use an accelerometer which outputs in units of G's. For temperature we are using an LM35 temperature sensor which provides temperature in celsius and has an accuracy of +- 1 degree. To measure humidity we are using a DHT11 sensor which gives us the relative humidity in percent.
+  \item[FR2:] The device transmits data using the UART protocol to the PC when it is connected via a wire.
+  \item[FR3,FR4:] The device will have the start and stop button to control the tests inside the desktop application so the user can conduct tests remotely.
+  \item[FR6:] The user can preview the data after a test once they stop the test. A table will populate with all the raw data from the test on the testing page of the desktop application
+  \item[FR7:] After the user previews the test they will be able to decline or submit the test to our database. The table of test values will be sent to our Azure database once the user approves.
+  \item[FR8:] The Power Bi dashboard will connect to the Azure database and will be able to read all the test data
+  \item[FR9:]
+  \item[FR10:]
+  \item[FR11:] Our device is going to contain 4 AA batteries to power the entire thing, this allows for the user to be able to quickly swap out old batteries for new ones if they die.
+  \item[FR12:] Using an ESP8266 our device will wirelessley communicate with our desktop application through Wi-Fi and will be using TCP to send data back and forth.
+  \item[]        
+  
+\end{itemize}
 
 \wss{The intention of this section is to document decisions that are made
   ``between'' the requirements and the design.  To satisfy some requirements,
@@ -137,17 +171,75 @@ This document in particular focuses on the considerations for the user interface
 \wss{Include this section for Mechatronics projects}
 
 \subsection{Monitored Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Monitored Variable & Type & Units & Description\\
+    \hline
+    m\_vibration & Analog& V& A signal monitoring the vibration resistance of the motor \\
+    \hline
+    m\_humidity & Analog & V & A signal monitoring the humidity of the motor’s environment \\
+    \hline
+    m\_temperature & Analog & V & A signal monitoring the temperature of the motor’s environment \\
+    \hline
+    m\_shock & Analog & V & A signal monitoring the shock resistance of the motor \\
+    \hline
+    m\_conv\_vibration & Digital & g  & Converted vibration values that are in useful units \\
+    \hline
+    m\_conv\_humidity & Digital & \% & Converted humidity values that are in useful units \\
+    \hline
+    m\_conv\_temperature & Digital & \textdegree C & Converted temperature values that are in useful units \\
+    \hline
+    m\_conv\_shock & Digital & g & Converted shock values that are in useful units \\
+    \hline
+    m\_data\_accepted & Digital & T/F & Determines if user has accepted the results and wants to send it to the database \\
+    \hline
+  \end{tabular}
 
 \subsection{Controlled Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Controlled Variable & Type & Units & Description\\
+    \hline
+    c\_green\_light& Digital& 1/0& Green LED light on testing device that indicates passed measurements \\
+    \hline
+    c\_red\_light& Digital & 1/0 & Red LED light on testing device that indicates failed measurements \\
+    \hline
+    c\_sent\_to\_database & Digital & T/F & Determines if results displayed on the application are sent to the database \\
+    \hline
+  \end{tabular}
 
 \subsection{Constants Variables}
+  \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Constant & Units & Value & Description\\
+    \hline
+    k\_temperature\_range& \textdegree C& 5-40& Acceptable ambient temperature values for a Formula Electric motor \\
+    \hline
+    k\_humidity\_range& \% & 5-85 & Acceptable relative humidity values for a Formula electric motor \\
+    \hline
+    k\_max\_shock & g & 100 & Maximum shock resistance for a Formula Electric motor \\
+    \hline
+    k\_max\_vibration & g & 20 & Maximum vibration resistance for a Formula Electric motor \\
+    \hline
+  \end{tabular}
 
 \section{User Interfaces}
+
+\subsection{Desktop Application}
+The user interface for the desktop application is designed through Qt designer, a software for designing and building GUIs through the Qt library. Qt designer generates UI files which can be converted to python scripts that build the static design and layout of the GUI. The desktop application is essentially multiple pages stacked on each other that change based on which buttons are clicked. The GUI is comprised of a left bar menu, top bar, and content pages being in the center, refer to figure 1 and 2 in the Appendix. Navigation through the application is done using the sidebar menu, where users can toggle the full menu and press on which page they want to go. The top bar will be used for extra functionality such as accessing user details, minimizing screen, etc. Users interact with the application using buttons to perform a variety of functions and form fields in which they can enter test/user information.
+
+\subsection{Hardware}
+The user will interface with the hardware as follows, they will mount a sensor to the top of our device and connect it via a terminal block which is on the side of the device. The device will then be mounted to the Formula vehicle and the rest of the operations will take place on the Desktop Application.
 
 \wss{Design of user interface for software and hardware.  Attach an appendix if
 needed. Drawings, Sketches, Figma}
 
 \section{Design of Hardware}
+
+The hardware for our project will include a 3D printed chassis which will house all our electrical components. Our chassis was designed to meet the requirements outlined in our SRS document. The main requirements our chassis needs to meet is how easily it mounts to the Formula E car. We are currently implementing 2 methods of mounting the device onto the car, the first method consists of attaching a clickbond mount to the base of the car and out device will have a mechanism which connects to the mount. The second method is for attaching the device to any other surface of the vehicle, our chassis has slots at the bottom which hose clamps can fit though to allow the device to be clamped to any surface. A priliminary design can be found on Figure XX
 
 \wss{Most relevant for mechatronics projects}
 \wss{Show what will be acquired}
@@ -389,7 +481,47 @@ The electrical schematic for the overall circuit containing all components was d
 
 
 
+
+\newpage
 \section{Design of Communication Protocols}
+Our project mainly uses two ways to communicate. The user will either directly plug the device into their computer or they will wirelessly communicate with the device over Wi-Fi. Each of the sensors that are connected to the Arduino use different protocols to send data.
+
+
+\begin{table}[!h]
+\begin{tabular}{| p{0.50\textwidth} | p{0.30\textwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Device & Communication Protocol \\
+  \hline
+  MicroSD Card Module & SPI\\
+  \hline
+  Accelerometer (ADXL345) &  I2C\\
+  \hline
+  Temperature Sensor (L535) & Single Bus \\
+  \hline
+  Humidity Sensor (DHT11) & Single Bus \\
+  \hline
+  Wi-Fi Module (ESP8266, NodeMCU 1.0) & UART \\
+  \hline
+ 
+\end{tabular}
+\caption{Communication Protocols}
+\end{table}
+
+
+
+
+To simplify the communication protocol, after the Arduino reads all the values from the sensors it formats them into bytestring to send to either the Wi-Fi module or the PC directly via USB. The bytestring takes the form
+
+\begin{verbatim}
+B<X-VAL>S<Y-VAL>S<Z-VAL>S<TEMP-VAL>S<HUMIDITY-VAL>E
+\end{verbatim}
+
+The order in which the sensor values are sent are in the following order; Vibration in X, Vibration in Y, Vibration in Z, Temperature, Humidity. Each bytestring starts with 'B' and ends with 'E', after the data is sent to the PC our python program parses through the received bytestring and only stores values from complete bytestrings, it checks for the 'B' and the 'E'. When the device is directly plugged into the PC it sends the data over USB via serial and data is sent every second. The other way of receiving data is over Wi-Fi, the Arduino take the bytestring and sends it using the TX and RX pins to the NodeMCU which then relays the information to the PC via a TCP connection.
+\newline
+\newline
+To connect the device to our PC wirelessly there are two main methods we have implemented. The first method is to make our device act as an access point, this means the PC will directly connect to the the device and they will exchange information via a TCP connection. The second method would be to connect our device to a central hub and also connect our PC to the same hub, this would require an ethernet connection to be present to plug the hub in. Using both methods our ESP8266 acts a relay device which passes the information from the Arduino to the PC via TCP.
+
 
 \wss{If appropriate}
 
@@ -405,11 +537,41 @@ The electrical schematic for the overall circuit containing all components was d
 \appendix
 
 \section{Interface}
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{GUI_sketch}
+  \caption{Basic layout of GUI}
+  \label{Fig_SystemContext} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[hbt!]
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{GUI_designer}
+  \caption{GUI design in Qt Designer}
+  \label{Fig_SystemContext} 
+  \end{center}
+  \end{figure}
 
 \wss{Include additional information related to the appearance of, and
 interaction with, the user interface}
 
 \section{Mechanical Hardware}
+  \begin{figure}[h!]
+    \begin{center}
+    \includegraphics[width=0.6\textwidth]{Chassis_3D_Render.png}
+    \caption{Chassis 3D Render}
+    \label{Fig_SystemContext} 
+    \end{center}
+    \end{figure}
+
+  \begin{figure}[h!]
+    \begin{center}
+    \includegraphics[width=0.7\textwidth]{Chassis_Drawing.png}
+    \caption{Chassis Drawing}
+    \label{Fig_SystemContext} 
+    \end{center}
+    \end{figure}
 
 
 \newpage
@@ -453,7 +615,32 @@ interaction with, the user interface}
 
 \section{Communication Protocols}
 
+
+\newpage
 \section{Reflection}
+\subsection{Wireless Communication}
+\begin{enumerate}
+  \item Some of the limitations of our device would be the range that our device can connect wirelessly. We are currently using an ESP8266 NodeMCU as the wireless module for our device, it acts as an access point and and broadcasts a network which our PC connects to. The NodeMCU operates on a 2.4GHz wifi network which does have long range but if we had unlimited resources we could have used another wireless protocol like LoRaWAN.
+  
+\end{enumerate}
+
+\subsection{Application GUI}
+\begin{enumerate}
+  \item Application GUI: Designing GUIs through the Qt library has many advantages including having the Designer tool, which allows you to create the GUI visually instead of manually coding every aspect. Furthermore, it has a variety of classes and functions that allow for flexibility and advanced functionality when handling GUI events such as pressing a button, and have it do something on the application. However, the Qt is a huge library that takes time to understand all of possible features and details. Therefore, due to time constraints of the semester and other course loads, a polished GUI with advanced features may not be feasible since not all features of Qt can be explored.
+  \item Application GUI: All team members were proficient or at least had experience with python, therefore for programming the GUI, the Tkinter and PyQt libraries were considered. The advantages of using Tkinter were that it is a native python library meaning it was easy to incorporate and execute in a python script. In addition, the Tkinter’s API is simple to understand allowing for fast creation and testing of GUIs. However, the simplicity of Tkinter was ultimately its downfall since PyQt allowed for more advanced animation and objects inside the GUI. Therefore, PyQt was chosen to build a more polished GUI that is presentable to a Formula E team.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Problem Analysis and Design.  Please answer the following questions:
