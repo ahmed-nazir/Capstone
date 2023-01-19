@@ -138,11 +138,17 @@ This document in particular focuses on the considerations for the user interface
 \subsection{Normal Behaviour}
 During normal operation the device should work as follows, the user has an option to either connect wired or wirelessly to our device, regardless of which method they choose the results will be consistent between the two. To connect to the device the user will open our desktop application and either create an account or log in to an existing account, this will lead them to the home page where the user will select the connection method as wireless or wired.\\
 
-Before the user can start any testing they will need to secure our device on a vehicle they are testing. Our device has 2 methods of mounting, either the hose clamp holes can be used or the custom mount. After the device is secure the user will need to ensure that all the correct sensors are attached.\\
-
-To conduct any testing the user will first fill out the test parameters of the specific test they are conducting and they will also upload pictures of the current configuration of the car. The user will then go to the test page in our application and start the test, during testing our hardware will collect the sensor data and send it to the PC. When the user stops the test they will be able to preview all the raw data collected from the test and either declines the data or send it to the database. When the user sends data to the database all the sensor data will be sent along with the test parameters and pictures.\\
+Before the user can start any testing they will need to secure our device on a vehicle they are testing. Our device has 2 methods of mounting, either the hose clamp holes can be used or the custom mount. After the device is secure the user will need to ensure that all the correct sensors are attached. To conduct any testing the user will first fill out the test parameters of the specific test they are conducting and they will also upload pictures of the current configuration of the car. The user will then go to the test page in our application and start the test, during testing our hardware will collect the sensor data and send it to the PC. When the user stops the test they will be able to preview all the raw data collected from the test and either declines the data or send it to the database. When the user sends data to the database all the sensor data will be sent along with the test parameters and pictures.\\
 
 If the user wants to view previous test data they will be able to, using a Power Bi dashboard, this dashboard will read all the data from the database and display it to the user in a more presentable way. The Power Bi dashboard will allow the user to do comparisons between tests and take a quick glance if the tests they conducted passed all the required tests.
+
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{state_machine_diagram.png}
+  \caption{Finite State Machine}
+  \end{center}
+  \end{figure}
+  \newpage
 
 \subsection{Undesired Event Handling}
 There might be cases where undesired events occur and to minimize any issues caused to the user we tried to account for them
@@ -157,6 +163,7 @@ When data from our device is being sent to the PC there might be situations wher
 
 \wss{How you will approach undesired events}
 
+\newpage
 \subsection{Component Diagram}
 \begin{figure}[hbt!]
   \begin{center}
@@ -280,7 +287,7 @@ needed. Drawings, Sketches, Figma}
 
 \section{Design of Hardware}
 
-The hardware for our project will include a 3D-printed chassis that will house all our electrical components. Our chassis was designed to meet the requirements outlined in our SRS document. The main requirement our chassis needs to meet is how easily it mounts to the Formula E car. We are currently implementing 2 methods of mounting the device onto the car, the first method consists of attaching a ClickBond mount to the base of the car, and our device will have a mechanism that connects to the mount. The second method is for attaching the device to any other surface of the vehicle, our chassis has slots at the bottom through which hose clamps can fit to allow the device to be clamped to any surface. A preliminary design can be found in Figure 5.
+The hardware for our project will include a 3D-printed chassis that will house all our electrical components. Our chassis was designed to meet the requirements outlined in our SRS document. The main requirement our chassis needs to meet is how easily it mounts to the Formula E car. We are currently implementing 2 methods of mounting the device onto the car, the first method consists of attaching a ClickBond mount to the base of the car, and our device will have a mechanism that connects to the mount. The second method is for attaching the device to any other surface of the vehicle, our chassis has slots at the bottom through which hose clamps can fit to allow the device to be clamped to any surface. A preliminary design can be found in Figure 6.
 
 \wss{Most relevant for mechatronics projects}
 \wss{Show what will be acquired}
