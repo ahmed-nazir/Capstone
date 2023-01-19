@@ -106,6 +106,8 @@ your system and the environment around it.)}
 
 This document in particular focuses on the considerations for the user interface, mechanical, electrical, and communication protocol aspects of the system. All relevant design decisions relating to the requirements were detailed by each aspect of the system, and any visual components used to aid the design were included at the end of the document by each aspect of the system. \\ 
 
+\newpage
+
 \subsection{System Context Diagram}
 \begin{figure}[h!]
   \begin{center}
@@ -591,7 +593,7 @@ interaction with, the user interface}
 \subsection{Electrical Schematic}
 \begin{figure}[h!]
   \begin{center}
-  \includegraphics[width=1.1\textwidth]{Electrical_Schematic}
+  \includegraphics[width=1.0\textwidth]{Electrical_Schematic}
   \caption{Electrical Schematic in Kicad}
   \end{center}
   \end{figure}
@@ -600,7 +602,7 @@ interaction with, the user interface}
 \subsection{PCB Layout}
 \begin{figure}[h!]
   \begin{center}
-  \includegraphics[width=1.1\textwidth]{PCB_Schematic}
+  \includegraphics[width=1.0\textwidth]{PCB_Schematic}
   \caption{PCB Layout in Kicad}
   \end{center}
   \end{figure}
@@ -609,7 +611,7 @@ interaction with, the user interface}
 \subsection{PCB CAD}
 \begin{figure}[h!]
   \begin{center}
-  \includegraphics[width=1.1\textwidth]{PCB_Front_View}
+  \includegraphics[width=1.0\textwidth]{PCB_Front_View}
   \caption{Top view of the PCB}
   \end{center}
   \end{figure}
@@ -618,7 +620,7 @@ interaction with, the user interface}
 \subsection{PCB CAD}
 \begin{figure}[h!]
   \begin{center}
-  \includegraphics[width=1.1\textwidth]{PCB_Back_View}
+  \includegraphics[width=1.0\textwidth]{PCB_Back_View}
   \caption{Bottom view of the PCB}
   \end{center}
   \end{figure}
@@ -641,6 +643,11 @@ interaction with, the user interface}
   \item All team members were proficient or at least had experience with python, therefore for programming the GUI, the Tkinter and PyQt libraries were considered. The advantages of using Tkinter were that it is a native python library meaning it was easy to incorporate and execute in a python script. In addition, the Tkinter’s API is simple to understand allowing for fast creation and testing of GUIs. However, the simplicity of Tkinter was ultimately its downfall since PyQt allowed for more advanced animation and objects inside the GUI. Therefore, PyQt was chosen to build a more polished GUI that is presentable to a Formula E team.
 \end{enumerate}
 
+\subsection{PCB Layout}
+\begin{enumerate}
+  \item Minimal PCB optimization was made to the layout. Primarily due to the time limitation of a lengthy and costly design, manufacture, test cycle for each PCB iteration, it was not feasible to optimize important PCB characteristics such as the absolute minimal layout size, noise minimization, and maximum structural rigidity. As a result, the team focused on achieving the functional solution in the shortest amount of time which limited optimization considerations.
+  \item A breadboard circuit with jumper cables and pin header connections was a simpler alternative solution to a PCB design. The breadboard circuit had some benefits such as the inexpensive monetary cost to design, manufacture, and test, and the short time to complete a complete circuit iteration. With that said however, the breadboard circuit lacked the ability to create robust wire connections between components and the ability to design a circuit with a smaller physical footprint. As a result, a PCB layout which functionally replaced the breadboard circuit was chosen as the ability to design a physically smaller circuit with rigid connections through soldered points and terminal blocks was possible.
+\end{enumerate}
 
 
 
@@ -651,8 +658,7 @@ interaction with, the user interface}
 
 
 
-
-
+\wss {
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Problem Analysis and Design.  Please answer the following questions:
 
@@ -660,13 +666,11 @@ graduate attribute of Problem Analysis and Design.  Please answer the following 
   \item What are the limitations of your solution?  Put another way, given
   unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
 
-  Minimal PCB optimization was made to the layout. Primarily due to the time limitation of a lengthy and costly design, manufacture, test cycle for each PCB iteration, it was not feasible to optimize important PCB characteristics such as the absolute minimal layout size, noise minimization, and maximum structural rigidity. As a result, the team focused on achieving the functional solution in the shortest amount of time which limited optimization considerations. \\
-
   \item Give a brief overview of other design solutions you considered.  What
   are the benefits and tradeoffs of those other designs compared with the chosen
   design?  From all the potential options, why did you select documented design?
   (LO\_Explores)
-\end{enumerate}
-  A breadboard circuit with jumper cables and pin header connections was a simpler alternative solution to a PCB design. The breadboard circuit had some benefits such as the inexpensive monetary cost to design, manufacture, and test, and the short time to complete a complete circuit iteration. With that said however, the breadboard circuit lacked the ability to create robust wire connections between components and the ability to design a circuit with a smaller physical footprint. As a result, a PCB layout which functionally replaced the breadboard circuit was chosen as the ability to design a physically smaller circuit with rigid connections through soldered points and terminal blocks was possible. \\
+\end{enumerate} }
+
 
 \end{document}
