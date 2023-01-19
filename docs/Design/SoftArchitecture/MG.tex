@@ -46,8 +46,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2023/01/18 & 1.0 & Final Version\\
 \bottomrule
 \end{tabularx}
 
@@ -65,14 +64,12 @@ This section records information for easy reference.
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   AC & Anticipated Change\\
-  DAG & Directed Acyclic Graph \\
   M & Module \\
   MG & Module Guide \\
+  MIS & Module Interface Specifications \\ 
   OS & Operating System \\
-  R & Requirement\\
-  SC & Scientific Computing \\
+  FR & Functional Requirement\\
   SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
   UC & Unlikely Change \\
   \wss{etc.} & \wss{...}\\
   \bottomrule
@@ -92,54 +89,14 @@ This section records information for easy reference.
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
-
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
-\begin{itemize}
-\item System details that are likely to change independently should be the
-  secrets of separate modules.
-\item Each data structure is implemented in only one module.
-\item Any other program that requires information stored in a module's data
-  structures must obtain it by calling access programs belonging to that module.
-\end{itemize}
-
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
-
-\begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility, and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
-\end{itemize}
+The following document explains the Module Guide for our Capstone project. Complementary documents include the System Requirement Specifications, (SRS), and the Module Interface Specifications, (MIS). 
 
 The rest of the document is organized as follows. Section
 \ref{SecChange} lists the anticipated and unlikely changes of the software
 requirements. Section \ref{SecMH} summarizes the module decomposition that
-was constructed according to the likely changes. Section \ref{SecConnection}
-specifies the connections between the software requirements and the
-modules. Section \ref{SecMD} gives a detailed description of the
-modules. Section \ref{SecTM} includes two traceability matrices. One checks
+was constructed according to the likely changes. Section \ref{SecMD} gives a detailed description of the modules. Section \ref{SecTM} includes two traceability matrices. One checks
 the completeness of the design against the requirements provided in the SRS. The
-other shows the relation between anticipated changes and the modules. Section
-\ref{SecUse} describes the use relation between modules.
+other shows the relation between anticipated changes and the modules.
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
@@ -193,8 +150,13 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{Arduino}:] mainArduino.ino
+\item [\refstepcounter{mnum} \mthemnum \label{ESP8266}:] mainESP8266.ino
+\item [\refstepcounter{mnum} \mthemnum \label{ui_main}:] ui\_main.py
+\item [\refstepcounter{mnum} \mthemnum \label{ui_functions}:] ui\_functions.py
+\item [\refstepcounter{mnum} \mthemnum \label{main}:] main.py
+\item [\refstepcounter{mnum} \mthemnum \label{resource_rc}:] resource\_rc.py
+
 \end{description}
 
 
@@ -205,22 +167,16 @@ actually be implemented.
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+\multirow{2}{0.3\textwidth}{Hardware-Hiding Module} & mainArduino.ino \\
+& mainESP8266.ino \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module} & ui\_main.py\\
+& ui\_functions.py\\
+& main.py\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+{Software Decision Module} & {resource\_rc.py}\\
 \bottomrule
 
 \end{tabular}
@@ -228,84 +184,60 @@ actually be implemented.
 \label{TblMH}
 \end{table}
 
-\section{Connection Between Requirements and Design} \label{SecConnection}
-
-The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table~\ref{TblRT}.
-
 \section{Module Decomposition} \label{SecMD}
 
-Modules are decomposed according to the principle of ``information hiding''
-proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
-decomposition is a brief statement of the design decision hidden by the
-module. The \emph{Services} field specifies \emph{what} the module will do
-without documenting \emph{how} to do it. For each module, a suggestion for the
-implementing software is given under the \emph{Implemented By} title. If the
-entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  \emph{\progname{}} means the
-module will be implemented by the \progname{} software.
 
-Only the leaf modules in the hierarchy have to be implemented. If a dash
-(\emph{--}) is shown, this means that the module is not a leaf and will not have
-to be implemented.
+\subsection{Hardware Hiding Modules}
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
-
+\subsubsection{mainArduino.ino (\mref{Arduino})}
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Services:]Converts the input data taken from sensors into the data that is converted to data used by the UI.
+\item[Implemented By:] [Arduino]
+\end{description}
+
+\subsubsection{mainESP8266.ino (\mref{ESP8266})}
+\begin{description}
+\item[Services:] An Arduino module establishes a Wi-Fi connection between the Arduino and PC to send data from the sensors and the Arduino to the PC.
+\item[Implemented By:] [Arduino, ESP8266]
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
 
-\begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
-\end{description}
-
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{ui\_main.py (\mref{ui_main})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Services:] A PyQt designer generated module that sets up the application's window and design.
+\item[Implemented By:] [PyQt]
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{ui\_functions.py (\mref{ui_functions})}
+\begin{description}
+\item[Services:] A python module that imports all the necessary libraries for backend, contains class for UI functions and creates the connection to the database.
+\item[Implemented By:] [PyQt]
+\end{description}
 
+\subsubsection{ui\_functions.py (\mref{main})}
+\begin{description}
+\item[Services:] A python module that imports the backend functions used in ui\_funtions.py and does the frontend setup for the GUI.
+\item[Implemented By:] [PyQt]
+\end{description}
 
 \subsection{Software Decision Module}
 
+\subsubsection{resource\_rc.py (\mref{resource_rc})}
+
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
-\end{description}
 
-\subsubsection{Etc.}
+  \item[Services:] A python module generated by PyQt resource compiler and uses all the local resources to display images during runtime.
+  \item[Implemented By: PyQt] 
+  \end{description}
 
+\newpage
 \section{Traceability Matrix} \label{SecTM}
 
 This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
+functional requirements from our SRS document and between the modules and the anticipated changes.
+
 
 % the table should use mref, the requirements should be named, use something
 % like fref
@@ -315,17 +247,24 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FR1 & \mref{Arduino}\\
+FR2 & \mref{Arduino}, \mref{ESP8266}\\
+FR3 & \mref{Arduino}, \mref{ESP8266}\\
+FR4 & \mref{Arduino}, \mref{ESP8266}\\
+FR5 & \mref{Arduino}\\
+FR6 & \mref{Arduino}\\
+FR7 & \mref{Arduino}, \mref{ui_functions}\\
+FR8 & \mref{ui_functions}\\
+FR12 & \mref{Arduino}, \mref{ESP8266}\\
+FR13 & \mref{Arduino}, \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+FR15 & \mref{Arduino}, \mref{ESP8266}, \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+FR16 & \mref{Arduino}, \mref{ui_functions}, \mref{main}\\
+FR18 & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+FR19 & \mref{ui_functions}, \mref{main}\\
+FR20 & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+FR21 & \mref{ui_functions}, \mref{main}\\
+FR22 & \mref{ui_functions}, \mref{main}\\
+FR23 & \mref{Arduino}, \mref{ui_main}, \mref{ui_functions}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -338,48 +277,19 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acHardware} & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+\acref{acInput} & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+\acref{acGuiInfo} & \mref{main}\\
+\acref{acDbStoring} & \mref{ui_main}, \mref{ui_functions}\\
+\acref{acAccountFields} & \mref{ui_functions}\\
+\acref{acDataStructures} & \mref{ui_functions}\\
+\acref{acBackendFrontend} & \mref{ui_functions}, \mref{main}\\
+
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
 \label{TblACT}
 \end{table}
-
-\section{Use Hierarchy Between Modules} \label{SecUse}
-
-In this section, the uses hierarchy between modules is
-provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
-correct execution of B may be necessary for A to complete the task described in
-its specification. That is, A {\em uses} B if there exist situations in which
-the correct functioning of A depends upon the availability of a correct
-implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
-(DAG). Each level of the hierarchy offers a testable and usable subset of the
-system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
-
-\begin{figure}[H]
-\centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
-\caption{Use hierarchy among modules}
-\label{FigUH}
-\end{figure}
-
-%\section*{References}
-
-\bibliographystyle {plainnat}
-\bibliography{../../../refs/References}
 
 \newpage{}
 
