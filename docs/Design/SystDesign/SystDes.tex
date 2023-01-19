@@ -48,8 +48,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2023/01/14 & 1.0 & General Updates\\
+2023/01/18 & 2.0 & Final Version\\
 \bottomrule
 \end{tabularx}
 
@@ -66,8 +66,24 @@ This section records information for easy reference.
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  \progname & Explanation of program name\\
-  \wss{...} & \wss{...}\\
+  \progname & Mechatronics Engineering Capstone Course\\
+  UART & Universal Asynchronous Receiver-Transmitter\\
+  SPI & Serial Peripheral Interface\\
+  I2C & Inter-Integrated Circuit\\
+  USB & Universal Serial Bus\\
+  TCP & Transmission Control Protocol\\
+  IP & Internet Protocol\\
+  SPDT & Single pole, double throw \\
+  TCP/IP & Transmission Control Protocol / Internet Protocol \\
+  SOC & Software On Chip \\
+  SPST & Single pole, single throw \\
+  TX & Transmit \\
+  RX & Recieve \\
+  USB & Universal Serial Bus \\
+  LED & Light-emitting diode \\
+  GB & GigaByte \\
+  SD & Secure Digital \\
+  PCB & Printed Circuit Board \\
   \bottomrule
 \end{tabular}\\
 
@@ -254,12 +270,17 @@ The user interface for the desktop application is designed through Qt designer, 
 \subsection{Hardware}
 The user will interface with the hardware as follows, they will mount a sensor to the top of our device and connect it via a terminal block which is on the side of the device. The device will then be mounted to the Formula vehicle and the rest of the operations will take place on the Desktop Application.
 
+\subsection{Web Dashboard}
+The user interface for the dashboard will allow the user to visualize data received from the database through a dashboard using Power Bi. After a test is conducted the user will be able to view the data on the Power Bi website. It will prompt the user to view the data in a variety of graphs and tables which will allow the user to interpret the data in more manageable and understandable way. The design is made with user in mind allowing them to find and view the data in the dashboard in a variety of ways since different types of data will be stored in the database.
+
+
+
 \wss{Design of user interface for software and hardware.  Attach an appendix if
 needed. Drawings, Sketches, Figma}
 
 \section{Design of Hardware}
 
-The hardware for our project will include a 3D-printed chassis that will house all our electrical components. Our chassis was designed to meet the requirements outlined in our SRS document. The main requirement our chassis needs to meet is how easily it mounts to the Formula E car. We are currently implementing 2 methods of mounting the device onto the car, the first method consists of attaching a ClickBond mount to the base of the car, and our device will have a mechanism that connects to the mount. The second method is for attaching the device to any other surface of the vehicle, our chassis has slots at the bottom through which hose clamps can fit to allow the device to be clamped to any surface. A preliminary design can be found in Figure 4
+The hardware for our project will include a 3D-printed chassis that will house all our electrical components. Our chassis was designed to meet the requirements outlined in our SRS document. The main requirement our chassis needs to meet is how easily it mounts to the Formula E car. We are currently implementing 2 methods of mounting the device onto the car, the first method consists of attaching a ClickBond mount to the base of the car, and our device will have a mechanism that connects to the mount. The second method is for attaching the device to any other surface of the vehicle, our chassis has slots at the bottom through which hose clamps can fit to allow the device to be clamped to any surface. A preliminary design can be found in Figure 5.
 
 \wss{Most relevant for mechatronics projects}
 \wss{Show what will be acquired}
@@ -304,6 +325,7 @@ The required electrical connections between the micro SD adapters pinouts and th
   \centering
   \begin{tabular}{|p{2cm}|p{6cm}|p{2cm}|p{2cm}|}
   \hline
+  \rowcolor[gray]{0.9}
   \multicolumn{1}{|c|}{\textbf{Pin Name}} & \multicolumn{1}{c|}{\textbf{Pin Description}} & \multicolumn{1}{|c|}{\textbf{Arduino Port}} & \multicolumn{1}{|c|}{\textbf{Arduino Port Description}} 
   \\ \hline
   VCC
@@ -349,6 +371,7 @@ The required electrical connections between the micro SD adapters pinouts and th
   \\ \hline
 
   \end{tabular}
+  \caption{MicroSD Adapter to Uno Pinout}
 \end{table}
 
 
@@ -358,6 +381,7 @@ The required electrical connections between the wifi module's pinouts and the Un
   \centering
   \begin{tabular}{|p{2cm}|p{6cm}|p{2cm}|p{2cm}|}
   \hline
+  \rowcolor[gray]{0.9}
   \multicolumn{1}{|c|}{\textbf{Pin Name}} & \multicolumn{1}{c|}{\textbf{Pin Description}} & \multicolumn{1}{|c|}{\textbf{Arduino Port}} & \multicolumn{1}{|c|}{\textbf{Arduino Port Description}} 
   \\ \hline
   3V3
@@ -390,6 +414,7 @@ The required electrical connections between the wifi module's pinouts and the Un
 
 
   \end{tabular}
+  \caption{Wi-Fi Module to Uno Pinout}
 \end{table}
 
 
@@ -401,6 +426,7 @@ A final list of the required electrical components was shown below. \\
   \centering
   \begin{tabular}{|p{3cm}|p{2cm}|p{4cm}|p{4cm}|p{2cm}|}
   \hline
+  \rowcolor[gray]{0.9}
   \multicolumn{1}{|c|}{\textbf{Component}} & \multicolumn{1}{c|}{\textbf{Manufacturer}} & \multicolumn{1}{c|}{\textbf{Part Number}} & \multicolumn{1}{c|}{\textbf{Description}} & \multicolumn{1}{|c|}{\textbf{Quantity}}
   \\ \hline
   Microcontroller
@@ -492,6 +518,7 @@ A final list of the required electrical components was shown below. \\
   \\ \hline
 
   \end{tabular}
+  \caption{Component List}
 \end{table}
 
 The electrical schematic for the overall circuit containing all components was designed in Kicad and was shown in Appendix C. The PCB layout was also designed in Kicad and was shown in Appendix C. The PCB layout was then fabricated by the manufacturer JLCPCB. \\
@@ -576,7 +603,7 @@ To connect the device to our PC wirelessly there are two main methods we have im
     \hline
    
   \end{tabular}
-  \caption{Communication Protocols}
+  \caption{Timeline}
 \end{table}
 
 \wss{Schedule of tasks and who is responsible}
@@ -666,6 +693,7 @@ interaction with, the user interface}
   \newpage
 
 \section{Communication Protocols}
+N/A
 
 
 \newpage
