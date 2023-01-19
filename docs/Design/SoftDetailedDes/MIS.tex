@@ -133,6 +133,18 @@ found at \url{https://github.com/ahmed-nazir/Capstone}.  \wss{provide the url fo
         \hline
         continue\_signup() - Checks if all the sign up fields are valid and stores account/login details in database & Self & None \\
         \hline
+        connectToArduino() - Connects and disconnects to Arduino (Wired or Wireless) & Self & None \\
+        \hline
+        startTest() - Starts the test on the device and begins collecting data & Self & None\\
+        \hline
+        runProg() - Creates another thread which will allow the GUI to be operable while it is conducting tests & Self & None\\
+        \hline
+        stopTest() - Stops reading values from the Arduino and gathers all the data in a viewable table & Self & None\\
+        \hline
+        declineData() - Erases the data collected from the last test and does not submit it to the database & Self & None\\
+        \hline
+        submitData() - Submits data from the test to the Azure database & Self & None\\
+        \hline
       \end{tabular}
 
   \subsubsection{Functions}
@@ -187,6 +199,47 @@ found at \url{https://github.com/ahmed-nazir/Capstone}.  \wss{provide the url fo
       qCleanupResources() - Unregisters the raw byte data of each image to the Qt resource system & None & None \\
       \hline
     \end{tabular}
+
+\newpage
+    \subsection{Module - mainArduino.ino}
+
+    \subsubsection{Description}
+    This module runs on the Arduino and collects all the data from the various sensors connected to it. It also takes the data and sends it to the PC wired or wirelessly.
+    
+
+  \subsubsection{Functions}
+    \noindent \begin{tabular}{| p{0.6\textwidth} | p{0.2\textwidth}| p{0.2\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Function & Parameters & Return\\
+      \hline
+      setup() - Initializes all the sensors, SD card module and the serial communication lines between the PC and Wi-Fi module & None & None \\
+      \hline
+      loop() - This function reads data from the sensors and creates a bytestring to send to the PC & None & None \\
+      \hline
+      
+    \end{tabular}
+
+    \subsection{Module - mainESP8266.ino}
+
+    \subsubsection{Description}
+    This module runs on the NodeMCU (ESP8266) and allows for the Arduino to send data to it and relay that information to the PC via Wi-Fi.
+    
+
+  \subsubsection{Functions}
+    \noindent \begin{tabular}{| p{0.6\textwidth} | p{0.2\textwidth}| p{0.2\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Function & Parameters & Return\\
+      \hline
+      setup() - Initializes the ESP8266 as a wireless access point so our PC can connect to it, it also initializes the serial port to allow for communication between the PC and Arduino & None & None \\
+      \hline
+      loop() - This function acts as a relay to pass information sent from the Arduino to the PC via TCP and also send information from the PC to the Arduino & None & None \\
+      \hline
+      
+    \end{tabular}
+
+
 
 
 \newpage
