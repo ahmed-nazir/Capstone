@@ -5,3 +5,5 @@ The folders and files for this project are as follows:
 - Hardware
   - Arduino
   - ESP8266
+- Electrical
+- Chassis
