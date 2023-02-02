@@ -2,7 +2,7 @@
 
 // ============================================================= 
 // Set AP SSID & Password == //
-const char *ssid = "Formulate Hub";
+const char *ssid = "Formulate";
 const char *password = "capstone";
 
 // == Set Port Number == //
@@ -16,26 +16,15 @@ void setup()
   Serial.begin(9600);
   pinMode(D1, OUTPUT);
   pinMode(D2, OUTPUT);
-
-  digitalWrite(D1, LOW);
   
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  WiFi.softAP(ssid, password);
 
-  Serial.println("Connecting to Wifi");
-  while (WiFi.status() != WL_CONNECTED) {   
-    delay(500);
-    Serial.print(".");
-    delay(500);
-  }
-  
-  Serial.println("");
   Serial.print("Connected to ");
   Serial.println(ssid);
-  digitalWrite(D1, HIGH);
 
   Serial.print("IP address: ");
-  Serial.println(WiFi.localIP()); 
+  Serial.println(WiFi.softAPIP()); 
    
   server.begin();
 }
@@ -44,14 +33,13 @@ void setup()
 void loop() 
 {
   // == Turn on LED when device is connected == //
-  /*
   int conn = WiFi.softAPgetStationNum();
   if(conn == 1){
     digitalWrite(D1, HIGH);
   }
   else if(conn == 0){
     digitalWrite(D1, LOW);
-  }*/
+  }
 
 
   // == Communicate with Arduino == //
