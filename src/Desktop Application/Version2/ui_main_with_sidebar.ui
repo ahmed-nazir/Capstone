@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1249</width>
-    <height>865</height>
+    <width>1285</width>
+    <height>824</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -81,7 +81,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background-color: rgb(17, 41, 255);</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -106,7 +106,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="home_menu_button">
+           <widget class="QPushButton" name="toggle_menu">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -114,20 +114,15 @@
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">QPushButton {
-	color: rgb(255, 255, 255);
-	border: 0px solid;
-}
-QPushButton:hover {
-	background-color: rgb(17, 41, 255);
-}</string>
+             <string notr="true">color: rgb(255, 255, 255);
+border: 0px solid;</string>
             </property>
             <property name="text">
              <string/>
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
-              <normaloff>:/icons/icons/home-7-24.png</normaloff>:/icons/icons/home-7-24.png</iconset>
+              <normaloff>:/icons/icons/menu-4-24.png</normaloff>:/icons/icons/menu-4-24.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -140,7 +135,7 @@ QPushButton:hover {
          </layout>
         </widget>
        </item>
-       <item alignment="Qt::AlignRight">
+       <item>
         <widget class="QFrame" name="top_frame">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -148,61 +143,6 @@ QPushButton:hover {
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_13">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="account_menu_button">
-            <property name="minimumSize">
-             <size>
-              <width>60</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-	color: rgb(255, 255, 255);
-	border: 0px solid;
-}
-QPushButton:hover {
-	background-color: rgb(17, 41, 255);
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="resource.qrc">
-              <normaloff>:/icons/icons/user-32.png</normaloff>:/icons/icons/user-32.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>24</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
       </layout>
@@ -233,6 +173,255 @@ QPushButton:hover {
         <number>0</number>
        </property>
        <item>
+        <widget class="QFrame" name="menu_frame">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>70</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(48, 48, 48);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item alignment="Qt::AlignTop">
+           <widget class="QFrame" name="top_menu_frame">
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="home_menu">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	border: 0px solid;
+}
+QPushButton:hover {
+	background-color: rgb(17, 41, 255);
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/icons/icons/home-7-24.png</normaloff>:/icons/icons/home-7-24.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="view_test_menu">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	border: 0px solid;
+}
+QPushButton:hover {
+	background-color: rgb(17, 41, 255);
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/icons/icons/edit-2-32.png</normaloff>:/icons/icons/edit-2-32.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="submit_menu">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	border: 0px solid;
+}
+QPushButton:hover {
+	background-color: rgb(17, 41, 255);
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/icons/icons/paper-32.png</normaloff>:/icons/icons/paper-32.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="login_menu">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	border: 0px solid;
+}
+QPushButton:hover {
+	background-color: rgb(17, 41, 255);
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/icons/icons/user-32.png</normaloff>:/icons/icons/user-32.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="add_sensor_menu">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	border: 0px solid;
+}
+QPushButton:hover {
+	background-color: rgb(17, 41, 255);
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/icons/icons/add-32.png</normaloff>:/icons/icons/add-32.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QFrame" name="pages_frame">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -259,56 +448,26 @@ QPushButton:hover {
           <item>
            <widget class="QStackedWidget" name="pages_widget">
             <property name="currentIndex">
-             <number>3</number>
+             <number>5</number>
             </property>
             <widget class="QWidget" name="homepage">
-             <widget class="QLabel" name="label">
-              <property name="geometry">
-               <rect>
-                <x>510</x>
-                <y>350</y>
-                <width>269</width>
-                <height>64</height>
-               </rect>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>40</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Home Page</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-             <widget class="QPushButton" name="start_test_button">
-              <property name="geometry">
-               <rect>
-                <x>50</x>
-                <y>710</y>
-                <width>151</width>
-                <height>41</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string>Start Test</string>
-              </property>
-             </widget>
-             <widget class="QPushButton" name="view_dashboard_button">
-              <property name="geometry">
-               <rect>
-                <x>250</x>
-                <y>710</y>
-                <width>151</width>
-                <height>41</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string>View Dashboard</string>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="font">
+                 <font>
+                  <pointsize>40</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Home Page</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="view_test_page">
              <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -646,7 +805,7 @@ QPushButton:pressed {
                   <number>0</number>
                  </property>
                  <item>
-                  <widget class="QPushButton" name="decline_test_button">
+                  <widget class="QPushButton" name="declineButton">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -662,7 +821,7 @@ QPushButton:pressed {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="submit_test_button">
+                  <widget class="QPushButton" name="submitButton">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -683,131 +842,23 @@ QPushButton:pressed {
              </layout>
             </widget>
             <widget class="QWidget" name="submit_page">
-             <widget class="QLabel" name="submit_first_name_label">
-              <property name="geometry">
-               <rect>
-                <x>40</x>
-                <y>60</y>
-                <width>141</width>
-                <height>41</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">color: rgb(220, 220, 220); font-size: 22pt;</string>
-              </property>
-              <property name="text">
-               <string>First Name</string>
-              </property>
-             </widget>
-             <widget class="QLineEdit" name="submit_first_name_field">
-              <property name="geometry">
-               <rect>
-                <x>230</x>
-                <y>60</y>
-                <width>351</width>
-                <height>41</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">font-size:16pt; color:rgb(238, 238, 238)</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-             <widget class="QLabel" name="submit_last_name_label">
-              <property name="geometry">
-               <rect>
-                <x>40</x>
-                <y>150</y>
-                <width>141</width>
-                <height>41</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">color: rgb(220, 220, 220); font-size: 22pt;</string>
-              </property>
-              <property name="text">
-               <string>Last Name</string>
-              </property>
-             </widget>
-             <widget class="QLineEdit" name="submit_last_name_field">
-              <property name="geometry">
-               <rect>
-                <x>230</x>
-                <y>150</y>
-                <width>351</width>
-                <height>41</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">font-size:16pt; color:rgb(238, 238, 238)</string>
-              </property>
-             </widget>
-             <widget class="QLineEdit" name="file_path_field">
-              <property name="geometry">
-               <rect>
-                <x>40</x>
-                <y>240</y>
-                <width>391</width>
-                <height>51</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">font-size:12pt; color:rgb(255, 255, 255)</string>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-             <widget class="QPushButton" name="upload_image_button">
-              <property name="geometry">
-               <rect>
-                <x>460</x>
-                <y>240</y>
-                <width>121</width>
-                <height>51</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">font-size: 12pt;
-color: rgb(255, 255, 255);</string>
-              </property>
-              <property name="text">
-               <string>Upload Image</string>
-              </property>
-             </widget>
-             <widget class="QLabel" name="test_image">
-              <property name="geometry">
-               <rect>
-                <x>40</x>
-                <y>370</y>
-                <width>541</width>
-                <height>291</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-             <widget class="QPushButton" name="upload_test_info_button">
-              <property name="geometry">
-               <rect>
-                <x>930</x>
-                <y>670</y>
-                <width>181</width>
-                <height>51</height>
-               </rect>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Submit Test Data/Info</string>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="font">
+                 <font>
+                  <pointsize>30</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Submit Test</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="login_page">
              <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -1028,7 +1079,7 @@ color: rgb(255, 255, 255);</string>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLineEdit" name="login_password_field">
+                     <widget class="QLineEdit" name="password_field">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -1069,12 +1120,6 @@ color: rgb(255, 255, 255);</string>
                     </property>
                     <item alignment="Qt::AlignHCenter">
                      <widget class="QLabel" name="login_error_label">
-                      <property name="minimumSize">
-                       <size>
-                        <width>300</width>
-                        <height>0</height>
-                       </size>
-                      </property>
                       <property name="font">
                        <font>
                         <pointsize>15</pointsize>
@@ -1089,7 +1134,7 @@ color: rgb(255, 255, 255);</string>
                      </widget>
                     </item>
                     <item alignment="Qt::AlignHCenter">
-                     <widget class="QPushButton" name="sign_in_button">
+                     <widget class="QPushButton" name="sign_in">
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
@@ -1102,20 +1147,7 @@ color: rgb(255, 255, 255);</string>
                      </widget>
                     </item>
                     <item alignment="Qt::AlignHCenter">
-                     <widget class="QPushButton" name="sign_in_as_guest_button">
-                      <property name="minimumSize">
-                       <size>
-                        <width>150</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>Sign in as Guest</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item alignment="Qt::AlignHCenter">
-                     <widget class="QPushButton" name="sign_up_button">
+                     <widget class="QPushButton" name="sign_up">
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
@@ -1644,7 +1676,7 @@ color: rgb(255, 255, 255);</string>
                   <number>20</number>
                  </property>
                  <item alignment="Qt::AlignBottom">
-                  <widget class="QPushButton" name="login_return_button">
+                  <widget class="QPushButton" name="welcome_return">
                    <property name="font">
                     <font>
                      <pointsize>17</pointsize>

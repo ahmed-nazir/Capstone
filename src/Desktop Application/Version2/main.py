@@ -20,22 +20,46 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        #Setting up pages
+        UIFunctions.setup_page(self, 'add new sensor')
+        UIFunctions.setup_page(self, 'login page')
+        UIFunctions.setup_page(self, 'sign up page')
+
         #Toggling menu
-        self.ui.toggle_menu.clicked.connect(lambda: UIFunctions.toggleMenu(self, 250, True))
+        #self.ui.toggle_menu.clicked.connect(lambda: UIFunctions.toggleMenu(self, 250, True))
 
         #Logging in
-        self.ui.sign_in.clicked.connect(lambda: UIFunctions.login_into_app(self))
+        self.ui.sign_in_button.clicked.connect(lambda: UIFunctions.login_into_app(self))
 
         #Signing up
         self.ui.continue_sign_up.clicked.connect(lambda: UIFunctions.continue_signup(self))
 
+        #Add new sensor
+        self.ui.submit_new_sensor.clicked.connect(lambda: UIFunctions.submit_new_sensor(self))
+
+        #submit_test
+        self.ui.submit_test_button.clicked.connect(lambda: UIFunctions.move_to_submit_test(self))
+
+        #Upload image
+        self.ui.upload_image_button.clicked.connect(lambda: UIFunctions.browse_and_display_pictures(self))
+
+        #Upload test data/info
+        self.ui.upload_test_info_button.clicked.connect(lambda: UIFunctions.upload_test_info(self))
+
         #Changing pages
-        self.ui.home_menu.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
-        self.ui.view_test_menu.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.view_test_page))
-        self.ui.submit_menu.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.submit_page))
-        self.ui.login_menu.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
-        self.ui.sign_up.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.sign_up_page))
-        self.ui.welcome_return.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
+        #Login page
+        self.ui.sign_up_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.sign_up_page))
+        self.ui.sign_in_as_guest_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
+        self.ui.account_menu_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
+        #Signup page
+        self.ui.login_return_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
+        #Homepage
+        self.ui.start_test_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.view_test_page))
+        self.ui.home_menu_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
+        #View test page
+        self.ui.decline_test_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
+        #Submit test page
+        
 
         self.show()
 

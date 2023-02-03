@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/add-32.png</file>
+    <file>icons/available-updates-32.png</file>
     <file>icons/user-32.png</file>
     <file>icons/paper-32.png</file>
     <file>icons/edit-2-32.png</file>

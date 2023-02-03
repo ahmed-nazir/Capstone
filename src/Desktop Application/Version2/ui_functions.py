@@ -1,3 +1,4 @@
+from azure.storage.blob import BlobClient
 import codecs
 import hashlib
 import os
@@ -12,10 +13,30 @@ import sys
 
 from main import *
 
-conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
-cursor = conn.cursor()
+try :
+    conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+except pyodbc.Error as err:
+    print(err)
+
+#Blob storage info
+connection_string = 'DefaultEndpointsProtocol=https;AccountName=capstonestorage1;AccountKey=J+U2eXzqIsAg6pP6qFnO9NazZERufddfOQVl4qI5qbFSgzOHuZq5Lc/qR15XO0bjn1SheNrmld+4+AStDPPLSw==;EndpointSuffix=core.windows.net'
+container_name = 'testimages'
+container_url = 'https://capstonestorage1.blob.core.windows.net/testimages/'
+
+logged_in = False
 
 class UIFunctions(MainWindow):
+
+    def setup_page(self, page_name):
+        if page_name == 'add new sensor':
+            self.ui.num_of_values_dropdown.addItems(['1','2','3','4','5'])
+        elif page_name == 'sign up page':
+            self.ui.team_role_dropdown.addItems(['Admin', 'Team Lead', 'Member'])
+            self.ui.signup_password_field.setEchoMode(QtWidgets.QLineEdit.Password)
+            self.ui.confirm_password_field.setEchoMode(QtWidgets.QLineEdit.Password)
+        elif page_name == 'login page':
+            self.ui.login_password_field.setEchoMode(QtWidgets.QLineEdit.Password)
 
     def toggleMenu(self, maxWidth, enable):
         if enable:
@@ -42,12 +63,12 @@ class UIFunctions(MainWindow):
     
     def login_into_app(self):
         username = self.ui.username_field.text()
-        password = self.ui.password_field.text()
+        password = self.ui.login_password_field.text()
 
         if len(username) == 0:
-            self.ui.error_label.setText('Please enter a username')
+            self.ui.login_error_label.setText('Please enter a username')
         elif len(password) == 0:
-            self.ui.error_label.setText('Please enter a password')
+            self.ui.login_error_label.setText('Please enter a password')
         else:
             cursor.execute("SELECT * FROM Login WHERE UserName = ?", username)
             result = cursor.fetchone()
@@ -59,18 +80,20 @@ class UIFunctions(MainWindow):
                 if (is_correct_password(salt_hex, stored_hash, password)):
                     #self.error_label.setText('Successful login!')
                     #time.sleep(2)
+                    global logged_in
+                    logged_in = True
                     self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
                     self.ui.username_field.clear()
-                    self.ui.password_field.clear()
+                    self.ui.login_password_field.clear()
                     self.ui.login_error_label.clear()
                 else:
                     self.ui.login_error_label.setText('Incorrect password, try again')
                     self.ui.username_field.clear()
-                    self.ui.password_field.clear()
+                    self.ui.login_password_field.clear()
             else:
                 self.ui.login_error_label.setText('User does not exist, try again')
                 self.ui.username_field.clear()
-                self.ui.password_field.clear()
+                self.ui.login_password_field.clear()
 
     def continue_signup(self):
         username = self.ui.signup_username_field.text()
@@ -108,6 +131,68 @@ class UIFunctions(MainWindow):
             self.ui.signup_password_field.clear()
             self.ui.confirm_password_field.clear()
             self.ui.error_label.clear()
+
+    def submit_new_sensor(self):
+        measurement_name = self.ui.measurement_name_field.text()
+        units_of_measurement = self.ui.units_of_measurement_field.text()
+        number_of_values = self.ui.num_of_values_dropdown.currentText()
+        names_of_values = self.ui.names_of_values_field.text()
+        name_of_sensor = self.ui.name_of_sensor_field.text()
+
+
+        sql_columns = ''
+        for value in names_of_values.split(', '):
+            sql_columns = sql_columns + '{} FLOAT(8) NOT NULL, '.format(value)
+            
+        create_table_sql = """ CREATE TABLE {} ( 
+                            TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
+                            TimePerformed DATETIME NOT NULL,
+                            {}
+                            PRIMARY KEY (TestID, TimePerformed));""".format(measurement_name, sql_columns)
+
+        cursor.execute(create_table_sql)
+        conn.commit()
+
+        #Adding new sensor measurement to measurements table
+        cursor.execute('INSERT INTO Measurements VALUES (?,?,?)', measurement_name, units_of_measurement, name_of_sensor)
+        conn.commit()
+
+    def move_to_submit_test(self):
+        if logged_in:
+            self.ui.pages_widget.setCurrentWidget(self.ui.submit_page)
+        else:
+            err_popup = QMessageBox()
+            err_popup.setText("Please login to submit tests")
+            err_popup.setIcon(QMessageBox.Critical)
+
+            x = err_popup.exec_()
+
+    def browse_and_display_pictures(self):
+        fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\Users\Muhanad\Documents')
+        self.ui.file_path_field.setText(fname[0])
+        qpixmap = QPixmap(fname[0])
+        scaled_pixmap = qpixmap.scaled(540, 290, aspectRatioMode=QtCore.Qt.KeepAspectRatioByExpanding)
+        self.ui.test_image.setPixmap(scaled_pixmap)
+
+    def upload_test_info(self):
+        image_path = self.ui.file_path_field.text()
+        image_file = os.path.basename(image_path)
+        blob_name = image_file
+        blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
+        with open(self.ui.file_path_field.text(), 'rb') as image:
+            blob__client.upload_blob(image)
+        print("Successfully uploaded image!")
+
+        blob_url = container_url + blob_name
+
+        cursor.execute("SELECT MAX(ID) FROM Test")
+        test_id = cursor.fetchone()[0]
+        print(test_id)
+
+        cursor.execute("INSERT INTO Test_Notes VALUES (?, ?, ?, ?)", test_id, self.ui.submit_first_name_field.text(), self.ui.submit_last_name_field.text(), blob_url)
+        conn.commit()
+        print('Successfully submitted notes to database!')
+
 
 def hash_new_password(password):
     """
