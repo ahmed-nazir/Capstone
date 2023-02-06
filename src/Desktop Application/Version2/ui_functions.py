@@ -10,6 +10,10 @@ from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFont
 from PyQt5.QtWidgets import *
 import regex as re
 import sys
+import socket
+import os
+from time import sleep
+from webbrowser import open
 
 from main import *
 
@@ -29,8 +33,8 @@ logged_in = False
 class UIFunctions(MainWindow):
 
     def setup_page(self, page_name):
-        if page_name == 'add new sensor':
-            self.ui.num_of_values_dropdown.addItems(['1','2','3','4','5'])
+        if page_name == 'homepage':
+            self.ui.connection_type.addItem(['Wired','Wireless'])
         elif page_name == 'sign up page':
             self.ui.team_role_dropdown.addItems(['Admin', 'Team Lead', 'Member'])
             self.ui.signup_password_field.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -135,7 +139,7 @@ class UIFunctions(MainWindow):
     def submit_new_sensor(self):
         measurement_name = self.ui.measurement_name_field.text()
         units_of_measurement = self.ui.units_of_measurement_field.text()
-        number_of_values = self.ui.num_of_values_dropdown.currentText()
+        
         names_of_values = self.ui.names_of_values_field.text()
         name_of_sensor = self.ui.name_of_sensor_field.text()
 
@@ -193,7 +197,56 @@ class UIFunctions(MainWindow):
         conn.commit()
         print('Successfully submitted notes to database!')
 
+    def change_connectivity_page(self):
+        if(self.ui.connection_type.currentText() == "Wireless"):
+            self.ui.connectivity_page.setCurrentWidget(self.ui.wireless_page)
+        elif(self.ui.connection_type.currentText() == "Wired"):
+            self.ui.connectivity_page.setCurrentWidget(self.ui.wired_page)
+    
+    def connect_wireless(self):
+        os.system(f'''cmd /c "netsh wlan connect name=Formulate"''')
+        sleep(3)
+        ip = '192.168.4.1'
+        port = 8080
+        self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        try:
+            self.conn.connect((ip,port))
+            self.ui.connection_status_label.setText("Connected")
+            self.ui.wifi_name_label.setText("Formulate")
+            self.ui.ip_address_label.setText(ip)
+            self.ping()
 
+        except:
+            print("Connection Failed")
+            self.ui.connection_status_label.setText("Disconnected")
+            self.ui.wifi_name_label.setText("---")
+            self.ui.ip_address_label.setText("---")
+
+    def view_dashboard(self):
+        open("https://powerbi.microsoft.com/en-au/")
+
+
+    def ping(self):
+        sensorList = []
+        self.conn.send('Q'.encode())
+        line = conn.recv(1024)   # read a byt
+        print(line)  # read a byte
+        if line:
+            string = line.decode()
+            if string[0] == "(" and string[len(string)-3] == ")":
+                print(string)
+        self.conn.send('W'.encode())
+        self.conn.close()
+
+
+
+
+
+
+
+
+
+# DATABASE AUTHENTICATION FUNCTIONS
 def hash_new_password(password):
     """
     Hash the provided password with a randomly-generated salt and return the

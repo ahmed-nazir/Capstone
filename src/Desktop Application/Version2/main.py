@@ -58,10 +58,21 @@ class MainWindow(QMainWindow):
         self.ui.home_menu_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
         #View test page
         self.ui.decline_test_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
-        #Submit test page
+        #Submit test 
         
+        
+        #Change connectivity page
+        self.ui.connection_type.currentTextChanged.connect(lambda: UIFunctions.change_connectivity_page(self))
+
+        #Connect to wifi button
+        self.ui.wifi_connect.clicked.connect(lambda: UIFunctions.connect_wireless(self))
+        
+        #Connect dashboard button
+        self.ui.view_dashboard_button.clicked.connect(lambda: UIFunctions.view_dashboard(self))
 
         self.show()
+
+    
 
     def changeText(self):
         if self.ui.home_menu.text() == '':
