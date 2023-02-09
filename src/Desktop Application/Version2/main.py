@@ -70,6 +70,22 @@ class MainWindow(QMainWindow):
         #Connect dashboard button
         self.ui.view_dashboard_button.clicked.connect(lambda: UIFunctions.view_dashboard(self))
 
+        #Connect detect senor button
+        self.ui.detect_sensors.clicked.connect(lambda: UIFunctions.ping(self))
+
+        #Connect start button
+        self.ui.startButton.clicked.connect(lambda: UIFunctions.runProg(self))
+
+        #Stop test button
+        self.ui.stopButton.clicked.connect(lambda: UIFunctions.stopTest(self))
+
+        self.ui.decline_test_button.clicked.connect(lambda: UIFunctions.declineData(self))
+
+        self.ui.com_port_select.activated.connect(lambda: UIFunctions.select_com(self))
+
+    
+        self.ui.wired_connect.clicked.connect(lambda: UIFunctions.connect_wired(self))
+
         self.show()
 
     

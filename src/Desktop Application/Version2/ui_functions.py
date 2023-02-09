@@ -14,9 +14,15 @@ import socket
 import os
 from time import sleep
 from webbrowser import open
+import pandas as pd
+import threading
+import datetime
+import serial.tools.list_ports
+import serial
 
 from main import *
 
+''''
 try :
     conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
@@ -29,6 +35,62 @@ container_name = 'testimages'
 container_url = 'https://capstonestorage1.blob.core.windows.net/testimages/'
 
 logged_in = False
+'''
+
+
+
+class PandasModel(QtCore.QAbstractTableModel):
+    DtypeRole = QtCore.Qt.UserRole + 1000
+    ValueRole = QtCore.Qt.UserRole + 1001
+    def __init__(self, df=pd.DataFrame(), parent=None):
+        super(PandasModel, self).__init__(parent)
+        self._dataframe = df
+    def setDataFrame(self, dataframe):
+        self.beginResetModel()
+        self._dataframe = dataframe.copy()
+        self.endResetModel()
+    def dataFrame(self):
+        return self._dataframe
+    dataFrame = QtCore.pyqtProperty(pd.DataFrame, fget=dataFrame, fset=setDataFrame)
+    @QtCore.pyqtSlot(int, QtCore.Qt.Orientation, result=str)
+    def headerData(self, section: int, orientation: QtCore.Qt.Orientation, role: int = QtCore.Qt.DisplayRole):
+        if role == QtCore.Qt.DisplayRole:
+            if orientation == QtCore.Qt.Horizontal:
+                return self._dataframe.columns[section]
+            else:
+                return str(self._dataframe.index[section])
+        return QtCore.QVariant()
+    def rowCount(self, parent=QtCore.QModelIndex()):
+        if parent.isValid():
+            return 0
+        return len(self._dataframe.index)
+    def columnCount(self, parent=QtCore.QModelIndex()):
+        if parent.isValid():
+            return 0
+        return self._dataframe.columns.size
+    def data(self, index, role=QtCore.Qt.DisplayRole):
+        if not index.isValid() or not (0 <= index.row() < self.rowCount() \
+            and 0 <= index.column() < self.columnCount()):
+            return QtCore.QVariant()
+        row = self._dataframe.index[index.row()]
+        col = self._dataframe.columns[index.column()]
+        dt = self._dataframe[col].dtype
+        val = self._dataframe.iloc[row][col]
+        if role == QtCore.Qt.DisplayRole:
+            return str(val)
+        elif role == PandasModel.ValueRole:
+            return val
+        if role == PandasModel.DtypeRole:
+            return dt
+        return QtCore.QVariant()
+    def roleNames(self):
+        roles = {
+            QtCore.Qt.DisplayRole: b'display',
+            PandasModel.DtypeRole: b'dtype',
+            PandasModel.ValueRole: b'value'
+        }
+        return roles
+
 
 class UIFunctions(MainWindow):
 
@@ -204,43 +266,233 @@ class UIFunctions(MainWindow):
             self.ui.connectivity_page.setCurrentWidget(self.ui.wired_page)
     
     def connect_wireless(self):
-        os.system(f'''cmd /c "netsh wlan connect name=Formulate"''')
-        sleep(3)
+        #os.system(f'''cmd /c "netsh wlan connect name=Formulate"''')
+        #sleep(3)
+        try:
+            self.disconnect_wired()
+        except:
+            print("")
+            
         ip = '192.168.4.1'
         port = 8080
         self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         try:
             self.conn.connect((ip,port))
-            self.ui.connection_status_label.setText("Connected")
+            self.ui.connection_status_wireless_label.setText("Connected")
             self.ui.wifi_name_label.setText("Formulate")
             self.ui.ip_address_label.setText(ip)
-            self.ping()
+            self.isConnected = "Wireless"
 
         except:
             print("Connection Failed")
-            self.ui.connection_status_label.setText("Disconnected")
+            err_popup = QMessageBox()
+            err_popup.setText("Connection Failed: Make sure to connect to Formulate Wifi")
+            err_popup.setIcon(QMessageBox.Critical)
+
+            x = err_popup.exec_()
+            self.ui.connection_status_wireless_label.setText("Disconnected")
             self.ui.wifi_name_label.setText("---")
             self.ui.ip_address_label.setText("---")
+
+
+    def disconnect_wireless(self):
+        try:
+            self.conn.close()
+            self.ui.connection_status_wireless_label.setText("Disconnected")
+            self.ui.wifi_name_label.setText("---")
+            self.ui.ip_address_label.setText("---")
+        except:
+            return
+    
+    def disconnect_wired(self):
+        try:
+            self.ser.close()
+            self.ui.connection_status_wired_label.setText("Disconnected")
+            self.ui.board_name_label.setText("---")
+            self.ui.com_port_label.setText("---")
+        except:
+            return
+
+
 
     def view_dashboard(self):
         open("https://powerbi.microsoft.com/en-au/")
 
 
     def ping(self):
-        sensorList = []
-        self.conn.send('Q'.encode())
-        line = conn.recv(1024)   # read a byt
-        print(line)  # read a byte
-        if line:
-            string = line.decode()
-            if string[0] == "(" and string[len(string)-3] == ")":
-                print(string)
-        self.conn.send('W'.encode())
-        self.conn.close()
+        # Ping the Arduino to get the currently programmed sensors
+        sensorType = []
+        sensorNumber = []
+        sensorTypeName = []
+        self.tableHeader = ['Time']
+
+        if self.isConnected == "Wireless":
+            self.conn.send('Q'.encode())
+            for i in range(2):
+                line = self.conn.recv(1024)  
+                if line:
+                    byteString = line.decode()
+            self.conn.send('W'.encode())
+        
+        if self.isConnected == "Wired":
+            self.ser.write(b'G')
+            for i in range(2):
+                line = self.ser.readline()   
+                if line:
+                    byteString = line.decode()
+            self.ser.write(b'P')
+
+        filteredByteString = byteString[1:len(byteString)-3].split(",")
+
+        for i in filteredByteString:
+            sensorType.append(i[0])         
+            sensorNumber.append(i[1])
+
+        A = {'sensorType': 'Acceleration X', 'unit': 'm/s^2'}
+        B = {'sensorType': 'Acceleration Y', 'unit': 'm/s^2'}
+        C = {'sensorType': 'Acceleration Z', 'unit': 'm/s^2'}
+        D = {'sensorType': 'Temperature', 'unit': '° celsius'}
+        E = {'sensorType': 'Humidity', 'unit': '%'}
+        converter = [A, B, C, D, E]
+        inputLength = len(sensorType)
+
+        for i in range(inputLength):
+            capsAscii = ord(sensorType[i]) 
+            sensorTypeName.append(converter[capsAscii-65]['sensorType'])
+
+        for i in range(inputLength):
+            self.tableHeader.append(sensorTypeName[i] + " " + sensorNumber[i])
+
+   
+        headerData = pd.DataFrame(columns=self.tableHeader[1:])
+        model = PandasModel(headerData)
+        self.ui.detected_sensors_table.setModel(model)
 
 
+    def startTest(self):
+        #Start button function, starts the test
+        self.ui.startButton.setEnabled(False)
+        self.ui.startButton.setStyleSheet("background-color: rgb(69, 83, 100);")
+        self.ui.stopButton.setEnabled(True)
+        self.ui.stopButton.setStyleSheet("background-color: rgb(200, 0, 0);")
+        self.run = 1
+        self.data = []
+        rowData = []
+
+        if self.isConnected == "Wireless":
+            self.conn.send('Q'.encode())
+            while(self.run):
+                line = self.conn.recv(1024)
+                now = datetime.datetime.now()   # read a byte
+                if line:
+                    string = line.decode()
+                    if string[0] == "(" and string[len(string)-3] == ")":
+                        print(string)
+                        filteredByteString = string[1:len(string)-3].split(",")
+                        rowData =[now.strftime("%Y-%m-%d %H:%M:%S")]
+                        for i in filteredByteString: 
+                            rowData.append(i[2:]) 
+                        self.data.append(rowData)
+        
+        if self.isConnected == "Wired":
+            self.ser.write(b'G')
+            while(self.run):
+                line = self.ser.readline()
+                now = datetime.datetime.now()   # read a byte
+                if line:
+                    string = line.decode()
+                    if string[0] == "(" and string[len(string)-3] == ")":
+                        print(string)
+                        filteredByteString = string[1:len(string)-3].split(",")
+                        rowData =[now.strftime("%Y-%m-%d %H:%M:%S")]
+                        for i in filteredByteString: 
+                            rowData.append(i[2:]) 
+                        self.data.append(rowData)
+
+    def runProg(self):
+        #Start Button threading function
+        t1 = threading.Thread(target=lambda: UIFunctions.startTest(self))
+        t1.start()
 
 
+    def stopTest(self):
+        #Stop Button Function
+        self.ui.startButton.setEnabled(True)
+        self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+        self.ui.stopButton.setEnabled(False)
+        self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
+
+        if self.ui.connection_type.currentText() == "Wireless":
+            try:
+                self.run = 0
+                self.conn.send('W'.encode())
+                data = pd.DataFrame(self.data,columns=self.tableHeader)
+                model = PandasModel(data)
+                self.ui.data_table.setModel(model)
+                self.ui.data_table.setColumnWidth(0,200)
+
+            except Exception as e:
+                print(e)
+
+        if self.ui.connection_type.currentText() == "Wired":
+            try:
+                self.run = 0
+                self.ser.write(b'P')
+                data = pd.DataFrame(self.data,columns=self.tableHeader)
+                model = PandasModel(data)
+                self.ui.data_table.setModel(model)
+                self.ui.data_table.setColumnWidth(0,200)
+
+            except Exception as e:
+                print(e)
+
+
+    def declineData(self):
+        self.df = pd.DataFrame()
+        model = PandasModel(self.df)
+        self.ui.data_table.setModel(model)
+
+    
+    def select_com(self):
+        if self.ui.com_port_select.currentText() == "Refresh":
+            self.ui.com_port_select.clear()
+            self.portData = serial.tools.list_ports.comports()
+            i = 1
+            self.a=0
+            print(self.portData)
+            if len(self.portData) != 0:
+                for i in range(0,len(self.portData)):
+                    print(i)
+                    self.portData[i] = str(self.portData[i])
+            self.ui.com_port_select.addItem("Refresh")
+            self.ui.com_port_select.addItems(self.portData)
+        else:
+            self.comUserSelect = self.ui.com_port_select.currentText()
+            self.comPort = self.comUserSelect[0:4]
+            print(self.comPort)
+    
+    
+    
+    def connect_wired(self):
+        try:
+            self.disconnect_wireless()
+        except:
+            print("")
+        #Connects and disconnects to arduino
+        _translate = QtCore.QCoreApplication.translate
+        if(self.a == 0):
+            self.ser = serial.Serial(self.comPort, 9600, timeout=1)
+            self.a = 1
+            self.ui.wired_connect.setText(_translate("MainWindow", "Disconnect"))
+            self.isConnected = "Wired"
+            self.ui.connection_status_wired_label.setText("Connected")
+            self.ui.board_name_label.setText(str(self.portData[5:]))
+            self.ui.com_port_label.setText(self.comPort)
+
+        else:
+            self.ser.close()
+            self.ui.wired_connect.setText(_translate("MainWindow", "Connect"))
+            self.a = 0
 
 
 
