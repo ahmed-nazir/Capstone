@@ -28,6 +28,7 @@ try :
     cursor = conn.cursor()
 except pyodbc.Error as err:
     print(err)
+    '''
 
 #Blob storage info
 connection_string = 'DefaultEndpointsProtocol=https;AccountName=capstonestorage1;AccountKey=J+U2eXzqIsAg6pP6qFnO9NazZERufddfOQVl4qI5qbFSgzOHuZq5Lc/qR15XO0bjn1SheNrmld+4+AStDPPLSw==;EndpointSuffix=core.windows.net'
@@ -35,7 +36,7 @@ container_name = 'testimages'
 container_url = 'https://capstonestorage1.blob.core.windows.net/testimages/'
 
 logged_in = False
-'''
+
 
 
 
@@ -127,7 +128,10 @@ class UIFunctions(MainWindow):
             self.animation.start()
             self.animation.finished.connect(lambda: self.changeText())
     
+   
+    
     def login_into_app(self):
+        conn, cursor = connect_to_database()
         username = self.ui.username_field.text()
         password = self.ui.login_password_field.text()
 
@@ -234,7 +238,7 @@ class UIFunctions(MainWindow):
             x = err_popup.exec_()
 
     def browse_and_display_pictures(self):
-        fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\Users\Muhanad\Documents')
+        fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
         self.ui.file_path_field.setText(fname[0])
         qpixmap = QPixmap(fname[0])
         scaled_pixmap = qpixmap.scaled(540, 290, aspectRatioMode=QtCore.Qt.KeepAspectRatioByExpanding)
@@ -251,13 +255,40 @@ class UIFunctions(MainWindow):
 
         blob_url = container_url + blob_name
 
-        cursor.execute("SELECT MAX(ID) FROM Test")
-        test_id = cursor.fetchone()[0]
-        print(test_id)
+        test_name = self.ui.test_name.text()
+        test_purpose = self.ui.test_purpose.text()
+        test_desc = self.ui.test_description.text()
+        image_url = blob_url
 
-        cursor.execute("INSERT INTO Test_Notes VALUES (?, ?, ?, ?)", test_id, self.ui.submit_first_name_field.text(), self.ui.submit_last_name_field.text(), blob_url)
-        conn.commit()
-        print('Successfully submitted notes to database!')
+        cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", 'msada4', test_name, test_purpose, test_desc, image_url)
+
+        cursor.execute('SELECT MAX(ID) FROM TEST')
+        last_index = cursor.fetchone()[0]
+
+        cursor.execute('SELECT name FROM sys.tables')
+        num_of_cols = len(df.axes[1])
+
+        current_tables = []
+        for x in cursor.fetchall():
+            current_tables.append(x[0])
+
+        for i in range(1, num_of_cols):
+            if df.columns[i] not in current_tables:
+                create_table_sql = """ CREATE TABLE {} ( 
+                            TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
+                            TimePerformed DATETIME NOT NULL,
+                            Value FLOAT(8) NOT NULL,
+                            PRIMARY KEY (TestID, TimePerformed));""".format(df.columns[i])
+                cursor.execute(create_table_sql)
+                conn.commit()
+            else:
+                print('nothing to add here')
+            
+            for index, row in df.iterrows():
+                insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(df.columns[i], last_index, "'"+row[df.columns[0]]+"'", row[df.columns[i]])
+                sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[df.columns[0]]+"'", row[df.columns[i]]
+                cursor.execute(insert_data_sql)
+            conn.commit()
 
     def change_connectivity_page(self):
         if(self.ui.connection_type.currentText() == "Wireless"):
@@ -269,7 +300,7 @@ class UIFunctions(MainWindow):
         #os.system(f'''cmd /c "netsh wlan connect name=Formulate"''')
         #sleep(3)
         try:
-            self.disconnect_wired()
+            UIFunctions.disconnect_wired(self)
         except:
             print("")
             
@@ -475,7 +506,7 @@ class UIFunctions(MainWindow):
     
     def connect_wired(self):
         try:
-            self.disconnect_wireless()
+            UIFunctions.disconnect_wireless(self)
         except:
             print("")
         #Connects and disconnects to arduino
@@ -490,7 +521,7 @@ class UIFunctions(MainWindow):
             self.ui.com_port_label.setText(self.comPort)
 
         else:
-            self.ser.close()
+            UIFunctions.disconnect_wired(self)
             self.ui.wired_connect.setText(_translate("MainWindow", "Connect"))
             self.a = 0
 
@@ -522,3 +553,10 @@ def is_correct_password(salt_hex, stored_hash, pass_to_check):
         return False
 
 
+def connect_to_database():
+    try :
+        conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        cursor = conn.cursor()
+        return conn, cursor
+    except pyodbc.Error as err:
+        print(err)
