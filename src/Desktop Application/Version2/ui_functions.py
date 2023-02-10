@@ -13,7 +13,7 @@ import sys
 import socket
 import os
 from time import sleep
-from webbrowser import open
+#from webbrowser import open
 import pandas as pd
 import threading
 import datetime
@@ -152,6 +152,8 @@ class UIFunctions(MainWindow):
                     #time.sleep(2)
                     global logged_in
                     logged_in = True
+                    self.ui.account_menu_button.setText(username)
+                    print(self.ui.account_menu_button.text())
                     self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
                     self.ui.username_field.clear()
                     self.ui.login_password_field.clear()
@@ -166,6 +168,7 @@ class UIFunctions(MainWindow):
                 self.ui.login_password_field.clear()
 
     def continue_signup(self):
+        conn, cursor = connect_to_database()
         username = self.ui.signup_username_field.text()
         password = self.ui.signup_password_field.text()
         confirm_password = self.ui.confirm_password_field.text()
@@ -203,6 +206,7 @@ class UIFunctions(MainWindow):
             self.ui.error_label.clear()
 
     def submit_new_sensor(self):
+        conn, cursor = connect_to_database()
         measurement_name = self.ui.measurement_name_field.text()
         units_of_measurement = self.ui.units_of_measurement_field.text()
         
@@ -245,6 +249,8 @@ class UIFunctions(MainWindow):
         self.ui.test_image.setPixmap(scaled_pixmap)
 
     def upload_test_info(self):
+        conn, cursor = connect_to_database()
+        '''
         image_path = self.ui.file_path_field.text()
         image_file = os.path.basename(image_path)
         blob_name = image_file
@@ -253,40 +259,41 @@ class UIFunctions(MainWindow):
             blob__client.upload_blob(image)
         print("Successfully uploaded image!")
 
-        blob_url = container_url + blob_name
+        blob_url = container_url + blob_name'''
 
         test_name = self.ui.test_name.text()
         test_purpose = self.ui.test_purpose.text()
         test_desc = self.ui.test_description.text()
-        image_url = blob_url
-
-        cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", 'msada4', test_name, test_purpose, test_desc, image_url)
+        image_url = None
+        username = self.ui.account_menu_button.text()
+        
+        cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", username, test_name, test_purpose, test_desc, image_url)
 
         cursor.execute('SELECT MAX(ID) FROM TEST')
         last_index = cursor.fetchone()[0]
 
         cursor.execute('SELECT name FROM sys.tables')
-        num_of_cols = len(df.axes[1])
+        num_of_cols = len(self.pdData.axes[1])
 
         current_tables = []
         for x in cursor.fetchall():
             current_tables.append(x[0])
 
         for i in range(1, num_of_cols):
-            if df.columns[i] not in current_tables:
+            if self.pdData.columns[i] not in current_tables:
                 create_table_sql = """ CREATE TABLE {} ( 
                             TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
                             TimePerformed DATETIME NOT NULL,
                             Value FLOAT(8) NOT NULL,
-                            PRIMARY KEY (TestID, TimePerformed));""".format(df.columns[i])
+                            PRIMARY KEY (TestID, TimePerformed));""".format(self.pdData.columns[i])
                 cursor.execute(create_table_sql)
                 conn.commit()
             else:
                 print('nothing to add here')
             
-            for index, row in df.iterrows():
-                insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(df.columns[i], last_index, "'"+row[df.columns[0]]+"'", row[df.columns[i]])
-                sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[df.columns[0]]+"'", row[df.columns[i]]
+            for index, row in self.pdData.iterrows():
+                insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(self.pdData.columns[i], last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
+                sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]]
                 cursor.execute(insert_data_sql)
             conn.commit()
 
@@ -379,11 +386,11 @@ class UIFunctions(MainWindow):
             sensorType.append(i[0])         
             sensorNumber.append(i[1])
 
-        A = {'sensorType': 'Acceleration X', 'unit': 'm/s^2'}
-        B = {'sensorType': 'Acceleration Y', 'unit': 'm/s^2'}
-        C = {'sensorType': 'Acceleration Z', 'unit': 'm/s^2'}
+        A = {'sensorType': 'AccelerationX', 'unit': 'm/s^2'}
+        B = {'sensorType': 'AccelerationY', 'unit': 'm/s^2'}
+        C = {'sensorType': 'AccelerationZ', 'unit': 'm/s^2'}
         D = {'sensorType': 'Temperature', 'unit': '° celsius'}
-        E = {'sensorType': 'Humidity', 'unit': '%'}
+        E = {'sensorType': 'Speed', 'unit': '%'}
         converter = [A, B, C, D, E]
         inputLength = len(sensorType)
 
@@ -392,7 +399,7 @@ class UIFunctions(MainWindow):
             sensorTypeName.append(converter[capsAscii-65]['sensorType'])
 
         for i in range(inputLength):
-            self.tableHeader.append(sensorTypeName[i] + " " + sensorNumber[i])
+            self.tableHeader.append(sensorTypeName[i] + sensorNumber[i])
 
    
         headerData = pd.DataFrame(columns=self.tableHeader[1:])
@@ -457,8 +464,8 @@ class UIFunctions(MainWindow):
             try:
                 self.run = 0
                 self.conn.send('W'.encode())
-                data = pd.DataFrame(self.data,columns=self.tableHeader)
-                model = PandasModel(data)
+                self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                model = PandasModel(self.pdData)
                 self.ui.data_table.setModel(model)
                 self.ui.data_table.setColumnWidth(0,200)
 
@@ -469,8 +476,8 @@ class UIFunctions(MainWindow):
             try:
                 self.run = 0
                 self.ser.write(b'P')
-                data = pd.DataFrame(self.data,columns=self.tableHeader)
-                model = PandasModel(data)
+                self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                model = PandasModel(self.pdData)
                 self.ui.data_table.setModel(model)
                 self.ui.data_table.setColumnWidth(0,200)
 
