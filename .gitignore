@@ -281,3 +281,6 @@ TSWLatexianTemp*
 
 # Temporary Python Files
 TEMP.py
+
+# PYC files
+*.pyc
