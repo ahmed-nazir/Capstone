@@ -3030,7 +3030,7 @@ QPushButton:hover {
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="6,6,1">
                  <property name="spacing">
                   <number>5</number>
                  </property>
@@ -3078,6 +3078,19 @@ QPushButton:hover {
                    </property>
                    <property name="text">
                     <string>Stop Test</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="uploadCSVButton">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>25</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Upload</string>
                    </property>
                   </widget>
                  </item>

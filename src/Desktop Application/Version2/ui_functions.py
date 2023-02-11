@@ -20,6 +20,8 @@ import datetime
 import serial.tools.list_ports
 import serial
 
+import csv
+
 from main import *
 
 ''''
@@ -249,53 +251,94 @@ class UIFunctions(MainWindow):
         self.ui.test_image.setPixmap(scaled_pixmap)
 
     def upload_test_info(self):
-        conn, cursor = connect_to_database()
-        '''
-        image_path = self.ui.file_path_field.text()
-        image_file = os.path.basename(image_path)
-        blob_name = image_file
-        blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
-        with open(self.ui.file_path_field.text(), 'rb') as image:
-            blob__client.upload_blob(image)
-        print("Successfully uploaded image!")
+        try:
+            conn, cursor = connect_to_database()
+            '''
+            image_path = self.ui.file_path_field.text()
+            image_file = os.path.basename(image_path)
+            blob_name = image_file
+            blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
+            with open(self.ui.file_path_field.text(), 'rb') as image:
+                blob__client.upload_blob(image)
+            print("Successfully uploaded image!")
 
-        blob_url = container_url + blob_name'''
+            blob_url = container_url + blob_name'''
 
-        test_name = self.ui.test_name.text()
-        test_purpose = self.ui.test_purpose.text()
-        test_desc = self.ui.test_description.text()
-        image_url = None
-        username = self.ui.account_menu_button.text()
-        
-        cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", username, test_name, test_purpose, test_desc, image_url)
-
-        cursor.execute('SELECT MAX(ID) FROM TEST')
-        last_index = cursor.fetchone()[0]
-
-        cursor.execute('SELECT name FROM sys.tables')
-        num_of_cols = len(self.pdData.axes[1])
-
-        current_tables = []
-        for x in cursor.fetchall():
-            current_tables.append(x[0])
-
-        for i in range(1, num_of_cols):
-            if self.pdData.columns[i] not in current_tables:
-                create_table_sql = """ CREATE TABLE {} ( 
-                            TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
-                            TimePerformed DATETIME NOT NULL,
-                            Value FLOAT(8) NOT NULL,
-                            PRIMARY KEY (TestID, TimePerformed));""".format(self.pdData.columns[i])
-                cursor.execute(create_table_sql)
-                conn.commit()
-            else:
-                print('nothing to add here')
+            test_name = self.ui.test_name.text()
+            test_purpose = self.ui.test_purpose.text()
+            test_desc = self.ui.test_description.text()
+            image_url = None
+            username = self.ui.account_menu_button.text()
             
-            for index, row in self.pdData.iterrows():
-                insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(self.pdData.columns[i], last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
-                sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]]
-                cursor.execute(insert_data_sql)
-            conn.commit()
+            cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", username, test_name, test_purpose, test_desc, image_url)
+
+            cursor.execute('SELECT MAX(ID) FROM TEST')
+            last_index = cursor.fetchone()[0]
+
+            cursor.execute('SELECT name FROM sys.tables')
+            num_of_cols = len(self.pdData.axes[1])
+
+            current_tables = []
+            for x in cursor.fetchall():
+                current_tables.append(x[0])
+
+            for i in range(1, num_of_cols):
+                if self.pdData.columns[i] not in current_tables:
+                    create_table_sql = """ CREATE TABLE {} ( 
+                                TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
+                                TimePerformed DATETIME NOT NULL,
+                                Value FLOAT(8) NOT NULL,
+                                PRIMARY KEY (TestID, TimePerformed));""".format(self.pdData.columns[i])
+                    cursor.execute(create_table_sql)
+                    conn.commit()
+                else:
+                    print('nothing to add here')
+                
+                for index, row in self.pdData.iterrows():
+                    insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(self.pdData.columns[i], last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
+                    sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]]
+                    cursor.execute(insert_data_sql)
+                conn.commit()
+
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText("Test Successfully Submitted to the Database")
+            x = msgBox.exec_()
+            UIFunctions.declineData(self)
+            
+
+        except Exception as e:
+            print(e)
+
+
+    def uploadCSV(self):
+        fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
+        print(fname[0])
+        file = open(fname[0])
+        type(file)
+
+        csvreader = csv.reader(file)
+        header = []
+        header = ['Time'] + next(csvreader)
+        print(header)
+
+
+        rows = []
+        for row in csvreader:
+            rows.append(row)
+
+        for i in range(len(rows)):
+            timeInsert = str(i)
+            rows[i] = [timeInsert]+ rows[i][:]
+            
+        self.pdData = pd.DataFrame(rows,columns=header)
+        model = PandasModel(self.pdData)
+        self.ui.data_table.setModel(model)
+        self.ui.data_table.setColumnWidth(0,200)
+
+        file.close()
+
+
 
     def change_connectivity_page(self):
         if(self.ui.connection_type.currentText() == "Wireless"):
@@ -390,7 +433,7 @@ class UIFunctions(MainWindow):
         B = {'sensorType': 'AccelerationY', 'unit': 'm/s^2'}
         C = {'sensorType': 'AccelerationZ', 'unit': 'm/s^2'}
         D = {'sensorType': 'Temperature', 'unit': '° celsius'}
-        E = {'sensorType': 'Speed', 'unit': '%'}
+        E = {'sensorType': 'Humidity', 'unit': '%'}
         converter = [A, B, C, D, E]
         inputLength = len(sensorType)
 
@@ -446,6 +489,10 @@ class UIFunctions(MainWindow):
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
+                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        model = PandasModel(self.pdData)
+                        self.ui.data_table.setModel(model)
+                        self.ui.data_table.setColumnWidth(0,200)
 
     def runProg(self):
         #Start Button threading function
@@ -489,6 +536,11 @@ class UIFunctions(MainWindow):
         self.df = pd.DataFrame()
         model = PandasModel(self.df)
         self.ui.data_table.setModel(model)
+        self.ui.test_name.clear()
+        self.ui.test_purpose.clear()
+        self.ui.test_description.clear()
+        self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
+
 
     
     def select_com(self):
