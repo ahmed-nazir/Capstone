@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1243</width>
-    <height>815</height>
+    <width>1199</width>
+    <height>831</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -2804,6 +2804,34 @@ QPushButton:hover {
                             <number>0</number>
                            </property>
                            <item>
+                            <widget class="QTextBrowser" name="textBrowser">
+                             <property name="maximumSize">
+                              <size>
+                               <width>16777215</width>
+                               <height>100</height>
+                              </size>
+                             </property>
+                             <property name="frameShape">
+                              <enum>QFrame::NoFrame</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Plain</enum>
+                             </property>
+                             <property name="html">
+                              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Instructions:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Connect PC to Formulate WiFi&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     SSID: Formulate&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     Password: capstone&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Click Connect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
                             <widget class="QPushButton" name="wifi_connect">
                              <property name="minimumSize">
                               <size>
@@ -2897,12 +2925,39 @@ QPushButton:hover {
                       <layout class="QVBoxLayout" name="verticalLayout_26" stretch="2,1">
                        <item>
                         <widget class="QFrame" name="frame_15">
+                         <property name="enabled">
+                          <bool>false</bool>
+                         </property>
                          <property name="frameShape">
-                          <enum>QFrame::Box</enum>
+                          <enum>QFrame::NoFrame</enum>
                          </property>
                          <property name="frameShadow">
                           <enum>QFrame::Raised</enum>
                          </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_16">
+                          <item>
+                           <widget class="QLabel" name="label_23">
+                            <property name="enabled">
+                             <bool>false</bool>
+                            </property>
+                            <property name="text">
+                             <string/>
+                            </property>
+                            <property name="textFormat">
+                             <enum>Qt::RichText</enum>
+                            </property>
+                            <property name="pixmap">
+                             <pixmap resource="resource.qrc">:/icons/icons/formula_car.png</pixmap>
+                            </property>
+                            <property name="scaledContents">
+                             <bool>true</bool>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>false</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item>
@@ -2913,45 +2968,46 @@ QPushButton:hover {
                          <property name="frameShadow">
                           <enum>QFrame::Raised</enum>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_27">
+                         <layout class="QVBoxLayout" name="verticalLayout_27" stretch="1,4">
                           <item>
-                           <widget class="QPushButton" name="detect_sensors">
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>25</height>
-                             </size>
+                           <widget class="QLabel" name="label_17">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                              <weight>75</weight>
+                              <bold>true</bold>
+                             </font>
                             </property>
                             <property name="text">
-                             <string>Detect Sensors</string>
+                             <string>Detected Sensors:</string>
                             </property>
                            </widget>
                           </item>
                           <item>
-                           <widget class="QTableView" name="detected_sensors_table">
+                           <widget class="QLabel" name="detect_sensors_list">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>100</height>
+                             </size>
+                            </property>
                             <property name="font">
                              <font>
-                              <pointsize>8</pointsize>
+                              <pointsize>15</pointsize>
                              </font>
                             </property>
                             <property name="frameShape">
-                             <enum>QFrame::NoFrame</enum>
+                             <enum>QFrame::Panel</enum>
                             </property>
-                            <property name="frameShadow">
-                             <enum>QFrame::Plain</enum>
+                            <property name="text">
+                             <string/>
                             </property>
-                            <attribute name="horizontalHeaderDefaultSectionSize">
-                             <number>100</number>
-                            </attribute>
-                            <attribute name="verticalHeaderVisible">
-                             <bool>false</bool>
-                            </attribute>
-                            <attribute name="verticalHeaderDefaultSectionSize">
-                             <number>30</number>
-                            </attribute>
-                            <attribute name="verticalHeaderHighlightSections">
-                             <bool>false</bool>
-                            </attribute>
+                            <property name="scaledContents">
+                             <bool>true</bool>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
                            </widget>
                           </item>
                          </layout>

@@ -160,6 +160,7 @@ class UIFunctions(MainWindow):
                     self.ui.username_field.clear()
                     self.ui.login_password_field.clear()
                     self.ui.login_error_label.clear()
+                    self.b = 0
                 else:
                     self.ui.login_error_label.setText('Incorrect password, try again')
                     self.ui.username_field.clear()
@@ -253,7 +254,7 @@ class UIFunctions(MainWindow):
     def upload_test_info(self):
         try:
             conn, cursor = connect_to_database()
-            '''
+            
             image_path = self.ui.file_path_field.text()
             image_file = os.path.basename(image_path)
             blob_name = image_file
@@ -262,7 +263,7 @@ class UIFunctions(MainWindow):
                 blob__client.upload_blob(image)
             print("Successfully uploaded image!")
 
-            blob_url = container_url + blob_name'''
+            blob_url = container_url + blob_name
 
             test_name = self.ui.test_name.text()
             test_purpose = self.ui.test_purpose.text()
@@ -312,31 +313,34 @@ class UIFunctions(MainWindow):
 
 
     def uploadCSV(self):
-        fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
-        print(fname[0])
-        file = open(fname[0])
-        type(file)
+        try:
+            fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
+            print(fname[0])
+            file = open(fname[0])
+            type(file)
 
-        csvreader = csv.reader(file)
-        header = []
-        header = ['Time'] + next(csvreader)
-        print(header)
+            csvreader = csv.reader(file)
+            header = []
+            header = ['Time'] + next(csvreader)
+            print(header)
 
 
-        rows = []
-        for row in csvreader:
-            rows.append(row)
+            rows = []
+            for row in csvreader:
+                rows.append(row)
 
-        for i in range(len(rows)):
-            timeInsert = str(i)
-            rows[i] = [timeInsert]+ rows[i][:]
-            
-        self.pdData = pd.DataFrame(rows,columns=header)
-        model = PandasModel(self.pdData)
-        self.ui.data_table.setModel(model)
-        self.ui.data_table.setColumnWidth(0,200)
+            for i in range(len(rows)):
+                timeInsert = str(i)
+                rows[i] = [timeInsert]+ rows[i][:]
+                
+            self.pdData = pd.DataFrame(rows,columns=header)
+            model = PandasModel(self.pdData)
+            self.ui.data_table.setModel(model)
+            self.ui.data_table.setColumnWidth(0,200)
 
-        file.close()
+            file.close()
+        except:
+            return
 
 
 
@@ -345,7 +349,7 @@ class UIFunctions(MainWindow):
             self.ui.connectivity_page.setCurrentWidget(self.ui.wireless_page)
         elif(self.ui.connection_type.currentText() == "Wired"):
             self.ui.connectivity_page.setCurrentWidget(self.ui.wired_page)
-    
+    b = 0
     def connect_wireless(self):
         #os.system(f'''cmd /c "netsh wlan connect name=Formulate"''')
         #sleep(3)
@@ -358,22 +362,31 @@ class UIFunctions(MainWindow):
         port = 8080
         self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         try:
-            self.conn.connect((ip,port))
-            self.ui.connection_status_wireless_label.setText("Connected")
-            self.ui.wifi_name_label.setText("Formulate")
-            self.ui.ip_address_label.setText(ip)
-            self.isConnected = "Wireless"
+            if(UIFunctions.b == 0):
+                UIFunctions.b = 1
+                self.ui.wifi_connect.setText("Disconnect")
+                self.conn.connect((ip,port))
+                self.ui.connection_status_wireless_label.setText("Connected")
+                self.ui.wifi_name_label.setText("Formulate")
+                self.ui.ip_address_label.setText(ip)
+                self.isConnected = "Wireless"
+                sleep(2)
+                UIFunctions.ping(self)
 
-        except:
+            else:
+                UIFunctions.disconnect_wireless(self)
+
+        except Exception as e:
             print("Connection Failed")
             err_popup = QMessageBox()
             err_popup.setText("Connection Failed: Make sure to connect to Formulate Wifi")
             err_popup.setIcon(QMessageBox.Critical)
-
+            print(e)
             x = err_popup.exec_()
             self.ui.connection_status_wireless_label.setText("Disconnected")
             self.ui.wifi_name_label.setText("---")
             self.ui.ip_address_label.setText("---")
+            
 
 
     def disconnect_wireless(self):
@@ -382,6 +395,9 @@ class UIFunctions(MainWindow):
             self.ui.connection_status_wireless_label.setText("Disconnected")
             self.ui.wifi_name_label.setText("---")
             self.ui.ip_address_label.setText("---")
+            UIFunctions.b = 0
+            self.ui.wifi_connect.setText("Connect")
+            self.ui.detect_sensors_list.setText("")
         except:
             return
     
@@ -391,6 +407,9 @@ class UIFunctions(MainWindow):
             self.ui.connection_status_wired_label.setText("Disconnected")
             self.ui.board_name_label.setText("---")
             self.ui.com_port_label.setText("---")
+            UIFunctions.a = 0
+            self.ui.wired_connect.setText("Connect")
+            self.ui.detect_sensors_list.setText("")
         except:
             return
 
@@ -444,11 +463,16 @@ class UIFunctions(MainWindow):
         for i in range(inputLength):
             self.tableHeader.append(sensorTypeName[i] + sensorNumber[i])
 
-   
+        display_sensors = self.tableHeader[1]
+        for i in range(2,len(self.tableHeader)):
+            display_sensors =  display_sensors + " | " + self.tableHeader[i]
+        
+        self.ui.detect_sensors_list.setText(display_sensors)
+    '''
         headerData = pd.DataFrame(columns=self.tableHeader[1:])
         model = PandasModel(headerData)
         self.ui.detected_sensors_table.setModel(model)
-
+'''
 
     def startTest(self):
         #Start button function, starts the test
@@ -474,6 +498,10 @@ class UIFunctions(MainWindow):
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
+                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        model = PandasModel(self.pdData)
+                        self.ui.data_table.setModel(model)
+                        self.ui.data_table.setColumnWidth(0,200)
         
         if self.isConnected == "Wired":
             self.ser.write(b'G')
@@ -533,8 +561,8 @@ class UIFunctions(MainWindow):
 
 
     def declineData(self):
-        self.df = pd.DataFrame()
-        model = PandasModel(self.df)
+        self.pdData = pd.DataFrame(columns=[0])
+        model = PandasModel(self.pdData)
         self.ui.data_table.setModel(model)
         self.ui.test_name.clear()
         self.ui.test_purpose.clear()
@@ -562,27 +590,27 @@ class UIFunctions(MainWindow):
             print(self.comPort)
     
     
-    
+    a = 0
     def connect_wired(self):
         try:
             UIFunctions.disconnect_wireless(self)
         except:
             print("")
         #Connects and disconnects to arduino
-        _translate = QtCore.QCoreApplication.translate
-        if(self.a == 0):
+        if(UIFunctions.a == 0):
             self.ser = serial.Serial(self.comPort, 9600, timeout=1)
-            self.a = 1
-            self.ui.wired_connect.setText(_translate("MainWindow", "Disconnect"))
+            UIFunctions.a = 1
+            self.ui.wired_connect.setText("Disconnect")
             self.isConnected = "Wired"
             self.ui.connection_status_wired_label.setText("Connected")
-            self.ui.board_name_label.setText(str(self.portData[5:]))
+            self.ui.board_name_label.setText(self.comUserSelect[7:])
             self.ui.com_port_label.setText(self.comPort)
+            sleep(2)
+            UIFunctions.ping(self)
 
         else:
             UIFunctions.disconnect_wired(self)
-            self.ui.wired_connect.setText(_translate("MainWindow", "Connect"))
-            self.a = 0
+            
 
 
 
