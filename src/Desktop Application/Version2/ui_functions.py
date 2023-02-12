@@ -326,11 +326,12 @@ class UIFunctions(MainWindow):
 
 
             rows = []
+            timeInsert = datetime.datetime(1990,1,1,0,0,0)
             for row in csvreader:
                 rows.append(row)
 
             for i in range(len(rows)):
-                timeInsert = str(i)
+                timeInsert += datetime.timedelta(seconds=1)
                 rows[i] = [timeInsert]+ rows[i][:]
                 
             self.pdData = pd.DataFrame(rows,columns=header)
@@ -487,8 +488,19 @@ class UIFunctions(MainWindow):
         if self.isConnected == "Wireless":
             self.conn.send('Q'.encode())
             while(self.run):
-                line = self.conn.recv(1024)
-                now = datetime.datetime.now()   # read a byte
+                try:
+                    line = self.conn.recv(1024)
+                    now = datetime.datetime.now()
+                except:
+                    print("Connection Failed")
+                    self.run = 0
+                    UIFunctions.disconnect_wireless(self)
+                    UIFunctions.declineData(self)# read a byte
+                    self.ui.startButton.setEnabled(True)
+                    self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+                    self.ui.stopButton.setEnabled(False)
+                    self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
+
                 if line:
                     string = line.decode()
                     if string[0] == "(" and string[len(string)-3] == ")":
@@ -502,12 +514,27 @@ class UIFunctions(MainWindow):
                         model = PandasModel(self.pdData)
                         self.ui.data_table.setModel(model)
                         self.ui.data_table.setColumnWidth(0,200)
+                
+                    
+                            
         
         if self.isConnected == "Wired":
             self.ser.write(b'G')
             while(self.run):
-                line = self.ser.readline()
-                now = datetime.datetime.now()   # read a byte
+                try:
+                    line = self.ser.readline()
+                    now = datetime.datetime.now()   # read a byte
+                except:
+                    print("Connection Failed")
+                    self.run = 0
+                    UIFunctions.disconnect_wired(self)
+                    UIFunctions.declineData(self)
+                    self.ui.startButton.setEnabled(True)
+                    self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+                    self.ui.stopButton.setEnabled(False)
+                    self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
+
+
                 if line:
                     string = line.decode()
                     if string[0] == "(" and string[len(string)-3] == ")":
@@ -521,6 +548,8 @@ class UIFunctions(MainWindow):
                         model = PandasModel(self.pdData)
                         self.ui.data_table.setModel(model)
                         self.ui.data_table.setColumnWidth(0,200)
+                
+
 
     def runProg(self):
         #Start Button threading function
@@ -567,6 +596,8 @@ class UIFunctions(MainWindow):
         self.ui.test_name.clear()
         self.ui.test_purpose.clear()
         self.ui.test_description.clear()
+        self.ui.file_path_field.clear()
+        self.ui.test_image.clear()
         self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
 
 
