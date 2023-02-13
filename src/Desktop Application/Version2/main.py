@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         self.ui.start_test_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.view_test_page))
         self.ui.home_menu_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
         #View test page
-        self.ui.decline_test_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
+        self.ui.decline_test_button.clicked.connect(lambda: UIFunctions.declineData(self))
         #Submit test 
         
         
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         self.ui.view_dashboard_button.clicked.connect(lambda: UIFunctions.view_dashboard(self))
 
         #Connect detect senor button
-        self.ui.detect_sensors.clicked.connect(lambda: UIFunctions.ping(self))
+        #self.ui.detect_sensors.clicked.connect(lambda: UIFunctions.ping(self))
 
         #Connect start button
         self.ui.startButton.clicked.connect(lambda: UIFunctions.runProg(self))

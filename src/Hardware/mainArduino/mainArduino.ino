@@ -16,6 +16,16 @@ int wifiSend = 0;
 int wiredRead;
 int wifiRead;
 
+#define HEADER "AccelerationX1,AccelerationY1,AccelerationZ1,Temperature1,Humidity1"
+#define dataString String(X_out) + "," + String(Y_out) + "," + String(Z_out) + "," + String(temperature) + "," + String(humidity)
+
+
+
+void readData(){
+  readAccelerometer();
+  readTemp();
+  readHumidity();
+}
 
 void setup() {
   
@@ -38,7 +48,7 @@ void loop() {
     SD.remove("TestData.csv");
     myFile = SD.open("TestData.csv", FILE_WRITE);
     if (myFile) {
-      String Headers = "AccelerationX1,AccelerationY1,AccelerationZ1,Temperature1,Humidity1";
+      String Headers = HEADER;
       myFile.println(Headers);
       myFile.close();
     }
@@ -49,9 +59,7 @@ void loop() {
   
   if(wifiSend){
 
-    readAccelerometer();
-    readTemp();
-    readHumidity();
+    readData();
    
 
     // === Send Bytestring to Serial Port === //
@@ -80,7 +88,7 @@ void loop() {
     // === Write Data to SD Card === //
     myFile = SD.open("TestData.csv", FILE_WRITE);
     if (myFile) {
-      String dataValues = String(X_out) + "," + String(Y_out) + "," + String(Z_out) + "," + String(temperature) + "," + String(humidity);
+      String dataValues = dataString;
       myFile.println(dataValues);
       myFile.close();
     } 
@@ -98,7 +106,7 @@ void loop() {
     SD.remove("TestData.csv");
     myFile = SD.open("TestData.csv", FILE_WRITE);
     if (myFile) {
-      String Headers = "AccelerationX1,AccelerationY1,AccelerationZ1,Temperature1,Humidity1";
+      String Headers = HEADER;
       myFile.println(Headers);
       myFile.close();
     }
@@ -108,9 +116,7 @@ void loop() {
   }
   
   if(wiredSend){
-    readAccelerometer();
-    readTemp();
-    readHumidity();
+    readData();
   
     // === Send Bytestring to Serial Port === //
     Serial.print('(');
@@ -138,7 +144,7 @@ void loop() {
    // === Write Data to SD Card === //
     myFile = SD.open("TestData.csv", FILE_WRITE);
     if (myFile) {
-      String dataValues = String(X_out) + "," + String(Y_out) + "," + String(Z_out) + "," + String(temperature) + "," + String(humidity);
+      String dataValues = dataString;
       myFile.println(dataValues);
       myFile.close();
     } 
