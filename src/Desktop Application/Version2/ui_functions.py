@@ -673,7 +673,8 @@ def is_correct_password(salt_hex, stored_hash, pass_to_check):
 
 def connect_to_database():
     try :
-        conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        #conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonedb2.database.windows.net,1433;Database=CapstoneDB;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
         cursor = conn.cursor()
         return conn, cursor
     except pyodbc.Error as err:
