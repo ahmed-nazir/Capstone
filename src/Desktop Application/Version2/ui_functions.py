@@ -170,6 +170,26 @@ class UIFunctions(MainWindow):
                 self.ui.username_field.clear()
                 self.ui.login_password_field.clear()
 
+    def sign_out(self):
+        global logged_in
+        logged_in = False
+        self.ui.account_menu_button.setText('')
+        if self.isConnected == "Wired":
+            UIFunctions.disconnect_wired(self)
+
+        if self.isConnected == "Wireless":
+            UIFunctions.disconnect_wireless(self)
+        
+        self.pdData = pd.DataFrame(columns=[0])
+        model = PandasModel(self.pdData)
+        self.ui.data_table.setModel(model)
+        self.ui.test_name.clear()
+        self.ui.test_purpose.clear()
+        self.ui.test_description.clear()
+        self.ui.file_path_field.clear()
+        self.ui.test_image.clear()
+        self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
+
     def continue_signup(self):
         conn, cursor = connect_to_database()
         username = self.ui.signup_username_field.text()
@@ -202,7 +222,7 @@ class UIFunctions(MainWindow):
             cursor.execute('INSERT INTO Login VALUES (?,?,?)', username, salt.hex(), hashed_pass.hex())
             conn.commit()
 
-            self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
+            self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
             self.ui.signup_username_field.clear()
             self.ui.signup_password_field.clear()
             self.ui.confirm_password_field.clear()
@@ -255,7 +275,7 @@ class UIFunctions(MainWindow):
         try:
             conn, cursor = connect_to_database()
             
-            image_path = self.ui.file_path_field.text()
+            '''image_path = self.ui.file_path_field.text()
             image_file = os.path.basename(image_path)
             blob_name = image_file
             blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
@@ -263,7 +283,7 @@ class UIFunctions(MainWindow):
                 blob__client.upload_blob(image)
             print("Successfully uploaded image!")
 
-            blob_url = container_url + blob_name
+            blob_url = container_url + blob_name'''
 
             test_name = self.ui.test_name.text()
             test_purpose = self.ui.test_purpose.text()
@@ -332,7 +352,7 @@ class UIFunctions(MainWindow):
 
             for i in range(len(rows)):
                 timeInsert += datetime.timedelta(seconds=1)
-                rows[i] = [timeInsert]+ rows[i][:]
+                rows[i] = [str(timeInsert)]+ rows[i][:]
                 
             self.pdData = pd.DataFrame(rows,columns=header)
             model = PandasModel(self.pdData)

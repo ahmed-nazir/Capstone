@@ -46,11 +46,14 @@ class MainWindow(QMainWindow):
         #Upload test data/info
         self.ui.upload_test_info_button.clicked.connect(lambda: UIFunctions.upload_test_info(self))
 
+        #Sign out
+        self.ui.account_menu_button.clicked.connect(lambda: UIFunctions.sign_out(self))
+
         #Changing pages
         #Login page
         self.ui.sign_up_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.sign_up_page))
         self.ui.sign_in_as_guest_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
-        self.ui.account_menu_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
+        #self.ui.account_menu_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
         #Signup page
         self.ui.login_return_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
         #Homepage
