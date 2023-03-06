@@ -13,11 +13,12 @@
 \usepackage[round]{natbib}
 
 \input{../Comments}
+\input{../Common}
 
 \begin{document}
 
-\title{Test Report: Project Title} 
-\author{Author Name}
+\title{Verification and Validation Report: \progname} 
+\author{\authname}
 \date{\today}
 	
 \maketitle
@@ -64,33 +65,70 @@ Date 2 & 1.1 & Notes\\
 This document ...
 
 \section{Functional Requirements Evaluation}
-
+%sensor validation: Stephen
+%device telemetry: Ahmed
+%device hardware: Stephen
+%desktop app: Mo
+%data analytics: Tio
+%database: Mo
 \section{Nonfunctional Requirements Evaluation}
-
 \subsection{Usability}
-		
+%Stephen
+%Need a graph (that we generate) that supports data
+
 \subsection{Performance}
+%Tio
+%Need a graph (that we generate) that supports data 
 
-\subsection{etc.}
-	
-\section{Comparison to Existing Implementation}	
-
-This section will not be appropriate for every project.
+\subsection{Security}
+%Tio
 
 \section{Unit Testing}
+%Desktop App Code: Mo
+%Arduino Code: Ahmed
 
 \section{Changes Due to Testing}
+%Each person will have to write a section here. Each FR and NFR will have a paragraph here, so based on what was assigned earlier, we will need to write a section here.
 
-\section{Automated Testing}
+\subsection{Functional Requirements}
+%NOTE: Only keep requirements in here that were changed
+%FR 1 :
+%Point 1: Changes
+%Point 2: Effect the change had on project
+
+\subsection{Nonfunctional Requirements}
+
+\wss{This section should highlight how feedback from the users and from 
+the supervisor (when one exists) shaped the final product.  In particular 
+the feedback from the Rev 0 demo to the supervisor (or to potential users) 
+should be highlighted.}
 		
 \section{Trace to Requirements}
+%VnV Plan has this table
 		
 \section{Trace to Modules}		
-
-\section{Code Coverage Metrics}
+%Mapping unit tests to modules: MG has this table
 
 \bibliographystyle{plainnat}
-
 \bibliography{../../refs/References}
+
+\newpage{}
+\section*{Appendix --- Reflection}
+
+The information in this section will be used to evaluate the team members on the
+graduate attribute of Reflection.  Please answer the following question:
+
+\begin{enumerate}
+  \item In what ways was the Verification and Validation (VnV) Plan different
+  from the activities that were actually conducted for VnV?  If there were
+  differences, what changes required the modification in the plan?  Why did
+  these changes occur?  Would you be able to anticipate these changes in future
+  projects?  If there weren't any differences, how was your team able to clearly
+  predict a feasible amount of effort and the right tasks needed to build the
+  evidence that demonstrates the required quality?  (It is expected that most
+  teams will have had to deviate from their original VnV Plan.)
+
+  %Each person has 1 paragraph on stuff they worked that they can comment on. Ideally, 4 paragraphs total
+\end{enumerate}
 
 \end{document}
