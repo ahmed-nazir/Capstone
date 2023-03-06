@@ -20,6 +20,8 @@ import datetime
 import serial.tools.list_ports
 import serial
 
+import csv
+
 from main import *
 
 ''''
@@ -158,6 +160,7 @@ class UIFunctions(MainWindow):
                     self.ui.username_field.clear()
                     self.ui.login_password_field.clear()
                     self.ui.login_error_label.clear()
+                    self.b = 0
                 else:
                     self.ui.login_error_label.setText('Incorrect password, try again')
                     self.ui.username_field.clear()
@@ -166,6 +169,26 @@ class UIFunctions(MainWindow):
                 self.ui.login_error_label.setText('User does not exist, try again')
                 self.ui.username_field.clear()
                 self.ui.login_password_field.clear()
+
+    def sign_out(self):
+        global logged_in
+        logged_in = False
+        self.ui.account_menu_button.setText('')
+        if self.isConnected == "Wired":
+            UIFunctions.disconnect_wired(self)
+
+        if self.isConnected == "Wireless":
+            UIFunctions.disconnect_wireless(self)
+        
+        self.pdData = pd.DataFrame(columns=[0])
+        model = PandasModel(self.pdData)
+        self.ui.data_table.setModel(model)
+        self.ui.test_name.clear()
+        self.ui.test_purpose.clear()
+        self.ui.test_description.clear()
+        self.ui.file_path_field.clear()
+        self.ui.test_image.clear()
+        self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
 
     def continue_signup(self):
         conn, cursor = connect_to_database()
@@ -199,7 +222,7 @@ class UIFunctions(MainWindow):
             cursor.execute('INSERT INTO Login VALUES (?,?,?)', username, salt.hex(), hashed_pass.hex())
             conn.commit()
 
-            self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
+            self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
             self.ui.signup_username_field.clear()
             self.ui.signup_password_field.clear()
             self.ui.confirm_password_field.clear()
@@ -249,60 +272,105 @@ class UIFunctions(MainWindow):
         self.ui.test_image.setPixmap(scaled_pixmap)
 
     def upload_test_info(self):
-        conn, cursor = connect_to_database()
-        '''
-        image_path = self.ui.file_path_field.text()
-        image_file = os.path.basename(image_path)
-        blob_name = image_file
-        blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
-        with open(self.ui.file_path_field.text(), 'rb') as image:
-            blob__client.upload_blob(image)
-        print("Successfully uploaded image!")
-
-        blob_url = container_url + blob_name'''
-
-        test_name = self.ui.test_name.text()
-        test_purpose = self.ui.test_purpose.text()
-        test_desc = self.ui.test_description.text()
-        image_url = None
-        username = self.ui.account_menu_button.text()
-        
-        cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", username, test_name, test_purpose, test_desc, image_url)
-
-        cursor.execute('SELECT MAX(ID) FROM TEST')
-        last_index = cursor.fetchone()[0]
-
-        cursor.execute('SELECT name FROM sys.tables')
-        num_of_cols = len(self.pdData.axes[1])
-
-        current_tables = []
-        for x in cursor.fetchall():
-            current_tables.append(x[0])
-
-        for i in range(1, num_of_cols):
-            if self.pdData.columns[i] not in current_tables:
-                create_table_sql = """ CREATE TABLE {} ( 
-                            TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
-                            TimePerformed DATETIME NOT NULL,
-                            Value FLOAT(8) NOT NULL,
-                            PRIMARY KEY (TestID, TimePerformed));""".format(self.pdData.columns[i])
-                cursor.execute(create_table_sql)
-                conn.commit()
-            else:
-                print('nothing to add here')
+        try:
+            conn, cursor = connect_to_database()
             
-            for index, row in self.pdData.iterrows():
-                insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(self.pdData.columns[i], last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
-                sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]]
-                cursor.execute(insert_data_sql)
-            conn.commit()
+            '''image_path = self.ui.file_path_field.text()
+            image_file = os.path.basename(image_path)
+            blob_name = image_file
+            blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
+            with open(self.ui.file_path_field.text(), 'rb') as image:
+                blob__client.upload_blob(image)
+            print("Successfully uploaded image!")
+
+            blob_url = container_url + blob_name'''
+
+            test_name = self.ui.test_name.text()
+            test_purpose = self.ui.test_purpose.text()
+            test_desc = self.ui.test_description.text()
+            image_url = None
+            username = self.ui.account_menu_button.text()
+            
+            cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", username, test_name, test_purpose, test_desc, image_url)
+
+            cursor.execute('SELECT MAX(ID) FROM TEST')
+            last_index = cursor.fetchone()[0]
+
+            cursor.execute('SELECT name FROM sys.tables')
+            num_of_cols = len(self.pdData.axes[1])
+
+            current_tables = []
+            for x in cursor.fetchall():
+                current_tables.append(x[0])
+
+            for i in range(1, num_of_cols):
+                if self.pdData.columns[i] not in current_tables:
+                    create_table_sql = """ CREATE TABLE {} ( 
+                                TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
+                                TimePerformed DATETIME NOT NULL,
+                                Value FLOAT(8) NOT NULL,
+                                PRIMARY KEY (TestID, TimePerformed));""".format(self.pdData.columns[i])
+                    cursor.execute(create_table_sql)
+                    conn.commit()
+                else:
+                    print('nothing to add here')
+                
+                for index, row in self.pdData.iterrows():
+                    insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(self.pdData.columns[i], last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
+                    sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]]
+                    cursor.execute(insert_data_sql)
+                conn.commit()
+
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText("Test Successfully Submitted to the Database")
+            x = msgBox.exec_()
+            UIFunctions.declineData(self)
+            
+
+        except Exception as e:
+            print(e)
+
+
+    def uploadCSV(self):
+        try:
+            fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
+            print(fname[0])
+            file = open(fname[0])
+            type(file)
+
+            csvreader = csv.reader(file)
+            header = []
+            header = ['Time'] + next(csvreader)
+            print(header)
+
+
+            rows = []
+            timeInsert = datetime.datetime(1990,1,1,0,0,0)
+            for row in csvreader:
+                rows.append(row)
+
+            for i in range(len(rows)):
+                timeInsert += datetime.timedelta(seconds=1)
+                rows[i] = [str(timeInsert)]+ rows[i][:]
+                
+            self.pdData = pd.DataFrame(rows,columns=header)
+            model = PandasModel(self.pdData)
+            self.ui.data_table.setModel(model)
+            self.ui.data_table.setColumnWidth(0,200)
+
+            file.close()
+        except:
+            return
+
+
 
     def change_connectivity_page(self):
         if(self.ui.connection_type.currentText() == "Wireless"):
             self.ui.connectivity_page.setCurrentWidget(self.ui.wireless_page)
         elif(self.ui.connection_type.currentText() == "Wired"):
             self.ui.connectivity_page.setCurrentWidget(self.ui.wired_page)
-    
+    b = 0
     def connect_wireless(self):
         #os.system(f'''cmd /c "netsh wlan connect name=Formulate"''')
         #sleep(3)
@@ -315,22 +383,31 @@ class UIFunctions(MainWindow):
         port = 8080
         self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         try:
-            self.conn.connect((ip,port))
-            self.ui.connection_status_wireless_label.setText("Connected")
-            self.ui.wifi_name_label.setText("Formulate")
-            self.ui.ip_address_label.setText(ip)
-            self.isConnected = "Wireless"
+            if(UIFunctions.b == 0):
+                UIFunctions.b = 1
+                self.ui.wifi_connect.setText("Disconnect")
+                self.conn.connect((ip,port))
+                self.ui.connection_status_wireless_label.setText("Connected")
+                self.ui.wifi_name_label.setText("Formulate")
+                self.ui.ip_address_label.setText(ip)
+                self.isConnected = "Wireless"
+                sleep(2)
+                UIFunctions.ping(self)
 
-        except:
+            else:
+                UIFunctions.disconnect_wireless(self)
+
+        except Exception as e:
             print("Connection Failed")
             err_popup = QMessageBox()
             err_popup.setText("Connection Failed: Make sure to connect to Formulate Wifi")
             err_popup.setIcon(QMessageBox.Critical)
-
+            print(e)
             x = err_popup.exec_()
             self.ui.connection_status_wireless_label.setText("Disconnected")
             self.ui.wifi_name_label.setText("---")
             self.ui.ip_address_label.setText("---")
+            
 
 
     def disconnect_wireless(self):
@@ -339,6 +416,9 @@ class UIFunctions(MainWindow):
             self.ui.connection_status_wireless_label.setText("Disconnected")
             self.ui.wifi_name_label.setText("---")
             self.ui.ip_address_label.setText("---")
+            UIFunctions.b = 0
+            self.ui.wifi_connect.setText("Connect")
+            self.ui.detect_sensors_list.setText("")
         except:
             return
     
@@ -348,6 +428,9 @@ class UIFunctions(MainWindow):
             self.ui.connection_status_wired_label.setText("Disconnected")
             self.ui.board_name_label.setText("---")
             self.ui.com_port_label.setText("---")
+            UIFunctions.a = 0
+            self.ui.wired_connect.setText("Connect")
+            self.ui.detect_sensors_list.setText("")
         except:
             return
 
@@ -390,7 +473,7 @@ class UIFunctions(MainWindow):
         B = {'sensorType': 'AccelerationY', 'unit': 'm/s^2'}
         C = {'sensorType': 'AccelerationZ', 'unit': 'm/s^2'}
         D = {'sensorType': 'Temperature', 'unit': '° celsius'}
-        E = {'sensorType': 'Speed', 'unit': '%'}
+        E = {'sensorType': 'Humidity', 'unit': '%'}
         converter = [A, B, C, D, E]
         inputLength = len(sensorType)
 
@@ -401,11 +484,16 @@ class UIFunctions(MainWindow):
         for i in range(inputLength):
             self.tableHeader.append(sensorTypeName[i] + sensorNumber[i])
 
-   
+        display_sensors = self.tableHeader[1]
+        for i in range(2,len(self.tableHeader)):
+            display_sensors =  display_sensors + " | " + self.tableHeader[i]
+        
+        self.ui.detect_sensors_list.setText(display_sensors)
+    '''
         headerData = pd.DataFrame(columns=self.tableHeader[1:])
         model = PandasModel(headerData)
         self.ui.detected_sensors_table.setModel(model)
-
+'''
 
     def startTest(self):
         #Start button function, starts the test
@@ -420,8 +508,19 @@ class UIFunctions(MainWindow):
         if self.isConnected == "Wireless":
             self.conn.send('Q'.encode())
             while(self.run):
-                line = self.conn.recv(1024)
-                now = datetime.datetime.now()   # read a byte
+                try:
+                    line = self.conn.recv(1024)
+                    now = datetime.datetime.now()
+                except:
+                    print("Connection Failed")
+                    self.run = 0
+                    UIFunctions.disconnect_wireless(self)
+                    UIFunctions.declineData(self)# read a byte
+                    self.ui.startButton.setEnabled(True)
+                    self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+                    self.ui.stopButton.setEnabled(False)
+                    self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
+
                 if line:
                     string = line.decode()
                     if string[0] == "(" and string[len(string)-3] == ")":
@@ -431,12 +530,31 @@ class UIFunctions(MainWindow):
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
+                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        model = PandasModel(self.pdData)
+                        self.ui.data_table.setModel(model)
+                        self.ui.data_table.setColumnWidth(0,200)
+                
+                    
+                            
         
         if self.isConnected == "Wired":
             self.ser.write(b'G')
             while(self.run):
-                line = self.ser.readline()
-                now = datetime.datetime.now()   # read a byte
+                try:
+                    line = self.ser.readline()
+                    now = datetime.datetime.now()   # read a byte
+                except:
+                    print("Connection Failed")
+                    self.run = 0
+                    UIFunctions.disconnect_wired(self)
+                    UIFunctions.declineData(self)
+                    self.ui.startButton.setEnabled(True)
+                    self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+                    self.ui.stopButton.setEnabled(False)
+                    self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
+
+
                 if line:
                     string = line.decode()
                     if string[0] == "(" and string[len(string)-3] == ")":
@@ -446,6 +564,12 @@ class UIFunctions(MainWindow):
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
+                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        model = PandasModel(self.pdData)
+                        self.ui.data_table.setModel(model)
+                        self.ui.data_table.setColumnWidth(0,200)
+                
+
 
     def runProg(self):
         #Start Button threading function
@@ -486,9 +610,16 @@ class UIFunctions(MainWindow):
 
 
     def declineData(self):
-        self.df = pd.DataFrame()
-        model = PandasModel(self.df)
+        self.pdData = pd.DataFrame(columns=[0])
+        model = PandasModel(self.pdData)
         self.ui.data_table.setModel(model)
+        self.ui.test_name.clear()
+        self.ui.test_purpose.clear()
+        self.ui.test_description.clear()
+        self.ui.file_path_field.clear()
+        self.ui.test_image.clear()
+        self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
+
 
     
     def select_com(self):
@@ -510,27 +641,27 @@ class UIFunctions(MainWindow):
             print(self.comPort)
     
     
-    
+    a = 0
     def connect_wired(self):
         try:
             UIFunctions.disconnect_wireless(self)
         except:
             print("")
         #Connects and disconnects to arduino
-        _translate = QtCore.QCoreApplication.translate
-        if(self.a == 0):
+        if(UIFunctions.a == 0):
             self.ser = serial.Serial(self.comPort, 9600, timeout=1)
-            self.a = 1
-            self.ui.wired_connect.setText(_translate("MainWindow", "Disconnect"))
+            UIFunctions.a = 1
+            self.ui.wired_connect.setText("Disconnect")
             self.isConnected = "Wired"
             self.ui.connection_status_wired_label.setText("Connected")
-            self.ui.board_name_label.setText(str(self.portData[5:]))
+            self.ui.board_name_label.setText(self.comUserSelect[7:])
             self.ui.com_port_label.setText(self.comPort)
+            sleep(2)
+            UIFunctions.ping(self)
 
         else:
             UIFunctions.disconnect_wired(self)
-            self.ui.wired_connect.setText(_translate("MainWindow", "Connect"))
-            self.a = 0
+            
 
 
 
@@ -562,7 +693,8 @@ def is_correct_password(salt_hex, stored_hash, pass_to_check):
 
 def connect_to_database():
     try :
-        conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        #conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonedb2.database.windows.net,1433;Database=CapstoneDB;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
         cursor = conn.cursor()
         return conn, cursor
     except pyodbc.Error as err:
