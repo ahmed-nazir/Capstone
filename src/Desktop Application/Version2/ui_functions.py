@@ -174,11 +174,14 @@ class UIFunctions(MainWindow):
         global logged_in
         logged_in = False
         self.ui.account_menu_button.setText('')
-        if self.isConnected == "Wired":
-            UIFunctions.disconnect_wired(self)
+        try:
+            if self.isConnected == "Wired":
+                UIFunctions.disconnect_wired(self)
 
-        if self.isConnected == "Wireless":
-            UIFunctions.disconnect_wireless(self)
+            if self.isConnected == "Wireless":
+                UIFunctions.disconnect_wireless(self)
+        except:
+            print("")
         
         self.pdData = pd.DataFrame(columns=[0])
         model = PandasModel(self.pdData)
@@ -474,7 +477,9 @@ class UIFunctions(MainWindow):
         C = {'sensorType': 'AccelerationZ', 'unit': 'm/s^2'}
         D = {'sensorType': 'Temperature', 'unit': '° celsius'}
         E = {'sensorType': 'Humidity', 'unit': '%'}
-        converter = [A, B, C, D, E]
+        F = {'sensorType': 'ThermisterResistance', 'unit': 'Ohms'}
+        G = {'sensorType': 'ThermisterTemperature', 'unit': '° celsius'}
+        converter = [A, B, C, D, E, F, G]
         inputLength = len(sensorType)
 
         for i in range(inputLength):
