@@ -70,6 +70,10 @@ This document ...
 %device hardware: Stephen
 %desktop app: Mo
 %data analytics: Tio
+\subsubsection{ST-DAW-1, ST-DAW-2}
+We created our Data Analytics Website through a viusaliztion tool called Power Bi and tested it to see if we were able to connect to the database which contained all our data values. We able to get all the values of our data from the database since Power Bi has a method that can connect to database that authorized users are allowed to connect to. Since this was the case we were able to pass this this requirement for our the data analytics.
+
+
 %database: Mo
 \section{Nonfunctional Requirements Evaluation}
 \subsection{Usability}
@@ -78,10 +82,21 @@ This document ...
 
 \subsection{Performance}
 %Tio
+\subsubsection{ST-P 1}
+During testing we observed that the object was able to continue to gather data despite being in sub optimal conditions. We also were able to observe that despite being in vigorous environment in terms of vibration and extremely hot temperature it would stil be able to passing this nonfunctional requirement.
+
+\subsubsection{ST-P 2}
+During testing we observed that when the device is plugged into a computer we would observe a latency of less than 10 seconds between the recording of the results and the live viewing on them on our desktop application. The actually latency was roughly around 1 and never exceeded more than 2. This is ensures that the user is seeing data values that are currently being recorded in case of any emergency. If the device is disconnected during the test though there will be no way to liveview the data since the connection between the desktop application and our device will be severed. However after the test is completed you can take out the memory card and plug it into any computer and view the data in a file on your desktop.
+
 %Need a graph (that we generate) that supports data 
+
+\subsubsection{ST-P 3}
+We ensured through testing that even if one of the components has lost connection to our device or our device has lost connection to the database or desktop application that there will still be a way to view the results. If connection is ever lost to the database, the desktop application is able to hold the results of the current test until someone can restablish a connection to the database again. If the device were to lose connection to the desktop application we are able to save the results being stored on a memory card on the our device. The memory card on the device can then be put into any computer to view the data of the test that was previously ran. THis was tested and verified through running the device with different connections turned to see what would happen to the data of the current test.
 
 \subsection{Security}
 %Tio
+\subsubsection{ST-S 1, ST-S 2}
+We were able to ensure that the data could not be obtained and compromised by unauthorized users by testing different accounts and seeing what privileges each account had. Through updating we were able to ensure that our database would not be able to be compromised from users not within the Mac Formula team and also would not be able to be changed unless the user had been given special privileges since they are one of the higher ups on the team.
 
 \section{Unit Testing}
 %Desktop App Code: Mo
@@ -127,6 +142,8 @@ graduate attribute of Reflection.  Please answer the following question:
   predict a feasible amount of effort and the right tasks needed to build the
   evidence that demonstrates the required quality?  (It is expected that most
   teams will have had to deviate from their original VnV Plan.)
+
+  \item In our Verification and Validation Plan we had planned to create a website which would contain the all the information and testing data that was recieved during throughout testing of the Mac Formula club. This website was supposed to have the ability to organize data and help the user analyze it as well. We ultimately decided to use Power Bi, which is an interactive data visualization software that all of Mac has access too. We were able to determine that using Power Bi to meet our data visualization requirements since it helped improved our ease of use and the compatability with the database where our test data was being stored. We were able to verify that using Power Bi would work for our data analytics portion because the members of the Mac Formula one team were able to use the test data that was being visualized to aid them in future tests.
 
   %Each person has 1 paragraph on stuff they worked that they can comment on. Ideally, 4 paragraphs total
 \end{enumerate}
