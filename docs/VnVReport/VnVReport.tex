@@ -3,6 +3,17 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+
+\usepackage{fullpage}
+\usepackage[round]{natbib}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{colortbl}
+\usepackage[table]{xcolor} 
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -62,12 +73,68 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
+
 
 \section{Functional Requirements Evaluation}
 %sensor validation: Stephen
+\begin{table}[!htbp]
+  \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Test Number & Type & Input & Output & Result\\
+    \hline
+    ST-SV 1 & Manual & Room at a constant 25 $^{\circ}$C ambient & Constant 25.4 $^{\circ}$C reading from temperature sensor & Pass \\
+    \hline
+    ST-SV 2 & Manual & Room at constant 40\% humidity $^{\circ}$C & Constant 43\% reading from humidity sensor & Pass \\
+    \hline
+    ST-SV 3 & Manual & 4 seperate phonecalls with accelerometer measuring haptic feedback & Maximum error between acceleration profiles of phone calls within 0.2 meters per second squared & Pass  \\
+    \hline
+  \end{tabular}
+  \caption{Sensor Validation}
+  \end{table}
+
 %device telemetry: Ahmed
+\begin{table}[!htbp]
+  \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Test Number & Type & Input & Output & Result\\
+    \hline
+    ST-DT 1 & Manual & The device is connected via Wi-Fi and the start button is pressed on the GUI & The device beings to send and display the sensor data in the GUI & Pass \\
+    \hline
+    ST-DT 2 & Manual & The device is connected via Wi-Fi and the start button is pressed multiple times in the GUI & The start button greys out not allowing the user to press it multiple times and the sensors still send data to the GUI & Pass \\
+    \hline
+    ST-DT 3 & Manual & The device is connected via Wi-Fi and the stop button is pressed on the GUI & The device stops sending data to the GUI & Pass  \\
+    \hline
+    ST-DT 4 & Manual & The device is connected via Wi-Fi and the stop button is pressed multiple times in the GUI & The stop button greys out not allowing the user to press it multiple times and the device does not send data & Pass  \\
+    \hline
+  \end{tabular}
+  \caption{Device Telemetry}
+  \end{table}
+
 %device hardware: Stephen
+\begin{table}[!htbp]
+  \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Test Number & Type & Input & Output & Result\\
+    \hline
+    ST-DH 1 & Manual & Temperature sensor male end JST connector unconnected to the device's female JST connector & Device measured the room's ambient temperature at 23.4 $^{\circ}$C & Pass \\
+    \hline
+    ST-DH 2 & Manual & Device collecting sensor data at low battery charge & Device unoperational upon battery depletion and halted sensor data collection & Fail \\
+    \hline
+    ST-DH 3 & Manual & 5 kg dumbbell placed on each corner of the device chassis & No plastic failure in device chassis & Pass  \\
+    \hline
+    ST-DH 4 & Manual & A member on the formula electric team was given a cross screwdriver, M4 screw, the device, and DIN rail & The formula electric team member mounted the device in 40 seconds & Pass  \\
+    \hline
+%REMEMBER TO DELETE ST-DH5 FROM VNVPLAN, WE DO NOT NEED THIS TEST AS WE DO NOT HAVE A SCREEN OR DEVICE STATUS MEASUREMENTS
+  \end{tabular}
+  \caption{Device Hardware}
+  \end{table} 
+  \newpage 
+
+  ST-DH3 failed the functional test case. The team estimated the time required to design and integrate a rechargeable battery subsystem within the project's timeline was 1.5 weeks and decided the effort was not worthwhile relative to other project objectives. As a result, the failure of this test case lead the expected operation at low battery to be adjusted. Users are now expected to replace the battery on a regular schedule to prevent a failure in test integrity due to charge depletion. \\
+
 %desktop app: Mo
 %data analytics: Tio
 \subsubsection{ST-DAW-1, ST-DAW-2}
@@ -79,6 +146,45 @@ We created our Data Analytics Website through a viusaliztion tool called Power B
 \subsection{Usability}
 %Stephen
 %Need a graph (that we generate) that supports data
+\newpage
+\begin{table}[h!]
+  \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Test Number & Type & Input & Output & Result\\
+    \hline
+    ST-U 1-A & Manual & User connects a thermistor to device, begins collecting sensor test data and gathers data for 1 minute, completes collecting sensor test data, adds remarks to the test, and submits test data to database & User completed the overall process in 3 minutes 43 seconds and rated the sensor mount and measuring procedure a 5. All other categories were given a 4 & Pass \\
+    \hline
+    ST-U 1-B & Manual & User adjusts Arduino code for a fluid flow rate sensor, connects the sensor to the device, begins collecting sensor test data and gathers data for 1 minute, completes collecting sensor test data, adds remarks to the test, and submits test data to database & User completed the process in 49 minutes 15 seconds and rated the overall experience a 2. The sensor mount and measuring procedure categories were given a 5. All other cattegories were given a 4 & Fail \\
+    \hline
+    ST-U 2-A & Manual & Device collecting sensor data with wired connection to a laptop running the python application & Python application GUI displayed at minimal latency. Less than 1 second latency for changes in sensor measurements to display on GUI & Pass \\
+    \hline
+    ST-U 2-B & Manual & Device collecting sensor data with wireless connection to a laptop running the python application & Python application GUI displayed at minimal latency. Less than 1 second latency for changes in sensor measurements to display on GUI & Pass \\
+    \hline
+    ST-U 3-A & Manual & Device connection to application is broken. User submits previous test data held on the micro-SD module to the database & Test data submits and test contents can be viewed on dashboard & Pass \\
+    \hline
+    ST-U 3-B & Manual & Application connection to database is broken. User can connect a temperature sensor, start a test, and stop a test & Device recognizes sensor, starts test, and stops test & Pass  \\
+    \hline
+  \end{tabular}
+  \caption{Usability}
+  \end{table}
+
+  \begin{figure}[htbp!]
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{ST-U_1-A_TestUserRatings}
+    \caption{ST-U 1-A Test User Ratings}
+    \end{center}
+    \end{figure}
+
+  \begin{figure}[htbp!]
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{ST-U_1-B_TestUserRatings}
+    \caption{ST-U 1-B Test User Ratings}
+    \end{center}
+    \end{figure}
+
+  ST-U 1-B failed the usability test case. The difference between ST-U 1-B and ST-U 1-A was the user requirement to adjust and write the Arduino code for a sensor not previously used with the device. Notably, the user experienced difficulty and was intimidated with adjusting existing code to integrate a new sensor. This effect was shown in both the increased time to complete the overall process and the decreased rating in the overall test experience category. As a result, the project will have an approach whereby the user should only interact with the graphical user interface to reduce the user's feelings of complexity and intimidation when integrating a new sensor. The goal is to abstract the adjustments in the backend when implementing a new sensor by having the user interact only with the GUI and following guided steps in plain English to fill in the required information to integrate a new sensor. \\
+
 
 \subsection{Performance}
 %Tio
@@ -98,10 +204,131 @@ We ensured through testing that even if one of the components has lost connectio
 \subsubsection{ST-S 1, ST-S 2}
 We were able to ensure that the data could not be obtained and compromised by unauthorized users by testing different accounts and seeing what privileges each account had. Through updating we were able to ensure that our database would not be able to be compromised from users not within the Mac Formula team and also would not be able to be changed unless the user had been given special privileges since they are one of the higher ups on the team.
 
+\newpage
 \section{Unit Testing}
 %Desktop App Code: Mo
 %Arduino Code: Ahmed
+connect wireless(self) - Tested by clicking connect button on wireless page
+\begin{table}[H]
+  \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Test No. & Input & Expected Output & Actual Output & Result\\
+    \hline
+    U1 & Connected to Formulate Wi-Fi & The application should connect to the device and display that it is connected & The application shows that the device is connected & Pass \\
+    \hline
+    U2 & Not Connected to Formulate Wi-Fi  & The application should display a pop up error indicating to the user that they need to connect to the Formulate Wi-Fi & A popup is displayed to the user to indicate they need to connect to Wi-Fi & Pass \\
+    \hline
+    U3 & -Connected to Formulate Wi-Fi -Device is connected via Serial (Wired) & The application should disconnect from serial and follow U1 & The application disconnects from serial and follows U1 & Pass \\
+    \hline
+  \end{tabular}
+  \caption{Unit Test}
+  \end{table}
 
+disconnect wireless(self) - Tested by clicking disconnect button on wireless page
+\begin{table}[H]
+  \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+    \hline
+    \rowcolor[gray]{0.9}
+    Test No. & Input & Expected Output & Actual Output & Result\\
+    \hline
+    U4 & -Connected to Formulate Wi-Fi -The disconnect button is clicked & The application should disconnect from the board and display that it is disconnected & The application disconnects from board and shows its disconnected & Pass \\
+    \hline
+    U5 & Not Connected to Formulate Wi-Fi  & The application should not display the disconnect button on the connectivity widget & The application does not display the disconnect button & Pass \\
+    \hline
+  \end{tabular}
+  \caption{Unit Test}
+  \end{table}
+
+  connect wired(self) - Tested by clicking connect button on wired page
+  \begin{table}[H]
+    \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Test No. & Input & Expected Output & Actual Output & Result\\
+      \hline
+      U6 & Connected to PC via USB and the correct COM port is selected in the Wire connectivity widget & The application should connect to the device and display that it is connected & The application shows that the device is connected & Pass \\
+      \hline
+      U7 & Not Connected to PC via wire  & The application should not display any COM port in the widget & The wired drop down is empty and shows no COM port & Pass \\
+      \hline
+      U8 & -Connected to PC via USB and the correct COM port is selected in the Wire connectivity widget -Device is connected via WiFi & The application should disconnect from WiFi and follow U6 & The application disconnects from WiFi and follows U6 & Pass \\
+      \hline
+    \end{tabular}
+    \caption{Unit Test}
+    \end{table}
+  
+  disconnect wired(self) - Tested by clicking disconnect button on wired page
+  \begin{table}[H]
+    \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Test No. & Input & Expected Output & Actual Output & Result\\
+      \hline
+      U9 & -Connected via wired -The disconnect button is clicked & The application should disconnect from the board and display that it is disconnected & The application disconnects from board and shows its disconnected & Pass \\
+      \hline
+    \end{tabular}
+    \caption{Unit Test}
+    \end{table}
+
+  ping(self) - Tested by clicking connect button
+  \begin{table}[H]
+    \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Test No. & Input & Expected Output & Actual Output & Result\\
+      \hline
+      U10 & Connected via WiFi & The application should read which sensors are flashed on the board and display them & The application gets which sensors are flashed and displays them & Pass \\
+      \hline
+      U11 & Connected via wired & The application should read which sensors are flashed on the board and display them & The application gets which sensors are flashed and displays them & Pass \\
+      \hline
+    \end{tabular}
+    \caption{Unit Test}
+    \end{table}
+
+  startTest(self) - Tested by clicking startTest button
+  \begin{table}[H]
+    \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Test No. & Input & Expected Output & Actual Output & Result\\
+      \hline
+      U12 & Connected via WiFi & The application should read data from the bytestring sent from the ESP8266 and display it in the table as the data is coming & The application reads the data and displays it correctly & Pass \\
+      \hline
+      U13 & Connected via wired & The application should read data from the bytestring sent from the Arduino UNO and display it in the table as the data is coming & The application reads the data and displays it correctly & Pass \\
+      \hline
+    \end{tabular}
+    \caption{Unit Test}
+    \end{table}
+
+  stopTest(self) - Tested by clicking stopTest button
+  \begin{table}[H]
+    \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Test No. & Input & Expected Output & Actual Output & Result\\
+      \hline
+      U14 & Connected via WiFi & The application should stop reading data sent from the ESP8266  & The application stops reading the data & Pass \\
+      \hline
+      U15 & Connected via wired & The application should stop reading data sent from the Arduino UNO & The application stops reading the data & Pass \\
+      \hline
+    \end{tabular}
+    \caption{Unit Test}
+    \end{table}
+
+  declineData(self) - Tested by clicking stopTest button
+  \begin{table}[H]
+    \begin{tabular}{| p{0.1\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+      \hline
+      \rowcolor[gray]{0.9}
+      Test No. & Input & Expected Output & Actual Output & Result\\
+      \hline
+      U16 & There is data populated in the table & The application should clear all the data in the table and display an empty table  & The application clears the data and displays an empty table & Pass \\
+      \hline
+      U17 & There is no data populated in the table & The application should clear all the data in the table and display an empty table  & The application clears the data and displays an empty table & Pass \\
+      \hline
+    \end{tabular}
+    \caption{Unit Test}
+    \end{table}
 \section{Changes Due to Testing}
 %Each person will have to write a section here. Each FR and NFR will have a paragraph here, so based on what was assigned earlier, we will need to write a section here.
 
@@ -110,6 +337,7 @@ We were able to ensure that the data could not be obtained and compromised by un
 %FR 1 :
 %Point 1: Changes
 %Point 2: Effect the change had on project
+FR 11 was changed such that the battery under expected operational use is non-rechargeable. Batteries will continue to be used but will change from rechargeable to non-rechargeable batteries with a scheduled replacement timeline close to charge depletion. This change followed the test ST-DH 2 results. \\
 
 \subsection{Nonfunctional Requirements}
 
@@ -117,6 +345,8 @@ We were able to ensure that the data could not be obtained and compromised by un
 the supervisor (when one exists) shaped the final product.  In particular 
 the feedback from the Rev 0 demo to the supervisor (or to potential users) 
 should be highlighted.}
+
+Additional considerations to the GUI must be made in response to NFR1,  NFR2, and the test result ST-U 1-B. In particular, the team plans to improve the GUI to improve the user experience by minimizing and ultimately eliminating interaction with Arduino code when integrating new sensors and making the user work with the GUI to integrate new sensors. \\
 		
 \section{Trace to Requirements}
 %VnV Plan has this table
@@ -146,6 +376,15 @@ graduate attribute of Reflection.  Please answer the following question:
   \item In our Verification and Validation Plan we had planned to create a website which would contain the all the information and testing data that was recieved during throughout testing of the Mac Formula club. This website was supposed to have the ability to organize data and help the user analyze it as well. We ultimately decided to use Power Bi, which is an interactive data visualization software that all of Mac has access too. We were able to determine that using Power Bi to meet our data visualization requirements since it helped improved our ease of use and the compatability with the database where our test data was being stored. We were able to verify that using Power Bi would work for our data analytics portion because the members of the Mac Formula one team were able to use the test data that was being visualized to aid them in future tests.
 
   %Each person has 1 paragraph on stuff they worked that they can comment on. Ideally, 4 paragraphs total
+
+  %Stephen
+  The Verification and Validation Plan for usability differed from the actual activities conducted in the VnV. For example, the usability test ST-U 1 did not originally account sensor code integration by the user during the test. But during VnV, the team realized that we needed to know both the total process time taken when the user already had the required code and when the user had to integrate the code to adequately determe the project's ability to meet the FR's and NFR's defined in the SRS. In the future, prototyping earlier in the design process can help identify important test cases when generating the VnV Plan. \\
+  %End of paragraph
+
+  %Ahmed
+  For the most part, our VnV plan was closely aligned with the actual VnV activities we conducted. During the VnV planning session, our team worked diligently to clearly outline the specific objectives and requirements for our final product. We conducted extensive research, and actively engaged with Formula E team members to gain a deeper understanding of the type of device they were looking for. This helped us to develop a comprehensive VnV plan that was well-tailored to the specific needs and expectations of the project. While there were some slight changes to the plan as we progressed, the core elements remained largely unchanged. This was largely due to the thoroughness of our planning process and our ability to anticipate potential challenges or modifications that might arise over the course of the project. Ultimately, this allowed us to execute our VnV activities with precision and confidence, and to demonstrate the high level of quality that was required for the final product.
+
+
 \end{enumerate}
 
 \end{document}
