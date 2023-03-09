@@ -13,6 +13,7 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{colortbl}
+\usepackage{longtable}
 \usepackage[table]{xcolor} 
 \hypersetup{
     colorlinks,
@@ -41,8 +42,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+March 3, 2023 & 1.0 & Final Revision\\
 \bottomrule
 \end{tabularx}
 
@@ -55,7 +55,24 @@ Date 2 & 1.1 & Notes\\
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  T & Test\\
+  \progname & Mechatronics Engineering Capstone Course\\
+  UART & Universal Asynchronous Receiver-Transmitter\\
+  SPI & Serial Peripheral Interface\\
+  I2C & Inter-Integrated Circuit\\
+  USB & Universal Serial Bus\\
+  TCP & Transmission Control Protocol\\
+  IP & Internet Protocol\\
+  SPDT & Single pole, double throw \\
+  TCP/IP & Transmission Control Protocol / Internet Protocol \\
+  SOC & Software On Chip \\
+  SPST & Single pole, single throw \\
+  TX & Transmit \\
+  RX & Recieve \\
+  USB & Universal Serial Bus \\
+  LED & Light-emitting diode \\
+  GB & GigaByte \\
+  SD & Secure Digital \\
+  PCB & Printed Circuit Board \\
   \bottomrule
 \end{tabular}\\
 
@@ -191,6 +208,7 @@ We created our Data Analytics Website through a visualization tool called Power 
 \subsection{Usability}
 %Stephen
 %Need a graph (that we generate) that supports data
+\newpage
 \begin{table}[H]
   \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
@@ -248,6 +266,13 @@ We created our Data Analytics Website through a visualization tool called Power 
   \end{tabular}
   \caption{Performance}
   \end{table}
+
+  \begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{Average Latency.png}
+    \caption{Average Latency Results of Each Test}
+    \end{center}
+    \end{figure}
 
 \subsection{Security}
 %Tio
@@ -408,8 +433,8 @@ disconnect\_wireless(self) - Tested by clicking disconnect button on wireless pa
   \caption{Unit Test - setup\_page}
 \end{table}
 
-
-login\_into\_app(self) - Tested by clicking 'Sign In' button in Login page of the UI \newline
+\newpage
+login\_into\_app(self) - Tested by clicking 'Sign In' button in Login page of the UI
 \begin{table}[H]
   \begin{tabular}{| p{0.10\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
@@ -430,64 +455,64 @@ login\_into\_app(self) - Tested by clicking 'Sign In' button in Login page of th
   \caption{Unit Test - login\_into\_app}
 \end{table}
 
-
-continue\_signup(self) - Tested by clicking 'Continue' button in Sign Up page of the UI \newline
+\newpage
+continue\_signup(self) - Tested by clicking 'Continue' button in Sign Up page of the UI 
 \begin{table}[H]
   \begin{tabular}{| p{0.10\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
     Test No. & Input & Expected Output & Actual Output & Result\\
     \hline
-    U25 & Valid account registration information & UI transitions to homepage and new rows are added to Users and Login tables in database & UI transitioned to homepage and new rows with user information and hashed passwords were added to Users and Login tables in database & pass \\
+    U25 & Valid account registration information & UI transitions to homepage and new rows are added to Users and Login tables in database & UI transitioned to homepage and new rows with user information and hashed passwords were added to Users and Login tables in database & Pass \\
     \hline
-    U26 & At least one field is missing input & UI displays error message ‘Please fill in missing fields’ in red color & ‘Please fill in missing fields’ is displayed in red & pass \\
+    U26 & At least one field is missing input & UI displays error message ‘Please fill in missing fields’ in red color & ‘Please fill in missing fields’ is displayed in red & Pass \\
     \hline
-    U27 & Username is less than 4 characters & UI displays error message ‘Username requires at least 4 characters’ in red color & ‘Username requires at least 4 characters’ is displayed in red & pass \\
+    U27 & Username is less than 4 characters & UI displays error message ‘Username requires at least 4 characters’ in red color & ‘Username requires at least 4 characters’ is displayed in red & Pass \\
     \hline
-    U28 & Password is less than 8 characters & UI displays error message ‘Password requires at least 8 characters’ in red color & ‘Password requires at least 8 characters’ is displayed in red & pass \\
+    U28 & Password is less than 8 characters & UI displays error message ‘Password requires at least 8 characters’ in red color & ‘Password requires at least 8 characters’ is displayed in red & Pass \\
     \hline
-    U29 & Password does not have a number & UI displays error message ‘Password requires at least one number’ in red color & ‘Password requires at least one number’ is displayed in red & pass \\
+    U29 & Password does not have a number & UI displays error message ‘Password requires at least one number’ in red color & ‘Password requires at least one number’ is displayed in red & Pass \\
     \hline
-    U30 & Password does not contain a letter & UI displays error message ‘Password requires at least one alphabet’ in red color & ‘Password requires at least one alphabet’ is displayed in red & pass \\
+    U30 & Password does not contain a letter & UI displays error message ‘Password requires at least one alphabet’ in red color & ‘Password requires at least one alphabet’ is displayed in red & Pass \\
     \hline
-    U31 & Password does not contain a non-alphanumeric character & UI displays error message ‘Password requires at least one non-alphanumeric character’ in red color & Correct error message is displayed but is cut off & fail \\
+    U31 & Password does not contain a non-alphanumeric character & UI displays error message ‘Password requires at least one non-alphanumeric character’ in red color & Correct error message is displayed but is cut off & Fail \\
     \hline
-    U32 & Password and Confirm Password fields do not match & UI displays error message ‘Passwords do not match’ in red color & ‘Passwords do not match’ is displayed in red & pass \\
+    U32 & Password and Confirm Password fields do not match & UI displays error message ‘Passwords do not match’ in red color & ‘Passwords do not match’ is displayed in red & Pass \\
     \hline
   \end{tabular}
   \caption{Unit Test - continue\_signup}
 \end{table}
 
-move\_to\_submit\_test(self): Tested by clicking on ‘Submit’ button in View Test page of the UI \newline
+move\_to\_submit\_test(self): Tested by clicking on ‘Submit’ button in View Test page
 \begin{table}[H]
   \begin{tabular}{| p{0.10\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
     Test No. & Input & Expected Output & Actual Output & Result\\
     \hline
-    U33 & Clicking on button while logged in & UI transitions to Submit Test page & UI transitioned to Submit Test page & pass \\
+    U33 & Clicking on button while logged in & UI transitions to Submit Test page & UI transitioned to Submit Test page & Pass \\
     \hline
-    U34 & Clicking on button while not signed in & UI displays error message ‘Please login to submit tests’ & ‘Please login to submit tests’ is displayed & pass \\
+    U34 & Clicking on button while not signed in & UI displays error message ‘Please login to submit tests’ & ‘Please login to submit tests’ is displayed & Pass \\
     \hline
   \end{tabular}
   \caption{Unit Test - move\_to\_submit\_test}
 \end{table}
 
 
-browse\_and\_display\_pictures(self) - Tested by clicking on Upload Image button in Submit Test page of the UI \newline
+browse\_and\_display\_pictures(self) - Tested by clicking on Upload Image button in Submit Test page  
 \begin{table}[H]
   \begin{tabular}{| p{0.10\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
     Test No. & Input & Expected Output & Actual Output & Result\\
     \hline
-    U35 & Described above & File explorer window pops up, user can select an image, and selected image is displayed in UI & The same as expected output & pass \\
+    U35 & Described above & File explorer window pops up, user can select an image, and selected image is displayed in UI & The same as expected output & Pass \\
     \hline
   \end{tabular}
   \caption{Unit Test - browse\_and\_display\_pictures}
 \end{table}
 
-upload\_test\_info(self) - Tested by clicking on 'Submit' button in Submit Test page of the UI \newline
+upload\_test\_info(self) - Tested by clicking on 'Submit' button in Submit Test page 
 \begin{table}[H]
   \begin{tabular}{| p{0.10\textwidth} | p{0.15\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
@@ -535,7 +560,7 @@ upload\_test\_info(self) - Tested by clicking on 'Submit' button in Submit Test 
 
   
 
-
+\newpage
 \section{Changes Due to Testing}
 %Each person will have to write a section here. Each FR and NFR will have a paragraph here, so based on what was assigned earlier, we will need to write a section here.
 
