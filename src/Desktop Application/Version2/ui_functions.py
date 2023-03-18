@@ -3,6 +3,7 @@ import codecs
 import hashlib
 import os
 import platform
+import json
 import pyodbc
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
@@ -13,16 +14,16 @@ import sys
 import socket
 import os
 from time import sleep
-#from webbrowser import open
+from webbrowser import open as webopen
 import pandas as pd
 import threading
 import datetime
 import serial.tools.list_ports
 import serial
-
-import csv
+import subprocess
 
 from main import *
+from arduino_code_generator import *
 
 ''''
 try :
@@ -174,11 +175,14 @@ class UIFunctions(MainWindow):
         global logged_in
         logged_in = False
         self.ui.account_menu_button.setText('')
-        if self.isConnected == "Wired":
-            UIFunctions.disconnect_wired(self)
+        try:
+            if self.isConnected == "Wired":
+                UIFunctions.disconnect_wired(self)
 
-        if self.isConnected == "Wireless":
-            UIFunctions.disconnect_wireless(self)
+            if self.isConnected == "Wireless":
+                UIFunctions.disconnect_wireless(self)
+        except:
+            None
         
         self.pdData = pd.DataFrame(columns=[0])
         model = PandasModel(self.pdData)
@@ -333,36 +337,64 @@ class UIFunctions(MainWindow):
 
 
     def uploadCSV(self):
+        """
+        Reads the previous conducted test from the onboard SD card and displays it on the table view for the user
+        """
+        self.data = []
         try:
-            fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
-            print(fname[0])
-            file = open(fname[0])
-            type(file)
-
-            csvreader = csv.reader(file)
-            header = []
-            header = ['Time'] + next(csvreader)
-            print(header)
-
-
-            rows = []
-            timeInsert = datetime.datetime(1990,1,1,0,0,0)
-            for row in csvreader:
-                rows.append(row)
-
-            for i in range(len(rows)):
-                timeInsert += datetime.timedelta(seconds=1)
-                rows[i] = [str(timeInsert)]+ rows[i][:]
-                
-            self.pdData = pd.DataFrame(rows,columns=header)
-            model = PandasModel(self.pdData)
-            self.ui.data_table.setModel(model)
-            self.ui.data_table.setColumnWidth(0,200)
-
-            file.close()
-        except:
+            if self.isConnected == "Wired":
+                self.ser.write(b'R')
+                line = 1
+                now = datetime.datetime.now()
+                while(line):
+                    line = self.ser.readline()
+                    if line:
+                        string = line.decode()
+                        if string[0] == "(" and string[len(string)-3] == ")":
+                            filteredByteString = string[1:len(string)-3].split(",")
+                            rowData =[now.strftime("%Y-%m-%d %H:%M:%S")]
+                            now += datetime.timedelta(seconds=1) 
+                            for i in filteredByteString: 
+                                rowData.append(i[2:])
+                            self.data.append(rowData)
+                self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                model = PandasModel(self.pdData)
+                self.ui.data_table.setModel(model)
+                self.ui.data_table.setColumnWidth(0,200)
+            
+            if self.isConnected == "Wireless":
+                err_popup = QMessageBox()
+                err_popup.setWindowTitle("Information")
+                err_popup.setText("Retrieving Information is only available with a wired connection")
+                err_popup.setIcon(QMessageBox.Information)
+                x = err_popup.exec_()
+        except Exception as e:
+            print("Failed")
+            print(e)
             return
 
+
+    def testing_page(self):
+        """
+        Goes to the testing page only if the PC is connected to the Formulate device
+        """
+
+        try:
+            if self.isConnected == "Wireless" or self.isConnected == "Wired":
+                self.ui.pages_widget.setCurrentWidget(self.ui.view_test_page)
+            else:
+                msgBox = QMessageBox()
+                msgBox.setWindowTitle("Error")
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setText("Connect to Formulate Device")
+                x = msgBox.exec_()
+                    
+        except:
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("Error")
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText("Connect to Formulate Device")
+            x = msgBox.exec_()
 
 
     def change_connectivity_page(self):
@@ -370,61 +402,72 @@ class UIFunctions(MainWindow):
             self.ui.connectivity_page.setCurrentWidget(self.ui.wireless_page)
         elif(self.ui.connection_type.currentText() == "Wired"):
             self.ui.connectivity_page.setCurrentWidget(self.ui.wired_page)
+    
+
     b = 0
     def connect_wireless(self):
-        #os.system(f'''cmd /c "netsh wlan connect name=Formulate"''')
-        #sleep(3)
+        """
+        Connect to the Formulate device via WiFi
+        """
         try:
             UIFunctions.disconnect_wired(self)
         except:
             print("")
-            
-        ip = '192.168.4.1'
-        port = 8080
-        self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+
         try:
+            subprocess.run(['netsh', 'wlan', 'connect', 'name={}'.format("Formulate")])
+            sleep(5)
+            ip = '192.168.4.1'
+            port = 8080
+            self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             if(UIFunctions.b == 0):
+                self.conn.connect((ip,port))
                 UIFunctions.b = 1
                 self.ui.wifi_connect.setText("Disconnect")
-                self.conn.connect((ip,port))
                 self.ui.connection_status_wireless_label.setText("Connected")
                 self.ui.wifi_name_label.setText("Formulate")
                 self.ui.ip_address_label.setText(ip)
                 self.isConnected = "Wireless"
-                sleep(2)
                 UIFunctions.ping(self)
-
             else:
                 UIFunctions.disconnect_wireless(self)
 
-        except Exception as e:
-            print("Connection Failed")
+        except:
             err_popup = QMessageBox()
-            err_popup.setText("Connection Failed: Make sure to connect to Formulate Wifi")
+            err_popup.setWindowTitle("Connection Failed")
+            err_popup.setText("Make sure the device is powered ON")
             err_popup.setIcon(QMessageBox.Critical)
-            print(e)
             x = err_popup.exec_()
-            self.ui.connection_status_wireless_label.setText("Disconnected")
-            self.ui.wifi_name_label.setText("---")
-            self.ui.ip_address_label.setText("---")
+
             
 
 
     def disconnect_wireless(self):
         try:
-            self.conn.close()
+            try:
+                self.conn.close()
+            except:
+                None
+            self.isConnected = ""
             self.ui.connection_status_wireless_label.setText("Disconnected")
             self.ui.wifi_name_label.setText("---")
             self.ui.ip_address_label.setText("---")
             UIFunctions.b = 0
             self.ui.wifi_connect.setText("Connect")
             self.ui.detect_sensors_list.setText("")
+            output = subprocess.check_output(['netsh', 'wlan', 'show', 'interface']).decode('utf-8')
+            ssid_line = [line for line in output.split('\n') if 'SSID' in line][0].strip()
+            current_ssid = ssid_line.split(':')[1].strip()
+            if current_ssid == "Formulate":
+                subprocess.run(['netsh', 'wlan', 'disconnect'])
+
         except:
             return
     
     def disconnect_wired(self):
         try:
             self.ser.close()
+            self.isConnected = ""
             self.ui.connection_status_wired_label.setText("Disconnected")
             self.ui.board_name_label.setText("---")
             self.ui.com_port_label.setText("---")
@@ -437,70 +480,35 @@ class UIFunctions(MainWindow):
 
 
     def view_dashboard(self):
-        open("https://powerbi.microsoft.com/en-au/")
+        webopen("https://powerbi.microsoft.com/en-au/")
 
 
     def ping(self):
-        # Ping the Arduino to get the currently programmed sensors
-        sensorType = []
-        sensorNumber = []
-        sensorTypeName = []
         self.tableHeader = ['Time']
 
-        if self.isConnected == "Wireless":
-            self.conn.send('Q'.encode())
-            for i in range(2):
-                line = self.conn.recv(1024)  
-                if line:
-                    byteString = line.decode()
-            self.conn.send('W'.encode())
-        
-        if self.isConnected == "Wired":
-            self.ser.write(b'G')
-            for i in range(2):
-                line = self.ser.readline()   
-                if line:
-                    byteString = line.decode()
-            self.ser.write(b'P')
+        with open('src\Desktop Application\Version2\currentConfig.json','r') as f:
+            dict = json.load(f)
 
-        filteredByteString = byteString[1:len(byteString)-3].split(",")
+        val = list(dict.values())
+        print(val)
 
-        for i in filteredByteString:
-            sensorType.append(i[0])         
-            sensorNumber.append(i[1])
 
-        A = {'sensorType': 'AccelerationX', 'unit': 'm/s^2'}
-        B = {'sensorType': 'AccelerationY', 'unit': 'm/s^2'}
-        C = {'sensorType': 'AccelerationZ', 'unit': 'm/s^2'}
-        D = {'sensorType': 'Temperature', 'unit': '° celsius'}
-        E = {'sensorType': 'Humidity', 'unit': '%'}
-        converter = [A, B, C, D, E]
-        inputLength = len(sensorType)
-
-        for i in range(inputLength):
-            capsAscii = ord(sensorType[i]) 
-            sensorTypeName.append(converter[capsAscii-65]['sensorType'])
-
-        for i in range(inputLength):
-            self.tableHeader.append(sensorTypeName[i] + sensorNumber[i])
+        for i in val:
+            self.tableHeader.append(i)
 
         display_sensors = self.tableHeader[1]
         for i in range(2,len(self.tableHeader)):
             display_sensors =  display_sensors + " | " + self.tableHeader[i]
         
         self.ui.detect_sensors_list.setText(display_sensors)
-    '''
-        headerData = pd.DataFrame(columns=self.tableHeader[1:])
-        model = PandasModel(headerData)
-        self.ui.detected_sensors_table.setModel(model)
-'''
+
 
     def startTest(self):
         #Start button function, starts the test
         self.ui.startButton.setEnabled(False)
         self.ui.startButton.setStyleSheet("background-color: rgb(69, 83, 100);")
         self.ui.stopButton.setEnabled(True)
-        self.ui.stopButton.setStyleSheet("background-color: rgb(200, 0, 0);")
+        self.ui.stopButton.setStyleSheet("QPushButton {background-color: rgb(200, 0, 0);}QPushButton:hover {background-color:  rgb(220,0, 0);}QPushButton:pressed {background-color: rgb(180, 0, 0);}")
         self.run = 1
         self.data = []
         rowData = []
@@ -517,70 +525,71 @@ class UIFunctions(MainWindow):
                     UIFunctions.disconnect_wireless(self)
                     UIFunctions.declineData(self)# read a byte
                     self.ui.startButton.setEnabled(True)
-                    self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+                    self.ui.startButton.setStyleSheet("QPushButton {background-color: rgb(0, 170, 0);} QPushButton:hover {background-color:  rgb(0,190, 0);} QPushButton:pressed {background-color: rgb(0, 150, 0);}")
                     self.ui.stopButton.setEnabled(False)
                     self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
 
                 if line:
                     string = line.decode()
+                    print(string)
                     if string[0] == "(" and string[len(string)-3] == ")":
-                        print(string)
                         filteredByteString = string[1:len(string)-3].split(",")
                         rowData =[now.strftime("%Y-%m-%d %H:%M:%S")]
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
-                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
-                        model = PandasModel(self.pdData)
-                        self.ui.data_table.setModel(model)
-                        self.ui.data_table.setColumnWidth(0,200)
+                        #self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        #model = PandasModel(self.pdData)
+                        #self.ui.data_table.setModel(model)
+                        #self.ui.data_table.setColumnWidth(0,200)
                 
-                    
-                            
-        
         if self.isConnected == "Wired":
             self.ser.write(b'G')
             while(self.run):
                 try:
                     line = self.ser.readline()
-                    now = datetime.datetime.now()   # read a byte
+                    now = datetime.datetime.now()  
                 except:
                     print("Connection Failed")
                     self.run = 0
                     UIFunctions.disconnect_wired(self)
                     UIFunctions.declineData(self)
                     self.ui.startButton.setEnabled(True)
-                    self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+                    self.ui.startButton.setStyleSheet("QPushButton {background-color: rgb(0, 170, 0);} QPushButton:hover {background-color:  rgb(0,190, 0);} QPushButton:pressed {background-color: rgb(0, 150, 0);}")
                     self.ui.stopButton.setEnabled(False)
                     self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
 
 
                 if line:
                     string = line.decode()
+                    print(string)
                     if string[0] == "(" and string[len(string)-3] == ")":
-                        print(string)
                         filteredByteString = string[1:len(string)-3].split(",")
                         rowData =[now.strftime("%Y-%m-%d %H:%M:%S")]
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
-                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
-                        model = PandasModel(self.pdData)
-                        self.ui.data_table.setModel(model)
-                        self.ui.data_table.setColumnWidth(0,200)
+                        #self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        #model = PandasModel(self.pdData)
+                        #self.ui.data_table.setModel(model)
+                        #self.ui.data_table.setColumnWidth(0,200)
                 
 
 
     def runProg(self):
-        #Start Button threading function
+        """
+        Start another thread to start reading data from the Formulate device
+        """
         t1 = threading.Thread(target=lambda: UIFunctions.startTest(self))
         t1.start()
 
 
     def stopTest(self):
-        #Stop Button Function
+        """
+        Stop reading data from the Formulate device
+        """
         self.ui.startButton.setEnabled(True)
-        self.ui.startButton.setStyleSheet("background-color: rgb(0, 170, 0);")
+        self.ui.startButton.setStyleSheet("QPushButton {background-color: rgb(0, 170, 0);} QPushButton:hover {background-color:  rgb(0,190, 0);} QPushButton:pressed {background-color: rgb(0, 150, 0);}")
         self.ui.stopButton.setEnabled(False)
         self.ui.stopButton.setStyleSheet("background-color: rgb(69, 83, 100);")
 
@@ -647,20 +656,120 @@ class UIFunctions(MainWindow):
             UIFunctions.disconnect_wireless(self)
         except:
             print("")
-        #Connects and disconnects to arduino
-        if(UIFunctions.a == 0):
-            self.ser = serial.Serial(self.comPort, 9600, timeout=1)
-            UIFunctions.a = 1
-            self.ui.wired_connect.setText("Disconnect")
-            self.isConnected = "Wired"
-            self.ui.connection_status_wired_label.setText("Connected")
-            self.ui.board_name_label.setText(self.comUserSelect[7:])
-            self.ui.com_port_label.setText(self.comPort)
-            sleep(2)
-            UIFunctions.ping(self)
+        
+        try:
+            if(UIFunctions.a == 0):
+                self.ser = serial.Serial(self.comPort, 9600, timeout=1)
+                UIFunctions.a = 1
+                self.ui.wired_connect.setText("Disconnect")
+                self.isConnected = "Wired"
+                self.ui.connection_status_wired_label.setText("Connected")
+                self.ui.board_name_label.setText(self.comUserSelect[7:])
+                self.ui.com_port_label.setText(self.comPort)
+                sleep(2)
+                UIFunctions.ping(self)
 
-        else:
-            UIFunctions.disconnect_wired(self)
+            else:
+                UIFunctions.disconnect_wired(self)
+
+        except:
+            err_popup = QMessageBox()
+            err_popup.setWindowTitle("Connection Failed")
+            err_popup.setText("Make sure the device is connected and the COM port is not in use by another program")
+            err_popup.setIcon(QMessageBox.Critical)
+            x = err_popup.exec_()
+
+
+    def make_config_page(self):
+        self.ui.pages_widget.setCurrentWidget(self.ui.add_sensor_page)
+        with open('src\Desktop Application\Version2\savedSensors.json','r') as f:
+            self.dict = json.load(f)
+            f.close()
+            self.saved = list(self.dict.keys())
+        self.ui.sensor1_header.clear()
+        self.ui.sensor2_header.clear()
+        self.ui.sensor3_header.clear()
+        self.ui.sensor4_header.clear()
+        for i in self.saved:
+            self.ui.sensor1_header.addItem(i)
+            self.ui.sensor2_header.addItem(i)
+            self.ui.sensor3_header.addItem(i)
+            self.ui.sensor4_header.addItem(i)
+        
+
+
+    def autofill_config(self):
+        
+        if self.ui.sensor1_header.currentText() in self.saved:
+            self.ui.sensor1_readings.setText(self.dict[self.ui.sensor1_header.currentText()]['Readings'])
+            self.ui.sensor1_pins.setText(self.dict[self.ui.sensor1_header.currentText()]['Pins'])
+            self.ui.sensor1_units.setText(self.dict[self.ui.sensor1_header.currentText()]['Units'])
+        
+        if self.ui.sensor2_header.currentText() in self.saved:
+            self.ui.sensor2_readings.setText(self.dict[self.ui.sensor2_header.currentText()]['Readings'])
+            self.ui.sensor2_pins.setText(self.dict[self.ui.sensor2_header.currentText()]['Pins'])
+            self.ui.sensor2_units.setText(self.dict[self.ui.sensor2_header.currentText()]['Units'])
+        
+        if self.ui.sensor3_header.currentText() in self.saved:
+            self.ui.sensor3_readings.setText(self.dict[self.ui.sensor3_header.currentText()]['Readings'])
+            self.ui.sensor3_pins.setText(self.dict[self.ui.sensor3_header.currentText()]['Pins'])
+            self.ui.sensor3_units.setText(self.dict[self.ui.sensor3_header.currentText()]['Units'])
+        
+        if self.ui.sensor4_header.currentText() in self.saved:
+            self.ui.sensor4_readings.setText(self.dict[self.ui.sensor4_header.currentText()]['Readings'])
+            self.ui.sensor4_pins.setText(self.dict[self.ui.sensor4_header.currentText()]['Pins'])
+            self.ui.sensor4_units.setText(self.dict[self.ui.sensor4_header.currentText()]['Units'])
+    
+
+
+        
+
+    
+    def get_config_sensors(self):
+        sensors = []
+        if (self.ui.sensor1_header.currentText() != "") and (self.ui.sensor1_readings.text() != ""):
+            sensor1Header = self.ui.sensor1_header.currentText()
+            sensor1Readings = self.ui.sensor1_readings.text().split(',')
+            sensor1Pins = self.ui.sensor1_pins.text().split(',')
+            sensors.append([sensor1Header,sensor1Readings,sensor1Pins])
+
+        if (self.ui.sensor2_header.currentText() != "") and (self.ui.sensor2_readings.text() != ""):
+            sensor2Header = self.ui.sensor2_header.currentText()
+            sensor2Readings = self.ui.sensor2_readings.text().split(',')
+            sensor2Pins = self.ui.sensor2_pins.text().split(',')
+            sensors.append([sensor2Header,sensor2Readings,sensor2Pins])
+
+        if (self.ui.sensor3_header.currentText() != "") and (self.ui.sensor3_readings.text() != ""):
+            sensor3Header = self.ui.sensor3_header.currentText()
+            sensor3Readings = self.ui.sensor3_readings.text().split(',')
+            sensor3Pins = self.ui.sensor3_pins.text().split(',')
+            sensors.append([sensor3Header,sensor3Readings,sensor3Pins])
+
+        if (self.ui.sensor4_header.currentText() != "") and (self.ui.sensor4_readings.text() != ""):
+            sensor4Header = self.ui.sensor4_header.currentText()
+            sensor4Readings = self.ui.sensor4_readings.text().split(',')
+            sensor4Pins = self.ui.sensor4_pins.text().split(',')
+            sensors.append([sensor4Header,sensor4Readings,sensor4Pins])
+        CodeGenerator.generate(sensors)
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle("Success")
+        msgBox.setIcon(QMessageBox.Information)
+        msgBox.setText("Arduino Code Generated, MAKE SURE TO FLASH THE BOARD")
+        x = msgBox.exec_()
+        
+    def saveConfiguration1(self):
+        with open('src\Desktop Application\Version2\savedSensors.json','r') as f:
+            dict = json.load(f)
+        
+        dict[self.ui.sensor1_header.currentText()] = {
+            'Readings': self.ui.sensor1_readings.text(),
+            'Pins':'',
+            'Units':self.ui.sensor1_units.text()
+        }
+
+        with open('src\Desktop Application\Version2\savedSensors.json','w') as f:
+            json.dump(dict,f,indent=4)
+        f.close()
             
 
 

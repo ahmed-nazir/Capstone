@@ -7,7 +7,7 @@ from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFont
 from PyQt5.QtWidgets import *
 import sys
 
-#Importing Main Mindow class from GUI file
+#Importing Main Window class from GUI file
 from ui_main import Ui_MainWindow
 
 #Importing UI functions
@@ -34,8 +34,6 @@ class MainWindow(QMainWindow):
         #Signing up
         self.ui.continue_sign_up.clicked.connect(lambda: UIFunctions.continue_signup(self))
 
-        #Add new sensor
-        self.ui.submit_new_sensor.clicked.connect(lambda: UIFunctions.submit_new_sensor(self))
 
         #submit_test
         self.ui.submit_test_button.clicked.connect(lambda: UIFunctions.move_to_submit_test(self))
@@ -57,7 +55,8 @@ class MainWindow(QMainWindow):
         #Signup page
         self.ui.login_return_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.login_page))
         #Homepage
-        self.ui.start_test_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.view_test_page))
+        self.ui.start_test_button.clicked.connect(lambda: UIFunctions.testing_page(self))
+
         self.ui.home_menu_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage))
         #View test page
         self.ui.decline_test_button.clicked.connect(lambda: UIFunctions.declineData(self))
@@ -90,6 +89,21 @@ class MainWindow(QMainWindow):
         self.ui.wired_connect.clicked.connect(lambda: UIFunctions.connect_wired(self))
 
         self.ui.uploadCSVButton.clicked.connect(lambda: UIFunctions.uploadCSV(self))
+
+        self.ui.generate_code_button.clicked.connect(lambda: UIFunctions.get_config_sensors(self))
+
+        self.ui.configure_sensors.clicked.connect(lambda: UIFunctions.make_config_page(self))
+
+        self.ui.sensor1_header.activated.connect(lambda: UIFunctions.autofill_config(self))
+        self.ui.sensor2_header.activated.connect(lambda: UIFunctions.autofill_config(self))
+        self.ui.sensor3_header.activated.connect(lambda: UIFunctions.autofill_config(self))
+        self.ui.sensor4_header.activated.connect(lambda: UIFunctions.autofill_config(self))
+
+        self.ui.saveConfig1_button.clicked.connect(lambda: UIFunctions.saveConfiguration1(self))
+
+        self.ui.configure_sensors_back_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage) )
+
+
 
         self.show()
 
