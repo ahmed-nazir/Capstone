@@ -4,6 +4,7 @@ import hashlib
 import os
 import platform
 import json
+import pymysql
 import pyodbc
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
@@ -143,7 +144,7 @@ class UIFunctions(MainWindow):
         elif len(password) == 0:
             self.ui.login_error_label.setText('Please enter a password')
         else:
-            cursor.execute("SELECT * FROM Login WHERE UserName = ?", username)
+            cursor.execute("SELECT * FROM Login WHERE UserName = '{}'".format(username))
             result = cursor.fetchone()
 
             if result:
@@ -219,11 +220,11 @@ class UIFunctions(MainWindow):
             self.ui.error_label.setText('Password does not match')
         else:
             #Store User information first
-            cursor.execute('INSERT INTO Users VALUES (?,?,?,?,NULL)', username, first_name, last_name, team_role)
+            cursor.execute('INSERT INTO Users VALUES ("{}","{}","{}","{}",NULL)'.format(username, first_name, last_name, team_role))
             conn.commit()
             #Generate salt, hashed_password and save to database
             salt, hashed_pass = hash_new_password(password)
-            cursor.execute('INSERT INTO Login VALUES (?,?,?)', username, salt.hex(), hashed_pass.hex())
+            cursor.execute('INSERT INTO Login VALUES ("{}","{}","{}")'.format(username, salt.hex(), hashed_pass.hex()))
             conn.commit()
 
             self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
@@ -277,9 +278,27 @@ class UIFunctions(MainWindow):
 
     def upload_test_info(self):
         try:
+            err_message = "Oops something went wrong :("
             conn, cursor = connect_to_database()
-            
-            '''image_path = self.ui.file_path_field.text()
+
+            test_name = self.ui.test_name.text()
+            test_purpose = self.ui.test_purpose.text()
+            test_desc = self.ui.test_description.text()
+            image_url = None
+            username = self.ui.account_menu_button.text()
+
+            err_popup = QMessageBox()
+            if len(test_name) > 100:
+                err_message = ('Test name must be less than 100 characters')
+                raise Exception
+            elif len(test_desc) > 500:
+                err_message = ('Test description must be less than 500 characters')
+                raise Exception
+            elif len(test_purpose) > 500:
+                err_message = ('Test purpose must be less than 500 characters')
+                raise Exception
+                
+            image_path = self.ui.file_path_field.text()
             image_file = os.path.basename(image_path)
             blob_name = image_file
             blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
@@ -287,20 +306,15 @@ class UIFunctions(MainWindow):
                 blob__client.upload_blob(image)
             print("Successfully uploaded image!")
 
-            blob_url = container_url + blob_name'''
+            image_url = container_url + blob_name
 
-            test_name = self.ui.test_name.text()
-            test_purpose = self.ui.test_purpose.text()
-            test_desc = self.ui.test_description.text()
-            image_url = None
-            username = self.ui.account_menu_button.text()
-            
-            cursor.execute("INSERT INTO Test VALUES (?,?,?,?,?)", username, test_name, test_purpose, test_desc, image_url)
 
-            cursor.execute('SELECT MAX(ID) FROM TEST')
-            last_index = cursor.fetchone()[0]
+            cursor.execute("INSERT INTO Test (UserName, TestName, TestPurpose, TestDescription, ImageURL) VALUES ('{}','{}','{}','{}','{}')".format(username, test_name, test_purpose, test_desc, image_url))
 
-            cursor.execute('SELECT name FROM sys.tables')
+            cursor.execute('SELECT MAX(ID) FROM Test')
+            test_id = cursor.fetchone()[0]
+
+            cursor.execute('SHOW TABLES')
             num_of_cols = len(self.pdData.axes[1])
 
             current_tables = []
@@ -310,19 +324,24 @@ class UIFunctions(MainWindow):
             for i in range(1, num_of_cols):
                 if self.pdData.columns[i] not in current_tables:
                     create_table_sql = """ CREATE TABLE {} ( 
-                                TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
-                                TimePerformed DATETIME NOT NULL,
-                                Value FLOAT(8) NOT NULL,
-                                PRIMARY KEY (TestID, TimePerformed));""".format(self.pdData.columns[i])
+                                    TestID INT NOT NULL,
+                                    TimePerformed DATETIME NOT NULL,
+                                    Value FLOAT(8) NOT NULL,
+                                    PRIMARY KEY (TestID, TimePerformed),
+                                    FOREIGN KEY (TestID) REFERENCES Test(ID)
+                                );""".format(self.pdData.columns[i])
                     cursor.execute(create_table_sql)
                     conn.commit()
                 else:
                     print('nothing to add here')
                 
+                insert_data_sql = 'INSERT INTO {} (TestID, TimePerformed, Value) VALUES '.format(self.pdData.columns[i])
                 for index, row in self.pdData.iterrows():
-                    insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(self.pdData.columns[i], last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
-                    sql = "INSERT INTO Temperature1 VALUES (?, ?, ?)",last_index, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]]
-                    cursor.execute(insert_data_sql)
+                    insert_data_sql = insert_data_sql + '({}, {}, {}), '.format(test_id, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
+                    #insert_data_sql = 'INSERT INTO {} VALUES ({}, {}, {})'.format(self.pdData.columns[i], test_id, "'"+row[self.pdData.columns[0]]+"'", row[self.pdData.columns[i]])
+                
+                insert_data_sql = insert_data_sql[:-2]
+                cursor.execute(insert_data_sql)
                 conn.commit()
 
             msgBox = QMessageBox()
@@ -334,6 +353,9 @@ class UIFunctions(MainWindow):
 
         except Exception as e:
             print(e)
+            err_popup.setText(err_message)
+            err_popup.setIcon(QMessageBox.Information)
+            x = err_popup.exec_()
 
 
     def uploadCSV(self):
@@ -378,7 +400,6 @@ class UIFunctions(MainWindow):
         """
         Goes to the testing page only if the PC is connected to the Formulate device
         """
-
         try:
             if self.isConnected == "Wireless" or self.isConnected == "Wired":
                 self.ui.pages_widget.setCurrentWidget(self.ui.view_test_page)
@@ -800,11 +821,19 @@ def is_correct_password(salt_hex, stored_hash, pass_to_check):
         return False
 
 
-def connect_to_database():
+"""def connect_to_database():
     try :
         #conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
         conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonedb2.database.windows.net,1433;Database=CapstoneDB;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
         cursor = conn.cursor()
         return conn, cursor
     except pyodbc.Error as err:
+        print(err)"""
+
+def connect_to_database():
+    try:
+        conn = pymysql.connect(host = "mycapstonedb.ctlp2jqtpmzj.us-east-2.rds.amazonaws.com", user = 'capmaster', password = 'capstone132!', database = 'mycapstonedb')
+        cursor = conn.cursor()
+        return conn, cursor
+    except pymysql.Error as err:
         print(err)
