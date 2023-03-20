@@ -280,13 +280,13 @@ class UIFunctions(MainWindow):
         try:
             err_message = "Oops something went wrong :("
             conn, cursor = connect_to_database()
+
             test_name = self.ui.test_name.text()
             test_purpose = self.ui.test_purpose.text()
             test_desc = self.ui.test_description.text()
             image_url = None
             username = self.ui.account_menu_button.text()
 
-            err_state = False
             err_popup = QMessageBox()
             if len(test_name) > 100:
                 err_message = ('Test name must be less than 100 characters')
@@ -297,7 +297,7 @@ class UIFunctions(MainWindow):
             elif len(test_purpose) > 500:
                 err_message = ('Test purpose must be less than 500 characters')
                 raise Exception
-            
+                
             image_path = self.ui.file_path_field.text()
             image_file = os.path.basename(image_path)
             blob_name = image_file
@@ -307,6 +307,8 @@ class UIFunctions(MainWindow):
             print("Successfully uploaded image!")
 
             image_url = container_url + blob_name
+
+
             cursor.execute("INSERT INTO Test (UserName, TestName, TestPurpose, TestDescription, ImageURL) VALUES ('{}','{}','{}','{}','{}')".format(username, test_name, test_purpose, test_desc, image_url))
 
             cursor.execute('SELECT MAX(ID) FROM Test')
@@ -398,7 +400,6 @@ class UIFunctions(MainWindow):
         """
         Goes to the testing page only if the PC is connected to the Formulate device
         """
-
         try:
             if self.isConnected == "Wireless" or self.isConnected == "Wired":
                 self.ui.pages_widget.setCurrentWidget(self.ui.view_test_page)
@@ -505,18 +506,8 @@ class UIFunctions(MainWindow):
 
     def ping(self):
         self.tableHeader = ['Time']
-        if getattr(sys, 'frozen', False):
-            # Running in a bundle
-            print("Here1")
-            base_dir = sys._MEIPASS
-        else:
-            # Running locally
-            print("Here")
-            base_dir = os.path.abspath(".")
-            print(base_dir)
 
-
-        with open(os.path.join(base_dir,"currentConfig.json"),'r') as f:
+        with open('src\Desktop Application\Version2\currentConfig.json','r') as f:
             dict = json.load(f)
 
         val = list(dict.values())
@@ -712,15 +703,7 @@ class UIFunctions(MainWindow):
 
     def make_config_page(self):
         self.ui.pages_widget.setCurrentWidget(self.ui.add_sensor_page)
-        if getattr(sys, 'frozen', False):
-            # Running in a bundle
-            print("Here1")
-            base_dir = sys._MEIPASS
-        else:
-            # Running locally
-            base_dir = os.path.abspath(".")
-            print(base_dir)
-        with open(os.path.join(base_dir,"savedSensors.json"),'r') as f:
+        with open('src\Desktop Application\Version2\savedSensors.json','r') as f:
             self.dict = json.load(f)
             f.close()
             self.saved = list(self.dict.keys())
@@ -796,15 +779,7 @@ class UIFunctions(MainWindow):
         x = msgBox.exec_()
         
     def saveConfiguration1(self):
-        if getattr(sys, 'frozen', False):
-            # Running in a bundle
-            print("Here1")
-            base_dir = sys._MEIPASS
-        else:
-            # Running locally
-            base_dir = os.path.abspath(".")
-
-        with open(os.path.join(base_dir,"savedSensors.json"),'r') as f:
+        with open('src\Desktop Application\Version2\savedSensors.json','r') as f:
             dict = json.load(f)
         
         dict[self.ui.sensor1_header.currentText()] = {
@@ -813,7 +788,7 @@ class UIFunctions(MainWindow):
             'Units':self.ui.sensor1_units.text()
         }
 
-        with open(os.path.join(base_dir,"savedSensors.json"),'w') as f:
+        with open('src\Desktop Application\Version2\savedSensors.json','w') as f:
             json.dump(dict,f,indent=4)
         f.close()
             
