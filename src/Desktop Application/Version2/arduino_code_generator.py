@@ -1,11 +1,22 @@
 import json
+import sys
+import os
 
 class CodeGenerator():
     def generate(data):
         alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+        if getattr(sys, 'frozen', False):
+            # Running in a bundle
+            print("Here1")
+            base_dir = sys._MEIPASS
+        else:
+            # Running locally
+            base_dir = os.path.abspath(".")
+            print(base_dir)
+        
 
         dict = {}
-        with open('src\Desktop Application\Version2\currentConfig.json','w') as f:
+        with open(os.path.join(base_dir,"currentConfig.json"),'w') as f:
             count = 0
             for i in range(0,len(data)):
                 for j in range(0,len(data[i][1])):
@@ -17,7 +28,7 @@ class CodeGenerator():
                     
 
 
-        with open(r'C:\Users\Ahmed Nazir\Desktop\testArduino\testArduino.ino', 'w') as f:
+        with open(os.path.join(base_dir,"mainArduino/mainArduino.ino"), 'w') as f:
             f.write("#include <SoftwareSerial.h>\n")
             f.write("#include <SPI.h>\n")
             f.write("#include <SD.h>\n")
