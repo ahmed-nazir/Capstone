@@ -42,6 +42,9 @@ container_url = 'https://capstonestorage1.blob.core.windows.net/testimages/'
 logged_in = False
 
 
+class over_the_character_limit(Exception):
+    "Raised when the user input exceeds the max limit"
+    pass
 
 
 class PandasModel(QtCore.QAbstractTableModel):
@@ -135,42 +138,50 @@ class UIFunctions(MainWindow):
    
     
     def login_into_app(self):
-        conn, cursor = connect_to_database()
-        username = self.ui.username_field.text()
-        password = self.ui.login_password_field.text()
+        """
+        Logs and authenticates user into the application
+        """
+        try:
+            conn, cursor = connect_to_database()
+            username = self.ui.username_field.text()
+            password = self.ui.login_password_field.text()
 
-        if len(username) == 0:
-            self.ui.login_error_label.setText('Please enter a username')
-        elif len(password) == 0:
-            self.ui.login_error_label.setText('Please enter a password')
-        else:
-            cursor.execute("SELECT * FROM Login WHERE UserName = '{}'".format(username))
-            result = cursor.fetchone()
-
-            if result:
-                print('User exists, checking password')
-                salt_hex = result[1]
-                stored_hash = result[2]
-                if (is_correct_password(salt_hex, stored_hash, password)):
-                    #self.error_label.setText('Successful login!')
-                    #time.sleep(2)
-                    global logged_in
-                    logged_in = True
-                    self.ui.account_menu_button.setText(username)
-                    print(self.ui.account_menu_button.text())
-                    self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
-                    self.ui.username_field.clear()
-                    self.ui.login_password_field.clear()
-                    self.ui.login_error_label.clear()
-                    self.b = 0
-                else:
-                    self.ui.login_error_label.setText('Incorrect password, try again')
-                    self.ui.username_field.clear()
-                    self.ui.login_password_field.clear()
+            if len(username) == 0:
+                self.ui.login_error_label.setText('Please enter a username')
+                raise Exception
+            elif len(password) == 0:
+                self.ui.login_error_label.setText('Please enter a password')
             else:
-                self.ui.login_error_label.setText('User does not exist, try again')
-                self.ui.username_field.clear()
-                self.ui.login_password_field.clear()
+                cursor.execute("SELECT * FROM Login WHERE UserName = '{}'".format(username))
+                result = cursor.fetchone()
+
+                #Checking if user exists
+                if result:
+                    salt_hex = result[1]
+                    stored_hash = result[2]
+                    if (is_correct_password(salt_hex, stored_hash, password)):
+                        global logged_in
+                        logged_in = True
+                        self.ui.account_menu_button.setText(' Log out of ' + username)
+                        self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
+                        self.ui.username_field.clear()
+                        self.ui.login_password_field.clear()
+                        self.ui.login_error_label.clear()
+                        self.b = 0
+                    else:
+                        self.ui.login_error_label.setText('Incorrect password, try again')
+                        self.ui.username_field.clear()
+                        self.ui.login_password_field.clear()
+                else:
+                    self.ui.login_error_label.setText('User does not exist, try again')
+                    self.ui.username_field.clear()
+                    self.ui.login_password_field.clear()
+        except pymysql.Error as err:
+            print(err)
+            err_popup = QMessageBox()
+            err_popup.setText('Authentication failed, could not connect to server, please ensure you are connected to internet')
+            err_popup.setIcon(QMessageBox.Critical)
+            x = err_popup.exec_()
 
     def sign_out(self):
         global logged_in
@@ -196,68 +207,54 @@ class UIFunctions(MainWindow):
         self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
 
     def continue_signup(self):
-        conn, cursor = connect_to_database()
-        username = self.ui.signup_username_field.text()
-        password = self.ui.signup_password_field.text()
-        confirm_password = self.ui.confirm_password_field.text()
-        first_name = self.ui.firstname_field.text()
-        last_name = self.ui.lastname_field.text()
-        team_role= self.ui.team_role_dropdown.currentText()
+        try:
+            conn, cursor = connect_to_database()
+            username = self.ui.signup_username_field.text()
+            password = self.ui.signup_password_field.text()
+            confirm_password = self.ui.confirm_password_field.text()
+            first_name = self.ui.firstname_field.text()
+            last_name = self.ui.lastname_field.text()
+            team_role= self.ui.team_role_dropdown.currentText()
 
-        if(len(first_name)==0 or len(last_name)==0):
-            self.ui.error_label.setText('Please fill in missing fields')
-        elif(len(username) < 4):
-            self.ui.error_label.setText('Username requires at least 4 characters')
-        elif(len(password) < 8):
-            self.ui.error_label.setText('Password requires at least 8 characters')
-        elif(re.search(r'[0-9]', password) is None):
-            self.ui.error_label.setText('Password requires at least one number')
-        elif(re.search(r'[a-zA-Z]', password) is None):
-            self.ui.error_label.setText('Password requires at least one alphabet')
-        elif(re.search(r'\W', password) is None):
-            self.ui.error_label.setText('Password requires at least one non-alphanumeric character')
-        elif(password != confirm_password):
-            self.ui.error_label.setText('Password does not match')
-        else:
-            #Store User information first
-            cursor.execute('INSERT INTO Users VALUES ("{}","{}","{}","{}",NULL)'.format(username, first_name, last_name, team_role))
-            conn.commit()
-            #Generate salt, hashed_password and save to database
-            salt, hashed_pass = hash_new_password(password)
-            cursor.execute('INSERT INTO Login VALUES ("{}","{}","{}")'.format(username, salt.hex(), hashed_pass.hex()))
-            conn.commit()
+            cursor.execute("SELECT * FROM Users where UserName = '{}'".format(username))
+            result = cursor.fetchone()
 
-            self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
-            self.ui.signup_username_field.clear()
-            self.ui.signup_password_field.clear()
-            self.ui.confirm_password_field.clear()
-            self.ui.error_label.clear()
+            if(result):
+                self.ui.error_label.setText('Username already taken')
+            elif(len(first_name)==0 or len(last_name)==0):
+                self.ui.error_label.setText('Please fill in missing fields')
+            elif(len(username) < 4):
+                self.ui.error_label.setText('Username requires at least 4 characters')
+            elif(len(password) < 8):
+                self.ui.error_label.setText('Password requires at least 8 characters')
+            elif(re.search(r'[0-9]', password) is None):
+                self.ui.error_label.setText('Password requires at least one number')
+            elif(re.search(r'[a-zA-Z]', password) is None):
+                self.ui.error_label.setText('Password requires at least one alphabet')
+            elif(re.search(r'\W', password) is None):
+                self.ui.error_label.setText('Password requires at least one non-alphanumeric character')
+            elif(password != confirm_password):
+                self.ui.error_label.setText('Password does not match')
+            else:
+                #Store User information first
+                cursor.execute('INSERT INTO Users VALUES ("{}","{}","{}","{}",NULL)'.format(username, first_name, last_name, team_role))
+                conn.commit()
+                #Generate salt, hashed_password and save to database
+                salt, hashed_pass = hash_new_password(password)
+                cursor.execute('INSERT INTO Login VALUES ("{}","{}","{}")'.format(username, salt.hex(), hashed_pass.hex()))
+                conn.commit()
 
-    def submit_new_sensor(self):
-        conn, cursor = connect_to_database()
-        measurement_name = self.ui.measurement_name_field.text()
-        units_of_measurement = self.ui.units_of_measurement_field.text()
-        
-        names_of_values = self.ui.names_of_values_field.text()
-        name_of_sensor = self.ui.name_of_sensor_field.text()
-
-
-        sql_columns = ''
-        for value in names_of_values.split(', '):
-            sql_columns = sql_columns + '{} FLOAT(8) NOT NULL, '.format(value)
-            
-        create_table_sql = """ CREATE TABLE {} ( 
-                            TestID INT NOT NULL FOREIGN KEY REFERENCES Test(ID),
-                            TimePerformed DATETIME NOT NULL,
-                            {}
-                            PRIMARY KEY (TestID, TimePerformed));""".format(measurement_name, sql_columns)
-
-        cursor.execute(create_table_sql)
-        conn.commit()
-
-        #Adding new sensor measurement to measurements table
-        cursor.execute('INSERT INTO Measurements VALUES (?,?,?)', measurement_name, units_of_measurement, name_of_sensor)
-        conn.commit()
+                self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
+                self.ui.signup_username_field.clear()
+                self.ui.signup_password_field.clear()
+                self.ui.confirm_password_field.clear()
+                self.ui.error_label.clear()
+        except pymysql.Error as err:
+            print(err)
+            err_popup = QMessageBox()
+            err_popup.setText('Sign up failed, could not connect to server, please ensure you are connected to internet')
+            err_popup.setIcon(QMessageBox.Critical)
+            x = err_popup.exec_()
 
     def move_to_submit_test(self):
         if logged_in:
@@ -277,36 +274,45 @@ class UIFunctions(MainWindow):
         self.ui.test_image.setPixmap(scaled_pixmap)
 
     def upload_test_info(self):
+        """
+        -- Submits test data to DB
+        -- Submits user input related to test information to the DB
+        -- Uploads test image to azure blob storage
+        """
         try:
             err_message = "Oops something went wrong :("
+   
             conn, cursor = connect_to_database()
 
             test_name = self.ui.test_name.text()
             test_purpose = self.ui.test_purpose.text()
             test_desc = self.ui.test_description.text()
             image_url = None
-            username = self.ui.account_menu_button.text()
+            username = self.ui.account_menu_button.text().split("of ")[1]
 
-            err_popup = QMessageBox()
-            if len(test_name) > 100:
-                err_message = ('Test name must be less than 100 characters')
+            if len(test_name) == 0 or len(test_desc) == 0 or len(test_purpose) == 0:
+                err_message = ('Failed to submit test, missing field')
+            elif len(test_name) > 100:
+                err_message = ('Failed to submit test, name must be less than 100 characters')
                 raise Exception
             elif len(test_desc) > 500:
-                err_message = ('Test description must be less than 500 characters')
+                err_message = ('Failed to submit test, description must be less than 500 characters')
                 raise Exception
             elif len(test_purpose) > 500:
-                err_message = ('Test purpose must be less than 500 characters')
+                err_message = ('Failed to submit test, purpose must be less than 500 characters')
                 raise Exception
                 
             image_path = self.ui.file_path_field.text()
-            image_file = os.path.basename(image_path)
-            blob_name = image_file
-            blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
-            with open(self.ui.file_path_field.text(), 'rb') as image:
-                blob__client.upload_blob(image)
-            print("Successfully uploaded image!")
-
-            image_url = container_url + blob_name
+            if image_path:
+                image_file = os.path.basename(image_path)
+                current_time = datetime.datetime.now()
+                blob_name = image_file.split(".")[0] + '-' + current_time.strftime("%d-%m-%Y-%H:%M:%S") + "." + image_file.split(".")[1]
+                print(blob_name)
+                blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
+                with open(self.ui.file_path_field.text(), 'rb') as image:
+                    blob__client.upload_blob(image)
+                print("Successfully uploaded image!")
+                image_url = container_url + blob_name
 
 
             cursor.execute("INSERT INTO Test (UserName, TestName, TestPurpose, TestDescription, ImageURL) VALUES ('{}','{}','{}','{}','{}')".format(username, test_name, test_purpose, test_desc, image_url))
@@ -344,18 +350,26 @@ class UIFunctions(MainWindow):
                 cursor.execute(insert_data_sql)
                 conn.commit()
 
+            conn.close
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setText("Test Successfully Submitted to the Database")
             x = msgBox.exec_()
             UIFunctions.declineData(self)
-            
-
-        except Exception as e:
-            print(e)
+          
+        except Exception as err:
+            print(err)
+            err_popup = QMessageBox()
             err_popup.setText(err_message)
             err_popup.setIcon(QMessageBox.Information)
             x = err_popup.exec_()
+
+            """        except pymysql.Error() as err:
+            print(err)
+            err_popup = QMessageBox()
+            err_popup.setText('Failed to submit test, could not connect to server, please ensure you are connected to internet')
+            err_popup.setIcon(QMessageBox.Information)
+            x = err_popup.exec_()"""
 
 
     def uploadCSV(self):
@@ -831,9 +845,9 @@ def is_correct_password(salt_hex, stored_hash, pass_to_check):
         print(err)"""
 
 def connect_to_database():
-    try:
-        conn = pymysql.connect(host = "mycapstonedb.ctlp2jqtpmzj.us-east-2.rds.amazonaws.com", user = 'capmaster', password = 'capstone132!', database = 'mycapstonedb')
-        cursor = conn.cursor()
-        return conn, cursor
-    except pymysql.Error as err:
-        print(err)
+    #try:
+    conn = pymysql.connect(host = "mycapstonedb.ctlp2jqtpmzj.us-east-2.rds.amazonaws.com", user = 'capmaster', password = 'capstone132!', database = 'mycapstonedb')
+    cursor = conn.cursor()
+    return conn, cursor
+    #except pymysql.Error as err:
+    #    print(err)
