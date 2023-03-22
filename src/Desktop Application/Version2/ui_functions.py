@@ -176,6 +176,7 @@ class UIFunctions(MainWindow):
                     self.ui.login_error_label.setText('User does not exist, try again')
                     self.ui.username_field.clear()
                     self.ui.login_password_field.clear()
+            conn.close()
         except pymysql.Error as err:
             print(err)
             err_popup = QMessageBox()
@@ -249,6 +250,7 @@ class UIFunctions(MainWindow):
                 self.ui.signup_password_field.clear()
                 self.ui.confirm_password_field.clear()
                 self.ui.error_label.clear()
+            conn.close()
         except pymysql.Error as err:
             print(err)
             err_popup = QMessageBox()
