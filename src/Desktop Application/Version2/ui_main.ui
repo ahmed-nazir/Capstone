@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Formulate</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/icons/icons/formulate_icon.png</normaloff>:/icons/icons/formulate_icon.png</iconset>
+  </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
@@ -2709,7 +2713,7 @@ QPushButton:hover {
                              <property name="minimumSize">
                               <size>
                                <width>0</width>
-                               <height>30</height>
+                               <height>22</height>
                               </size>
                              </property>
                              <item>

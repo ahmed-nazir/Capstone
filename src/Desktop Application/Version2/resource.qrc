@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/formulate_icon.png</file>
     <file>icons/formula_car.png</file>
     <file>icons/add-32.png</file>
     <file>icons/user.png</file>

@@ -2,16 +2,13 @@ from azure.storage.blob import BlobClient
 import codecs
 import hashlib
 import os
-import platform
 import json
 import pymysql
-import pyodbc
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
 from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PyQt5.QtWidgets import *
 import regex as re
-import sys
 import socket
 import os
 from time import sleep
@@ -22,17 +19,12 @@ import datetime
 import serial.tools.list_ports
 import serial
 import subprocess
+import pyodbc
 
 from main import *
 from arduino_code_generator import *
 
-''''
-try :
-    conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
-    cursor = conn.cursor()
-except pyodbc.Error as err:
-    print(err)
-    '''
+
 
 #Blob storage info
 connection_string = 'DefaultEndpointsProtocol=https;AccountName=capstonestorage1;AccountKey=J+U2eXzqIsAg6pP6qFnO9NazZERufddfOQVl4qI5qbFSgzOHuZq5Lc/qR15XO0bjn1SheNrmld+4+AStDPPLSw==;EndpointSuffix=core.windows.net'
@@ -40,6 +32,7 @@ container_name = 'testimages'
 container_url = 'https://capstonestorage1.blob.core.windows.net/testimages/'
 
 logged_in = False
+base_dir = os.path.abspath(".")
 
 
 class over_the_character_limit(Exception):
@@ -282,8 +275,13 @@ class UIFunctions(MainWindow):
         -- Uploads test image to azure blob storage
         """
         try:
+            if self.isConnected == "Wireless":
+                UIFunctions.disconnect_wireless(self)
+                sleep(5)
+        except:
+            None
+        try:
             err_message = "Oops something went wrong :("
-   
             conn, cursor = connect_to_database()
 
             test_name = self.ui.test_name.text()
@@ -322,7 +320,7 @@ class UIFunctions(MainWindow):
             cursor.execute('SELECT MAX(ID) FROM Test')
             test_id = cursor.fetchone()[0]
 
-            cursor.execute('SHOW TABLES')
+            cursor.execute('SELECT name FROM sys.tables')
             num_of_cols = len(self.pdData.axes[1])
 
             current_tables = []
@@ -523,12 +521,11 @@ class UIFunctions(MainWindow):
     def ping(self):
         self.tableHeader = ['Time']
 
-        with open('src\Desktop Application\Version2\currentConfig.json','r') as f:
+        with open(os.path.join(base_dir,"currentConfig.json"),'r') as f:
             dict = json.load(f)
 
         val = list(dict.values())
         print(val)
-
 
         for i in val:
             self.tableHeader.append(i)
@@ -719,7 +716,7 @@ class UIFunctions(MainWindow):
 
     def make_config_page(self):
         self.ui.pages_widget.setCurrentWidget(self.ui.add_sensor_page)
-        with open('src\Desktop Application\Version2\savedSensors.json','r') as f:
+        with open(os.path.join(base_dir,"savedSensors.json"),'r') as f:
             self.dict = json.load(f)
             f.close()
             self.saved = list(self.dict.keys())
@@ -795,7 +792,7 @@ class UIFunctions(MainWindow):
         x = msgBox.exec_()
         
     def saveConfiguration1(self):
-        with open('src\Desktop Application\Version2\savedSensors.json','r') as f:
+        with open(os.path.join(base_dir,"savedSensors.json"),'r') as f:
             dict = json.load(f)
         
         dict[self.ui.sensor1_header.currentText()] = {
@@ -804,7 +801,7 @@ class UIFunctions(MainWindow):
             'Units':self.ui.sensor1_units.text()
         }
 
-        with open('src\Desktop Application\Version2\savedSensors.json','w') as f:
+        with open(os.path.join(base_dir,"savedSensors.json"),'w') as f:
             json.dump(dict,f,indent=4)
         f.close()
             
@@ -837,18 +834,12 @@ def is_correct_password(salt_hex, stored_hash, pass_to_check):
         return False
 
 
-"""def connect_to_database():
-    try :
-        #conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonetest850.database.windows.net,1433;Database=Capstone850;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
-        conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonedb2.database.windows.net,1433;Database=CapstoneDB;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
-        cursor = conn.cursor()
-        return conn, cursor
-    except pyodbc.Error as err:
-        print(err)"""
 
 def connect_to_database():
     #try:
-    conn = pymysql.connect(host = "mycapstonedb.ctlp2jqtpmzj.us-east-2.rds.amazonaws.com", user = 'capmaster', password = 'capstone132!', database = 'mycapstonedb')
+    conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:capstonedb2.database.windows.net,1433;Database=CapstoneDB;Uid=capmaster;Pwd=capstone132!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+
+
     cursor = conn.cursor()
     return conn, cursor
     #except pymysql.Error as err:

@@ -5,14 +5,8 @@ import os
 class CodeGenerator():
     def generate(data):
         alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-        if getattr(sys, 'frozen', False):
-            # Running in a bundle
-            print("Here1")
-            base_dir = sys._MEIPASS
-        else:
-            # Running locally
-            base_dir = os.path.abspath(".")
-            print(base_dir)
+        base_dir = os.path.abspath(".")
+
         
 
         dict = {}
