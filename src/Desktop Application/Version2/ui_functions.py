@@ -196,7 +196,7 @@ class UIFunctions(MainWindow):
         self.ui.test_name.clear()
         self.ui.test_purpose.clear()
         self.ui.test_description.clear()
-        self.ui.file_path_field.clear()
+        #self.ui.file_path_field.clear()
         self.ui.test_image.clear()
         self.ui.pages_widget.setCurrentWidget(self.ui.login_page)
 
@@ -262,9 +262,9 @@ class UIFunctions(MainWindow):
             x = err_popup.exec_()
 
     def browse_and_display_pictures(self):
-        fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
-        self.ui.file_path_field.setText(fname[0])
-        qpixmap = QPixmap(fname[0])
+        self.fname = QFileDialog.getOpenFileName(None, 'Open File', 'C:\\')
+        #self.ui.file_path_field.setText(fname[0])
+        qpixmap = QPixmap(self.fname[0])
         scaled_pixmap = qpixmap.scaled(540, 290, aspectRatioMode=QtCore.Qt.KeepAspectRatioByExpanding)
         self.ui.test_image.setPixmap(scaled_pixmap)
 
@@ -302,14 +302,14 @@ class UIFunctions(MainWindow):
                 err_message = ('Failed to submit test, purpose must be less than 500 characters')
                 raise Exception
                 
-            image_path = self.ui.file_path_field.text()
+            image_path = self.fname[0]
             if image_path:
                 image_file = os.path.basename(image_path)
                 current_time = datetime.datetime.now()
                 blob_name = image_file.split(".")[0] + '-' + current_time.strftime("%d-%m-%Y-%H:%M:%S") + "." + image_file.split(".")[1]
                 print(blob_name)
                 blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
-                with open(self.ui.file_path_field.text(), 'rb') as image:
+                with open(self.fname[0], 'rb') as image:
                     blob__client.upload_blob(image)
                 print("Successfully uploaded image!")
                 image_url = container_url + blob_name
@@ -515,7 +515,7 @@ class UIFunctions(MainWindow):
 
 
     def view_dashboard(self):
-        webopen("https://powerbi.microsoft.com/en-au/")
+        webopen("https://app.powerbi.com/groups/me/reports/35335ec5-ad99-453a-93b7-194f7d37c37a/ReportSection5e043f276562e8767120")
 
 
     def ping(self):
@@ -572,10 +572,11 @@ class UIFunctions(MainWindow):
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
-                        #self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
-                        #model = PandasModel(self.pdData)
-                        #self.ui.data_table.setModel(model)
-                        #self.ui.data_table.setColumnWidth(0,200)
+                        #LIVE DATA UPDATE
+                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        model = PandasModel(self.pdData)
+                        self.ui.data_table.setModel(model)
+                        self.ui.data_table.setColumnWidth(0,200)
                 
         if self.isConnected == "Wired":
             self.ser.write(b'G')
@@ -603,10 +604,10 @@ class UIFunctions(MainWindow):
                         for i in filteredByteString: 
                             rowData.append(i[2:]) 
                         self.data.append(rowData)
-                        #self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
-                        #model = PandasModel(self.pdData)
-                        #self.ui.data_table.setModel(model)
-                        #self.ui.data_table.setColumnWidth(0,200)
+                        self.pdData = pd.DataFrame(self.data,columns=self.tableHeader)
+                        model = PandasModel(self.pdData)
+                        self.ui.data_table.setModel(model)
+                        self.ui.data_table.setColumnWidth(0,200)
                 
 
 
@@ -616,6 +617,7 @@ class UIFunctions(MainWindow):
         """
         t1 = threading.Thread(target=lambda: UIFunctions.startTest(self))
         t1.start()
+        
 
 
     def stopTest(self):
@@ -659,7 +661,6 @@ class UIFunctions(MainWindow):
         self.ui.test_name.clear()
         self.ui.test_purpose.clear()
         self.ui.test_description.clear()
-        self.ui.file_path_field.clear()
         self.ui.test_image.clear()
         self.ui.pages_widget.setCurrentWidget(self.ui.homepage)
 
@@ -804,7 +805,48 @@ class UIFunctions(MainWindow):
         with open(os.path.join(base_dir,"savedSensors.json"),'w') as f:
             json.dump(dict,f,indent=4)
         f.close()
-            
+        
+    def saveConfiguration2(self):
+        with open(os.path.join(base_dir,"savedSensors.json"),'r') as f:
+            dict = json.load(f)
+        
+        dict[self.ui.sensor2_header.currentText()] = {
+            'Readings': self.ui.sensor2_readings.text(),
+            'Pins':'',
+            'Units':self.ui.sensor2_units.text()
+        }
+
+        with open(os.path.join(base_dir,"savedSensors.json"),'w') as f:
+            json.dump(dict,f,indent=4)
+        f.close()
+    
+    def saveConfiguration3(self):
+        with open(os.path.join(base_dir,"savedSensors.json"),'r') as f:
+            dict = json.load(f)
+        
+        dict[self.ui.sensor3_header.currentText()] = {
+            'Readings': self.ui.sensor3_readings.text(),
+            'Pins':'',
+            'Units':self.ui.sensor3_units.text()
+        }
+
+        with open(os.path.join(base_dir,"savedSensors.json"),'w') as f:
+            json.dump(dict,f,indent=4)
+        f.close()
+    
+    def saveConfiguration4(self):
+        with open(os.path.join(base_dir,"savedSensors.json"),'r') as f:
+            dict = json.load(f)
+        
+        dict[self.ui.sensor4_header.currentText()] = {
+            'Readings': self.ui.sensor4_readings.text(),
+            'Pins':'',
+            'Units':self.ui.sensor4_units.text()
+        }
+
+        with open(os.path.join(base_dir,"savedSensors.json"),'w') as f:
+            json.dump(dict,f,indent=4)
+        f.close()
 
 
 

@@ -3,7 +3,6 @@
 #include <SD.h>
 #include "ADXL345_1.h"
 #include "LM35_1.h"
-#include "DHT11_1.h"
 
 File myFile;
 SoftwareSerial espSerial(2,3);
@@ -19,17 +18,14 @@ float AccelerationX1;
 float AccelerationY1;
 float AccelerationZ1;
 float Temperature1;
-float Humidity1;
 
 void readData(){
   ADXL345_1_SensorValues ADXL345_1_Values = readADXL345_1();
-  LM35_1_SensorValues LM35_1_Values = readLM35_1(1);
-  DHT11_1_SensorValues DHT11_1_Values = readDHT11_1(4);
+  LM35_1_SensorValues LM35_1_Values = readLM35_1();
   AccelerationX1 = ADXL345_1_Values.A;
   AccelerationY1 = ADXL345_1_Values.B;
   AccelerationZ1 = ADXL345_1_Values.C;
   Temperature1 = LM35_1_Values.A;
-  Humidity1 = DHT11_1_Values.A;
 }
 void setup() {
   Serial.begin(9600);
@@ -37,8 +33,7 @@ void setup() {
   SD.begin();
 
   setupADXL345_1();
-  setupLM35_1(1);
-  setupDHT11_1(4);
+  setupLM35_1();
 }
 
 void loop() {
@@ -76,10 +71,6 @@ void loop() {
     espSerial.print('D');
     espSerial.print(1);
     espSerial.print(Temperature1);
-    espSerial.print(',');
-    espSerial.print('E');
-    espSerial.print(1);
-    espSerial.print(Humidity1);
     espSerial.println(')');
 
     // === Write Data to SD Card === //
@@ -101,10 +92,6 @@ void loop() {
       myFile.print('D');
       myFile.print(1);
       myFile.print(Temperature1);
-      myFile.print(',');
-      myFile.print('E');
-      myFile.print(1);
-      myFile.print(Humidity1);
       myFile.println(')');
       myFile.close();
     }
@@ -155,10 +142,6 @@ void loop() {
     Serial.print('D');
     Serial.print(1);
     Serial.print(Temperature1);
-    Serial.print(',');
-    Serial.print('E');
-    Serial.print(1);
-    Serial.print(Humidity1);
     Serial.println(')');
 
     // === Write Data to SD Card === //
@@ -180,10 +163,6 @@ void loop() {
       myFile.print('D');
       myFile.print(1);
       myFile.print(Temperature1);
-      myFile.print(',');
-      myFile.print('E');
-      myFile.print(1);
-      myFile.print(Humidity1);
       myFile.println(')');
       myFile.close();
     }

@@ -100,6 +100,9 @@ class MainWindow(QMainWindow):
         self.ui.sensor4_header.activated.connect(lambda: UIFunctions.autofill_config(self))
 
         self.ui.saveConfig1_button.clicked.connect(lambda: UIFunctions.saveConfiguration1(self))
+        self.ui.saveConfig2_button.clicked.connect(lambda: UIFunctions.saveConfiguration2(self))
+        self.ui.saveConfig3_button.clicked.connect(lambda: UIFunctions.saveConfiguration3(self))
+        self.ui.saveConfig4_button.clicked.connect(lambda: UIFunctions.saveConfiguration4(self))
 
         self.ui.configure_sensors_back_button.clicked.connect(lambda: self.ui.pages_widget.setCurrentWidget(self.ui.homepage) )
 
