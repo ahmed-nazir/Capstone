@@ -41,6 +41,9 @@ class MainWindow(QMainWindow):
         #Upload image
         self.ui.upload_image_button.clicked.connect(lambda: UIFunctions.browse_and_display_pictures(self))
 
+        #Remove image
+        self.ui.remove_image_button.clicked.connect(lambda: self.ui.test_image.clear())
+
         #Upload test data/info
         self.ui.upload_test_info_button.clicked.connect(lambda: UIFunctions.upload_test_info(self))
 

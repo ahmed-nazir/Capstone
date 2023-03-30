@@ -16,6 +16,7 @@ void setup()
   Serial.begin(9600);
   pinMode(D1, OUTPUT);
   pinMode(D2, OUTPUT);
+  digitalWrite(D1, HIGH);
   
   WiFi.mode(WIFI_STA);
   WiFi.softAP(ssid, password);
@@ -35,10 +36,10 @@ void loop()
   // == Turn on LED when device is connected == //
   int conn = WiFi.softAPgetStationNum();
   if(conn == 1){
-    digitalWrite(D1, HIGH);
+    //digitalWrite(D1, HIGH);
   }
   else if(conn == 0){
-    digitalWrite(D1, LOW);
+    //digitalWrite(D1, LOW);
   }
 
 

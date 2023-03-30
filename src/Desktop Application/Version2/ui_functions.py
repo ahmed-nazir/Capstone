@@ -3,7 +3,7 @@ import codecs
 import hashlib
 import os
 import json
-import pymysql
+import pyodbc
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
 from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
@@ -19,7 +19,6 @@ import datetime
 import serial.tools.list_ports
 import serial
 import subprocess
-import pyodbc
 
 from main import *
 from arduino_code_generator import *
@@ -105,30 +104,6 @@ class UIFunctions(MainWindow):
         elif page_name == 'login page':
             self.ui.login_password_field.setEchoMode(QtWidgets.QLineEdit.Password)
 
-    def toggleMenu(self, maxWidth, enable):
-        if enable:
-
-            # GET WIDTH
-            width = self.ui.menu_frame.width()
-            maxExtend = maxWidth
-            standard = 70
-
-            # SET MAX WIDTH
-            if width == 70:
-                widthExtended = maxExtend
-            else:
-                widthExtended = standard
-
-            # ANIMATION
-            self.animation = QPropertyAnimation(self.ui.menu_frame, b"minimumWidth")
-            self.animation.setDuration(700)
-            self.animation.setStartValue(width)
-            self.animation.setEndValue(widthExtended)
-            self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
-            self.animation.start()
-            self.animation.finished.connect(lambda: self.changeText())
-    
-   
     
     def login_into_app(self):
         """
@@ -170,7 +145,7 @@ class UIFunctions(MainWindow):
                     self.ui.username_field.clear()
                     self.ui.login_password_field.clear()
             conn.close()
-        except pymysql.Error as err:
+        except pyodbc.Error as err:
             print(err)
             err_popup = QMessageBox()
             err_popup.setText('Authentication failed, could not connect to server, please ensure you are connected to internet')
@@ -244,7 +219,7 @@ class UIFunctions(MainWindow):
                 self.ui.confirm_password_field.clear()
                 self.ui.error_label.clear()
             conn.close()
-        except pymysql.Error as err:
+        except pyodbc.Error as err:
             print(err)
             err_popup = QMessageBox()
             err_popup.setText('Sign up failed, could not connect to server, please ensure you are connected to internet')
@@ -274,19 +249,22 @@ class UIFunctions(MainWindow):
         -- Submits user input related to test information to the DB
         -- Uploads test image to azure blob storage
         """
+
         try:
+            err_message = "Oops something went wrong :("
             if self.isConnected == "Wireless":
                 UIFunctions.disconnect_wireless(self)
                 sleep(5)
-        except:
-            None
-        try:
-            err_message = "Oops something went wrong :("
+
+            if hasattr(self, "pdData") is False:
+                err_message = "No data to submit :("
+                raise Exception
+
             conn, cursor = connect_to_database()
 
             test_name = self.ui.test_name.text()
-            test_purpose = self.ui.test_purpose.text()
-            test_desc = self.ui.test_description.text()
+            test_purpose = self.ui.test_purpose.toPlainText()
+            test_desc = self.ui.test_description.toPlainText()
             image_url = None
             username = self.ui.account_menu_button.text().split("of ")[1]
 
@@ -301,18 +279,19 @@ class UIFunctions(MainWindow):
             elif len(test_purpose) > 500:
                 err_message = ('Failed to submit test, purpose must be less than 500 characters')
                 raise Exception
-                
-            image_path = self.fname[0]
-            if image_path:
-                image_file = os.path.basename(image_path)
-                current_time = datetime.datetime.now()
-                blob_name = image_file.split(".")[0] + '-' + current_time.strftime("%d-%m-%Y-%H:%M:%S") + "." + image_file.split(".")[1]
-                print(blob_name)
-                blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
-                with open(self.fname[0], 'rb') as image:
-                    blob__client.upload_blob(image)
-                print("Successfully uploaded image!")
-                image_url = container_url + blob_name
+            
+            if hasattr(self, "fname"):
+                image_path = self.fname[0]
+                if image_path:
+                    image_file = os.path.basename(image_path)
+                    current_time = datetime.datetime.now()
+                    blob_name = image_file.split(".")[0] + '-' + current_time.strftime("%d-%m-%Y-%H:%M:%S") + "." + image_file.split(".")[1]
+                    print(blob_name)
+                    blob__client = BlobClient.from_connection_string(conn_str=connection_string, container_name=container_name, blob_name=blob_name)
+                    with open(self.fname[0], 'rb') as image:
+                        blob__client.upload_blob(image)
+                    print("Successfully uploaded image!")
+                    image_url = container_url + blob_name
 
 
             cursor.execute("INSERT INTO Test (UserName, TestName, TestPurpose, TestDescription, ImageURL) VALUES ('{}','{}','{}','{}','{}')".format(username, test_name, test_purpose, test_desc, image_url))
@@ -361,7 +340,7 @@ class UIFunctions(MainWindow):
             print(err)
             err_popup = QMessageBox()
             err_popup.setText(err_message)
-            err_popup.setIcon(QMessageBox.Information)
+            err_popup.setIcon(QMessageBox.Critical)
             x = err_popup.exec_()
 
             """        except pymysql.Error() as err:

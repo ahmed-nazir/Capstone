@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1201</width>
+    <width>1113</width>
     <height>827</height>
    </rect>
   </property>
@@ -3465,22 +3465,6 @@ p, li { white-space: pre-wrap; }
                          </property>
                         </widget>
                        </item>
-                       <item row="1" column="1">
-                        <widget class="QLineEdit" name="test_purpose">
-                         <property name="minimumSize">
-                          <size>
-                           <width>0</width>
-                           <height>150</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">font-size:16pt; color:rgb(238, 238, 238)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
                        <item row="2" column="0">
                         <widget class="QLabel" name="test_description_label">
                          <property name="font">
@@ -3490,24 +3474,6 @@ p, li { white-space: pre-wrap; }
                          </property>
                          <property name="text">
                           <string>Description of Test</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="2" column="1">
-                        <widget class="QLineEdit" name="test_description">
-                         <property name="minimumSize">
-                          <size>
-                           <width>0</width>
-                           <height>150</height>
-                          </size>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string/>
                          </property>
                         </widget>
                        </item>
@@ -3529,7 +3495,7 @@ color: rgb(255, 255, 255);</string>
                         </widget>
                        </item>
                        <item row="3" column="0">
-                        <widget class="QPushButton" name="pushButton">
+                        <widget class="QPushButton" name="remove_image_button">
                          <property name="minimumSize">
                           <size>
                            <width>250</width>
@@ -3543,6 +3509,36 @@ color: rgb(255, 255, 255);</string>
                          </property>
                          <property name="text">
                           <string>Remove Image</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QTextEdit" name="test_purpose">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>150</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="1">
+                        <widget class="QTextEdit" name="test_description">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>150</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
                          </property>
                         </widget>
                        </item>
