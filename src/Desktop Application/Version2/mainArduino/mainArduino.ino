@@ -2,6 +2,7 @@
 #include <SPI.h>
 #include <SD.h>
 #include "ADXL345_1.h"
+#include "LM35_1.h"
 
 File myFile;
 SoftwareSerial espSerial(2,3);
@@ -16,12 +17,15 @@ int wifiRead;
 float AccelerationX1;
 float AccelerationY1;
 float AccelerationZ1;
+float Temperature1;
 
 void readData(){
   ADXL345_1_SensorValues ADXL345_1_Values = readADXL345_1();
+  LM35_1_SensorValues LM35_1_Values = readLM35_1(3);
   AccelerationX1 = ADXL345_1_Values.A;
   AccelerationY1 = ADXL345_1_Values.B;
   AccelerationZ1 = ADXL345_1_Values.C;
+  Temperature1 = LM35_1_Values.A;
 }
 void setup() {
   Serial.begin(9600);
@@ -29,6 +33,7 @@ void setup() {
   SD.begin();
 
   setupADXL345_1();
+  setupLM35_1(3);
 }
 
 void loop() {
@@ -62,6 +67,10 @@ void loop() {
     espSerial.print('C');
     espSerial.print(1);
     espSerial.print(AccelerationZ1);
+    espSerial.print(',');
+    espSerial.print('D');
+    espSerial.print(1);
+    espSerial.print(Temperature1);
     espSerial.println(')');
 
     // === Write Data to SD Card === //
@@ -79,6 +88,10 @@ void loop() {
       myFile.print('C');
       myFile.print(1);
       myFile.print(AccelerationZ1);
+      myFile.print(',');
+      myFile.print('D');
+      myFile.print(1);
+      myFile.print(Temperature1);
       myFile.println(')');
       myFile.close();
     }
@@ -125,6 +138,10 @@ void loop() {
     Serial.print('C');
     Serial.print(1);
     Serial.print(AccelerationZ1);
+    Serial.print(',');
+    Serial.print('D');
+    Serial.print(1);
+    Serial.print(Temperature1);
     Serial.println(')');
 
     // === Write Data to SD Card === //
@@ -142,6 +159,10 @@ void loop() {
       myFile.print('C');
       myFile.print(1);
       myFile.print(AccelerationZ1);
+      myFile.print(',');
+      myFile.print('D');
+      myFile.print(1);
+      myFile.print(Temperature1);
       myFile.println(')');
       myFile.close();
     }

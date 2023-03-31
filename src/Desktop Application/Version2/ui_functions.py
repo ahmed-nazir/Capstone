@@ -494,7 +494,7 @@ class UIFunctions(MainWindow):
 
 
     def view_dashboard(self):
-        webopen("https://app.powerbi.com/groups/me/reports/35335ec5-ad99-453a-93b7-194f7d37c37a/ReportSection5e043f276562e8767120")
+        webopen("https://app.powerbi.com/groups/me/list")
 
 
     def ping(self):

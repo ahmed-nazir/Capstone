@@ -3442,8 +3442,19 @@ p, li { white-space: pre-wrap; }
                        </item>
                        <item row="0" column="1">
                         <widget class="QLineEdit" name="test_name">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>16</pointsize>
+                          </font>
+                         </property>
                          <property name="styleSheet">
-                          <string notr="true">font-size:16pt; color:rgb(238, 238, 238)</string>
+                          <string notr="true"/>
                          </property>
                          <property name="text">
                           <string/>
@@ -3485,9 +3496,13 @@ p, li { white-space: pre-wrap; }
                            <height>30</height>
                           </size>
                          </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>12</pointsize>
+                          </font>
+                         </property>
                          <property name="styleSheet">
-                          <string notr="true">font-size: 12pt;
-color: rgb(255, 255, 255);</string>
+                          <string notr="true"/>
                          </property>
                          <property name="text">
                           <string>Upload Image</string>
