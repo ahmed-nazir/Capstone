@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -20,11 +20,11 @@
     urlcolor=cyan           % color of external links
 }
 
-\title{Hazard Analysis\\\progname}
+\title{Hazard Analysis \\ \progname}
 
 \author{\authname}
+\date{\today}
 
-\date{}
 
 \input{../Comments}
 \input{../Common}
@@ -49,6 +49,7 @@
 10/13/2022 & Muhanad & Added Critical Assumptions and Safety Requirements\\
 10/14/2022 & Tioluwalayomi & Added System Boundaries and Roadmap\\
 10/19/2022 & All & General edits\\
+04/02/2023 & Ahmed & Added REV1 changes\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -73,7 +74,7 @@ A hazard is the combination of a system property with an environmental condition
 
 Hazard analysis is a critical consideration in the design of all systems. When done correctly, hazards to the end user are identified and can be mitigated or eliminated completely. While it is not possible to guarantee the safety of a system, applying hazard analysis methods is a neccesary step in supporting the safety of the system. \\
 
-Formulate's area of work combines hardware and software sub-systems and as a result, requires hazard analysis to obtain a comprehensive understanding of the overall system. \\
+Formulate's area of work combines hardware and software sub-systems and as a result, requires hazard analysis to obtain a comprehensive understanding of the overall system. 
 
 \wss{You can include your definition of what a hazard is here.}
 
@@ -94,6 +95,7 @@ The device that is referred to in this document is made up of 5 major components
 
 Each component has their own system boundaries based on the software and hardware we use. Since this is the case we will have to design the system based on the type of the test that is required to be performed by the MAC Formula Electric Team. An example of this would be if the client had to test the car under specific conditions, we would choose hardware components that are within that temperature range to ensure data is read correctly.
 
+\newpage
 \section{Critical Assumptions}
 
 \begin{itemize}
@@ -109,7 +111,7 @@ this potential failure mode.}
 
 \newpage
 \section{Failure Mode and Effect Analysis}
-\begin{longtable}{| p{0.12\textwidth} | p{0.04\textwidth}| p{0.15\textwidth}| p{0.20\textwidth}| p{0.20\textwidth}| p{0.18\textwidth}|}
+\begin{longtable}{| p{0.14\textwidth} | p{0.04\textwidth}| p{0.15\textwidth}| p{0.20\textwidth}| p{0.20\textwidth}| p{0.18\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
     \textbf{Component} 
@@ -125,8 +127,8 @@ this potential failure mode.}
     & Test data is not captured by our PC
     &   $\bullet$ The Wi-Fi module is broken \newline
         $\bullet$ USB Device is not connected to PC \newline
-        $\bullet$ Device is not connected to Wi-Fi a network \newline 
-    & Using the LCD display show the systems connectivity \\
+        $\bullet$ PC is not connected to the device Wi-Fi \newline 
+    & Using the device LED show the systems connectivity \\
     \cline{2-6}
         & H1.\refstepcounter{fmeanum}\thefmeanum
     & System does not have power
@@ -134,7 +136,7 @@ this potential failure mode.}
     &   $\bullet$ Battery died \newline
         $\bullet$ Power cables are disconnected \newline
         $\bullet$ Too much current is drawn from Arduino \newline 
-    & $\bullet$ Add a battery indicator to the screen to alert the user if the battery is low \newline
+    & $\bullet$ Add a Power indicator to the device to alert the user if the device has power \newline
       $\bullet$ Make the sensors get their power directly from the power source and not the arduino \newline \\
 
     \cline{2-6}
@@ -146,25 +148,7 @@ this potential failure mode.}
     &  $\bullet$ User didn’t affix Hardware properly \newline
        $\bullet$ Mounting mechanism failed \newline
     & The mounting mechanism should give the user feedback when the device is mounted correctly\\
-    \cline{2-6}
-        & H1.\refstepcounter{fmeanum}\thefmeanum
-    & Display turns off
-    & Cannot view the status of the device
-    &   $\bullet$ LCD display failure \newline
-        $\bullet$ LCD is improperly connected \newline
-        $\bullet$ Arduino is drawing too much current \newline 
-    &Replace the display and ensure the display is connected properly prior to installation\\
     
-    \endfirsthead
-    \cline{2-6}
-    
-        & H1.\refstepcounter{fmeanum}\thefmeanum
-    & Threshold alert not displaying
-    & User will not be notified when testing components go out of their operating range
-    & $\bullet$ Sensor failure \newline
-      $\bullet$ Refer to H1.4 \newline
-      $\bullet$ Threshold not set up by user in the Desktop App \newline
-    &Warn user that threshold value is not set in the Desktop App\\
     
     \hline
     Desktop \space Application & H2.\refstepcounter{fmeanumDA}\thefmeanumDA
@@ -245,11 +229,11 @@ this potential failure mode.}
     \begin{description} \item[Rationale] If the connections are not validated, then data might be lost as it never gets send to either the device, application and/or database.  \end{description}
     \begin{description} \item[Associated Hazards] H1.1, H2.1, H2.2, H2.3, H2.4  \end{description}
   
-  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should give a warning indicating that battery is low after a certain time amount of usage.
+  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should have a power LED indicating to the user if the battery is working.
     \begin{description} \item[Rationale] If the battery dies during testing, measurement values will be lost as it is the power source of the device.  \end{description}
     \begin{description} \item[Associated Hazards] H1.2  \end{description}
 
-  \item[SR \refstepcounter{reqnum}\thereqnum:] Every user should have a login when accessing the data analytics website which would be the same login as the application's.
+  \item[SR \refstepcounter{reqnum}\thereqnum:] Every user should have a login when accessing the data analytics website.
     \begin{description} \item[Rationale] This ensures that only testers have view access to values on the website.   \end{description}
     \begin{description} \item[Associated Hazards] H4.1, H4.2, H4.3 \end{description}
   
