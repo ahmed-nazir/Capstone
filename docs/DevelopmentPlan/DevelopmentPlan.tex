@@ -34,29 +34,32 @@
 \wss{Put your introductory blurb here.}
 
 \section{Team Meeting Plan}
-The team plans on having in person meetings weekly on Mondays from 2:30-4:30PM. These meetings will be used to catch up on work done in the last week, next steps and any important updates. If in person meetings are not possible we will conduct them through Microsoft Teams. This weekly meeting is mandatory but we might also have other meetings throughout the week depending on what stage we are in for the project. All meetings will contain an agenda and each team lead will give updates on next steps. 
+%Stephen updated this section, Sunday afternoon
+The team plans on having in person meetings weekly on Mondays from 2:30PM - 4:30 PM. These meetings will be used to catch up on work done in the last week, next steps and any important updates. If in person meetings are not possible, we will conduct them through Microsoft Teams. This weekly meeting is mandatory but we may also have other meetings throughout the week depending on specific project needs. All meetings will have an agenda and each team lead will give updates on the next steps. 
 
 \section{Team Communication Plan}
-Our team will be using a Microsoft Teams group as our main method of chat, and to delegate tasks we will be utilizing GitHubs issue tracker.
+Our team will use Microsoft Teams as our main method of communication via chat and GitHub's issue tracker to delegate specific deliverable tasks.
 
 \section{Team Member Roles}
+%Stephen updated this section, Sunday afternoon
 \begin{itemize}
-	\item Stephen Oh - Team Liaison, Database Lead
-	\item Ahmed Nazir - Hardware Lead, Inventor Expert
-	\item Muhanad Sada - Software/Hardware Team, Git Expert
-	\item Tioluwalayomi Babayeju - Software/Hardware Team
+	\item Stephen Oh - Electrical and Mechanical Hardware Lead
+	\item Ahmed Nazir - Mechanical Hardware Lead, Firmware Lead
+	\item Muhanad Sada - Software User Interface Lead, Database Lead
+	\item Tioluwalayomi Babayeju - Software Dashboard Platform lead
 \end{itemize}
 
 
 \section{Workflow Plan}
-Team members will use the GitHub repository dedicated for the capstone project. The feature
+%Stephen updated this section, Sunday afternoon
+Our team will use the GitHub repository dedicated for the capstone project. The feature
 branch workflow will be used whenever there are any code changes except for simple fixes such as syntax errors, comments, variable renaming, etc. 
-Branches will also be utilized for any significant documentation changes such as section additions/modifications and diagram insertions. 
-Pull requests will be used in conjunction with branches to review/verify code and document changes.
-Branches will follow the following naming structure: scope/description, ex. feat/adding new function.
+Branches will be utilized for significant documentation changes such as section additions or modifications and diagram insertions. 
+Pull requests will be used in conjunction with branches to review code and document changes.
+Branches will follow the following the naming structure of scope/description. For example: Feat/Adding new function.
 
 \subsection{Issues}
-The issues feature in GitHub is used to track all of the tasks for the project. Once the team or individual members identify a task, an issue will be created. In order to keep issues updated with commits related to it, the following commit message structure will be followed: (scope): [\#issue number] description. When creating an issue, a team member will select one of the issue templates based on the scope of the task. There are a total of five templates: 
+The issues feature in GitHub is used to track all project tasks. Once the team or individual members identify a task, an issue will be created. In order to keep issues updated with the corresponding commit, the following commit message structure will be followed: (scope): [\#issue number] description. When creating an issue, a team member will select one of the issue templates based on the scope of the task. There are a total of five templates: 
 
 \begin{itemize}
 	\item Bug report - any tasks used to report a bug and fix it
@@ -67,12 +70,12 @@ The issues feature in GitHub is used to track all of the tasks for the project. 
 \end{itemize}
 
 \noindent
-Labels will also be added to issues to identify which component of the
-product is being worked on. The following labels will be utilized: 
+%Stephen updated this section, Sunday afternoon
+Labels will be added to issues to identify the affected product subsystem. The following labels will be utilized: 
 database, desktop application, GUI, hardware, and mechanical design.
 
 \subsection{Project Board}
-The project board is used to organize and identify the status of each task. 
+The project board will be used to organize and identify the status of each task. 
 The project contains five columns each describing the current status of the issue:
 
 \begin{itemize}
@@ -84,66 +87,71 @@ The project contains five columns each describing the current status of the issu
 \end{itemize}
 
 \section{Proof of Concept Demonstration Plan}
+%Stephen updated this section, Sunday afternoon
 
-The proof of concept demonstration should prove three essential 
-functionalities of the product. The first is the ability of sensors to measure 
-desired data and send that information to the hardware. The second is having the capability to receive/send 
-data at three different levels, which includes hardware, desktop application, and database. 
-The POC should be able to show that hardware can receive information from a sensor and send that 
-information to a simple desktop application. The application should then be able to receive that 
-data and display it on the GUI. At this point, the application would be able to send that 
-information to a database, which is populated accordingly. The third ability, 
-is to show live data on the application’s GUI, however implementation difficulties are expected. 
-This is due to the tediousness of creating a connection that provides both smooth and continuous 
-data transfer between the hardware and the application. In addition to these functionalities, there 
-is the risk of being constrained in testing as we might not have access to a Formula E car or it will 
-be difficult to duplicate. Therefore, the POC should also have a testing environment that mirrors the 
-conditions/setup of the mechanical parts of a Formula E car upon taking measurements. If the implementation of 
-the above essential abilities and testing environment are verified then the level of confidence of creating 
-a successful data automation product will be achieved. 
+The proof of concept demonstration will prove three essential product
+functionalities. The first is the sensor's ability to measure and output the  
+desired data and to the computing hardware. The second capability will be to receive and send 
+data between three different subsystems, which includes the electrical hardware, desktop application, and database. 
+The POC will show that hardware can receive information from a sensor and send the collected sensor data 
+to a simple desktop application. The application should then be able to receive and display the sensor 
+data on the GUI. At this point, the application gives the user the ability to send the sensor data
+information to a database, populating relevant tables accordingly. 
+%The third ability, %% We may not need this section on implementation difficulties.
+%is to show live data on the application’s GUI, however implementation difficulties are expected. 
+%This is due to the tediousness of creating a connection that provides both smooth and continuous 
+%data transfer between the hardware and the application. In addition to these functionalities, there 
+%is the risk of being constrained in testing as we might not have access to a Formula E car or it will 
+%be difficult to duplicate. Therefore, the POC should also have a testing environment that mirrors the 
+%conditions/setup of the mechanical parts of a Formula E car upon taking measurements. If the implementation of 
+%the above essential abilities and testing environment are verified then the level of confidence of creating 
+%a successful data automation product will be achieved. 
 
 \section{Technology}
 
 \subsection{Programming Language}
 
-The programming language of choice is Python. Python is the perfect language for data analysis and data manipulation. Python contains many libraries specifically for data analysis. 
+The programming language of choice is Python. Python provides the ideal balance between data analysis, data manipulation capabilities, libraries available for data analysis, and documentation widely available to support development.  
 
 \subsubsection{Libraries}
+%Stephen updated this section, Sunday afternoon
 \begin{itemize}
 	\item Pandas: Data manipulation library
-	\item Matplotlib: Math library to help visualize data in graphs
+	%\item Matplotlib: Math library to help visualize data in graphs
 	\item PyQT: Python GUI library
-	\item PyFirmata: Python library that allows serial communication between Python and the Arduino board
+	%\item PyFirmata: Python library that allows serial communication between Python and the Arduino board
 \end{itemize}
 
 
 \subsection{Software Tools}
+%Stephen updated this section, Sunday afternoon
 To assist with developing our product we will be using the following software tools.
 
 \begin{table}[!hbt]
+	%Stephen updated this section, Sunday afternoon
 	\centering
 	\begin{tabular}{|p{4cm}|p{8cm}|}
 	\hline
 	\multicolumn{1}{|c|}{\textbf{Tool Name}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
 	\\ \hline
 	Autodesk Inventor
-	&  Inventor will be used for all the CAD design work to create our hardware  
+	&  Autodesk's Inventor will be used to complete CAD component and assembly design work to create our hardware  
 	\newline                              
 	\\ \hline
 	VSCode
-	&  Our team will be using VSCode as our primary code editor because of the vast extensions it has. VSCode also integrates nicely with git and GitHub
+	&  Our team will be using VSCode as our primary code editor because of large number of extensions available. VSCode also integrates well with Git and GitHub
 	\newline                              
 	\\ \hline
 	GitHub Desktop
-	&  GitHub desktop is an easy to use GUI which interacts with our GitHub repo and makes editing code and files faster
+	&  GitHub desktop is an easy GUI to use and interacts with our GitHub repo to make code and file editing more efficient
 	\newline                              
 	\\ \hline
-	Pylint
-	&  The linter extension we plan on using is Pylint, it will keep our coding style consistent between different people and it is specifically made for Python
-	\newline                              
+	%Pylint
+	%&  The linter extension we plan on using is Pylint, it will keep our coding style consistent between different people and it is specifically made for Python
+	%\newline                              
 	\\ \hline
 	Arduino IDE
-	&  Software used to write and upload code onto Arduino board
+	&  Software used to write and upload firmware code onto the Arduino board
 	\newline                     
 	\\ \hline
 	Amazon RDS
@@ -158,7 +166,7 @@ To assist with developing our product we will be using the following software to
 	\item Arduino Board: Open-source microcontroller 
 	\item Wifi module: Gives Arduino Wifi access
 	\item Sensors: Measuring desired values
-	\item 3D Printer: Printing CAD designed hardware components
+	\item 3D Printer: Printing CAD designed electronics enclosure and supporting mechanical components
 \end{itemize}
 
 \section{Coding Standard}
@@ -205,9 +213,12 @@ To assist with developing our product we will be using the following software to
 \end{table}
 
 \section{Project Scheduling}
+%Stephen updated this section, Sunday afternoon
 
 \wss{How will the project be scheduled?}
 
-In order to manage our project scheduling and hit deadlines, we are prepared to have weekly meetings to see how the development of our product is going. In these meetings we will go over each person's delegated tasks and see if they were met. If they are not met we will see if this will affect the schedule we have set out and if it does we will put more resources into making sure it is completed. We will have major deadlines added to a shared calendar on teams in order for team members to see it as we work on our project. In the beginning of each month during our Monday meeting, we will discuss potential roadblocks and what must be completed for the month. Delegating tasks will be made during weekly meetings and would be based on the schedule of each individual and their expertise.
+Weekly meetings to identify product development will be used to manage our project's development progress and meet key development deadlines. We will go over each person's delegated tasks and see if they were met during the meeting. If the target was not met, we analyze how the setback affects the development schedule and allocate additional resources accordingly to ensure completion. We will have major deadlines added to a shared calendar on teams to maintain high deadline visibility as we work on our project. At the beginning of each month during our Monday meeting, we will discuss potential roadblocks and what must be completed for the month. Delegating tasks will be made during weekly meetings and are based on the schedules of each individual and their expertise.
+
+
 
 \end{document}
