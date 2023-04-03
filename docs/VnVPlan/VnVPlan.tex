@@ -534,24 +534,25 @@ Ahmed and Muhanad will lead the group wide discussion for design verification ac
 
 \end{enumerate}
 
-\subsubsection{Data Analytics Website}
+\subsubsection{Data Dashboard}
 \begin{enumerate}
-  
-  \item{\bf{ST-DAW 1}}
+  %Updated by Tio, Monday Afternoon
+  \item{\bf{ST-DD 1}}
   
   \underline{Type:} Manual
             
-  \underline{Initial State:} The database contains test data and is connected to the analytics platform
+  \underline{Initial State:} The dashboard contains test data and is connected to the database and has all the visualized data of the tests.
             
   \underline{Input:} User logs into the analytics platform and selects a test
             
   \underline{Output:} The test data is displayed showing the results over time for that particular test
   
+  \underline{Rationale:} This tests verifies that our data dashboard will be able to be viewed by the appropriate user.
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
   \underline{How test will be performed:} We will populate the database with different tests and the user once logged in will select a specific test to view\\
 
-  \item{\bf{ST-DAW 2}}
+  \item{\bf{ST-DD 2}}
   
   \underline{Type:} Manual
             
@@ -561,6 +562,7 @@ Ahmed and Muhanad will lead the group wide discussion for design verification ac
             
   \underline{Output:} The website alerts the user they are not authorized to view the dashboard
   
+  \underline{Rationale:} This tests verifies that our data dashboard will be only viewed by the appropriate users.
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
   \underline{How test will be performed:} One team member will not have privileges to view the dashboard and will attempt to login\\
@@ -598,48 +600,48 @@ through user's perspective.
 \wss{Tests related to usability could include conducting a usability test and
   survey.}
 
+%Updated by Tio, Monday Afternoon
 \subsubsection{Performance}
 		
 \begin{enumerate}
 
 \item{\bf{ST-P 1}}
-
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
 					
-Initial State: Device is on and mounted, has connected to the application and is waiting to start measuring.
+\underline{Initial State:} Device is on and mounted, has connected to the application and is waiting to start measuring.
 					
-Input/Condition: Measurements begin
+\underline{Input/Condition:} Recording of measurements begin
 					
-Output/Result: Device is operational and stays physically intact in conditions at 20\% greater than threshold values and in all types of weather.
+\underline{Output/Result:} Device is operational and stays physically intact in conditions at 20\% greater than threshold values and in all types of weather.
 					
-How test will be performed: The device will be tested outdoors under various weather conditions including rain, wind, etc.
+\underline{How test will be performed:} The device will be tested outdoors under various weather conditions including rain, wind, etc.
 The device will also be tested in temperature and vibration conditions that are above threshold values. This will be performed by placing the device in a hot environment
 and vigorously shaking it.
 					
 \item{\bf{ST-P 2}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
 					
-Initial State: Device is on and mounted, has connected to the application and is waiting to start measuring.
+\underline{Initial State:} Device is on and mounted, has connected to the application and is waiting to start measuring.
 					
-Input: Measurements begin
+\underline{Input/Condition:} Recording of measurements begin
 					
-Output/Result: Data latency should be less than 10 seconds to simulate viewing live data.
+\underline{Output/Result:} Data latency should be less than 10 seconds to simulate viewing live data.
 					
-How test will be performed: The amount of time for data to be viewable on the application will be inspected to be less than 10 seconds.
+\underline{How test will be performed:} The amount of time for data to be viewable on the application will be inspected to be less than 10 seconds.
 The application UI will also be inspected to ensure that data is smooth and not lagging while measurements are being performed.
 
 \item{\bf{ST-P 3}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
 					
-Initial State: Device measuring and sending values to the application, and connection to the database has been verified
+\underline{Initial State:} Device measuring and sending values to the application, and connection to the database has been verified
 					
-Input: One or two of either the device, application, or database are disconnected or turned off
+\underline{Input/Condition:} One or two of either the device, application, or database are disconnected or turned off
 					
-Output: The other two components are still functional even though communication between them is broken.
+\underline{Output/Result:} The other two components are still functional even though communication between them is broken.
 					
-How test will be performed: While device, application, and database are fully functional and communicating successfully, different combinations of either one or two components
+\underline{How test will be performed:} While device, application, and database are fully functional and communicating successfully, different combinations of either one or two components
 will be turned off. The other component(s) will be inspected to ensure that they are operational and indicating that the other component(s) are disconnected.
 
 \end{enumerate}
@@ -650,79 +652,79 @@ will be turned off. The other component(s) will be inspected to ensure that they
 %Stephen updated this section, Sunday afternoon
 \item{\bf{ST-U 1-A}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
           
-Initial State: Device is turned off and nothing is connected, only the application is loaded on to the computer and the correct Arduino code to the test setup is flashed onto the micro-controller
+\underline{Initial State:} Device is turned off and nothing is connected, only the application is loaded on to the computer and the correct Arduino code to the test setup is flashed onto the micro-controller
           
-Input/Condition: Users will be asked to setup device and start taking measurements, and the rate setup process using a survey
+\underline{Input/Condition:} Users will be asked to setup device and start taking measurements, and the rate setup process using a survey
           
-Output/Result: Time for setup and data to appear on the application should be less than 5 minutes and an average score of 3 should be achieved on each user's survey.
+\underline{Output/Result:} Time for setup and data to appear on the application should be less than 5 minutes and an average score of 3 should be achieved on each user's survey.
           
-How test will be performed: A test group will be educated on the setup and connection of the device, then they will attempt to do that process. 
+\underline{How test will be performed:} A test group will be educated on the setup and connection of the device, then they will attempt to do that process. 
 Each person will be timed and compared to the 5 minute threshold. In addition, they will be given a survey to rate the difficulty of the setup process on a scale from 
 1 to 5 on the following categories: overall setup, sensor mount, device mount, start up procedure, and measuring procedure (refer to SQ1).  
 %Stephen updated this section, Sunday afternoon
 \item{\bf{ST-U 1-B}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
           
-Initial State: Device is turned off and nothing is connected, only the application is loaded on to the computer and the Arduino code must be adjusted to the test setup is flashed onto the micro-controller
+\underline{Initial State:} Device is turned off and nothing is connected, only the application is loaded on to the computer and the Arduino code must be adjusted to the test setup is flashed onto the micro-controller
           
-Input/Condition: Users will be asked to setup device and start taking measurements, and the rate setup process using a survey
+\underline{Input/Condition:} Users will be asked to setup device and start taking measurements, and the rate setup process using a survey
           
-Output/Result: Time for setup and data to appear on the application should be less than 5 minutes and an average score of 3 should be achieved on each user's survey.
+\underline{Output/Result:} Time for setup and data to appear on the application should be less than 5 minutes and an average score of 3 should be achieved on each user's survey.
           
-How test will be performed: A test group will be educated on the setup and connection of the device, then they will attempt to do that process. 
+\underline{How test will be performed:} A test group will be educated on the setup and connection of the device, then they will attempt to do that process. 
 Each person will be timed and compared to the 5 minute threshold. In addition, they will be given a survey to rate the difficulty of the setup process on a scale from 
 1 to 5 on the following categories: overall setup, sensor mount, device mount, start up procedure, and measuring procedure (refer to SQ1).  
 %Stephen updated this section, Sunday afternoon
 \item{\bf{ST-U 2-A}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
 					
-Initial State: Device is given to McMaster's Formula Electric team to use with a wired connection to the laptop
+\underline{Initial State:} Device is given to McMaster's Formula Electric team to use with a wired connection to the laptop
 					
-Input/Condition: Using a survey, Formula Electric members will compare their current testing process to the Formulate process
+\underline{Input/Condition:} Using a survey, Formula Electric members will compare their current testing process to the Formulate process
 					
-Output/Result: All users need to select Formulate in at least 3 of the 4 categories
+\underline{Output/Result:} All users need to select Formulate in at least 3 of the 4 categories
 					
-How test will be performed: Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use, and portability (refer to SQ2).
+\underline{How test will be performed:} Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use, and portability (refer to SQ2).
 %Stephen updated this section, Sunday afternoon
 \item{\bf{ST-U 2-B}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
 					
-Initial State: Device is given to McMaster's Formula Electric team to use with a wireless connection to the laptop
+\underline{Initial State:} Device is given to McMaster's Formula Electric team to use with a wireless connection to the laptop
 					
-Input/Condition: Using a survey, Formula Electric members will compare their current testing process to the Formulate process
+\underline{Input/Condition:} Using a survey, Formula Electric members will compare their current testing process to the Formulate process
 					
-Output/Result: All users need to select Formulate in at least 3 of the 4 categories
+\underline{Output/Result:} All users need to select Formulate in at least 3 of the 4 categories
 					
-How test will be performed: Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use, and portability (refer to SQ2).
+\underline{How test will be performed:} Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use, and portability (refer to SQ2).
 %Stephen updated this section, Sunday afternoon
 \item{\bf{ST-U 3-A}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
 					
-Initial State: Device is set up and waiting to start measuring via a wired connection, application is loaded onto the computer
+\underline{Initial State:} Device is set up and waiting to start measuring via a wired connection, application is loaded onto the computer
 					
-Input/Condition: Users are asked to log into the application and use the UI to observe data. The wired connection is broken by removing the physical connection. Users are asked through a survey how easy the recovery method for test data collected onto the local memory was and submitting the data to the database
+\underline{Input/Condition:} Users are asked to log into the application and use the UI to observe data. The wired connection is broken by removing the physical connection. Users are asked through a survey how easy the recovery method for test data collected onto the local memory was and submitting the data to the database
 					
-Output/Result: An average score of 3 should be achieved on each user's survey
+\underline{Output/Result:} An average score of 3 should be achieved on each user's survey
 					
-How test will be performed: A test group will be asked to use the application UI and rate it on the following categories on a scale from 1 to 5: login process, responsiveness, accessibility, and sending results to the database (refer to SQ3).
+\underline{How test will be performed:} A test group will be asked to use the application UI and rate it on the following categories on a scale from 1 to 5: login process, responsiveness, accessibility, and sending results to the database (refer to SQ3).
 %Stephen updated this section, Sunday afternoon
 \item{\bf{ST-U 3-B}}
 
-Type: Dynamic, Manual
+\underline{Type:} Dynamic, Manual
 					
-Initial State: Device is set up and waiting to start measuring, application is loaded onto the computer, the user is logged in
+\underline{Initial State:} Device is set up and waiting to start measuring, application is loaded onto the computer, the user is logged in
 					
-Input/Condition: Users are asked to use the UI to observe data and send results to the database, and rate the UI using a survey when the connection between the UI and the database was broken
+\underline{Input/Condition:} Users are asked to use the UI to observe data and send results to the database, and rate the UI using a survey when the connection between the UI and the database was broken
 					
-Output/Result: An average score of 3 should be achieved on each user's survey
+\underline{Output/Result:} An average score of 3 should be achieved on each user's survey
 					
-How test will be performed: A test group will be asked to use the application UI and rate it on the following categories on a scale from 1 to 5: login process, responsiveness, accessibility, and sending results to the database (refer to SQ3).
+\underline{How test will be performed:} A test group will be asked to use the application UI and rate it on the following categories on a scale from 1 to 5: login process, responsiveness, accessibility, and sending results to the database (refer to SQ3).
 %Stephen updated this section, Sunday afternoon
 %% NOTE: Do we need this section? I commented this out for now (S.O)
 %\item{\bf{ST-U 4}}
@@ -739,40 +741,41 @@ How test will be performed: A test group will be asked to use the application UI
 
 \end{enumerate}
 
+%Updated by Tio
 \subsubsection{Security}
 
 \begin{enumerate}
 
   \item{\bf{ST-S 1}}
 
-  Type: Dynamic, Manual
+  \underline{Type:} Dynamic, Manual
             
-  Initial State: The device will have measurements stored in the database after a test is completed.
+  \underline{Initial State:} The device will have measurements stored in the database after a test is completed.
             
-  Input: User will input multiple usernames and passwords to try open the database and see the data that has been stored.
+  \underline{Input/Condition:} User will input multiple usernames and passwords to try open the database and see the data that has been stored.
             
-  Output: Depending on the username and password inputed the user will either be able to see the data or be prompted with an error message.
+  \underline{Output/Result:} Depending on the username and password inputed the user will either be able to see the data or be prompted with an error message.
             
-  How test will be performed: After the user has conducted a test and wants to view their data they will be asked for a username and password to verify that they are the intended user of the device. Depending on the username and password they will either be allowed to view the data or be blocked off.
+  \underline{How test will be performed:} After the user has conducted a test and wants to view their data they will be asked for a username and password to verify that they are the intended user of the device. Depending on the username and password they will either be allowed to view the data or be blocked off.
 
   
   \item{\bf{ST-S 2}}
   
-  Type: Dynamic, Manual
+  \underline{Type:} Dynamic, Manual
             
-  Initial State:The device will have measurements stored in the database after a test is completed.
+  \underline{Initial State:} The device will have measurements stored in the database after a test is completed.
             
-  Input: Multiple fake data points will be attempted to be added by an unauthorized user.
+  \underline{Input/Condition:} Multiple fake data points will be attempted to be added by an unauthorized user.
             
-  Output: The data points taken from the device will not be affected and will remain the same regardless of attempts to alter it.
+  \underline{Output/Result:} The data points taken from the device will not be affected and will remain the same regardless of attempts to alter it.
             
-  How test will be performed: A user will attempt to change and compromise the data points that are being stored in the database. A security feature will stop this from happening unless the user is authorized to do so.
+  \underline{How test will be performed:} A user will attempt to change and compromise the data points that are being stored in the database. A security feature will stop this from happening unless the user is authorized to do so.
   
 
   
 \end{enumerate}
 
-
+%Updated by Tio, Monday Morning
 \subsection{Traceability Between Test Cases and Requirements}
 \begin{tabular}{| p{0.45\textwidth} | p{0.45\textwidth}|}
   \hline
@@ -793,7 +796,7 @@ How test will be performed: A test group will be asked to use the application UI
   \hline
   FR 7 & ST-DA 3 ST-DA 4 \\
   \hline
-  FR 8 & ST-DAW 1 \\
+  FR 8 & ST-DD 1 \\
   \hline
   FR 9 & ST-DH 3 \\
   \hline
@@ -813,11 +816,11 @@ How test will be performed: A test group will be asked to use the application UI
   \hline
   FR 18 & ST-DA 2 \\
   \hline
-  FR 19 & ST-DAW 2 \\
+  FR 19 & ST-DD 2 \\
   \hline
-  FR 20 & ST-DAW 1 \\
+  FR 20 & ST-DD 1 \\
   \hline
-  FR 21 & ST-DAW 1 \\
+  FR 21 & ST-DD 1 \\
   \hline
   FR 22 & ST-D 1 \\
   \hline
