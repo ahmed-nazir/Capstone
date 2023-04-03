@@ -351,7 +351,7 @@ class UIFunctions(MainWindow):
             x = err_popup.exec_()"""
 
 
-    def uploadCSV(self):
+    def retrieveData(self):
         """
         Reads the previous conducted test from the onboard SD card and displays it on the table view for the user
         """

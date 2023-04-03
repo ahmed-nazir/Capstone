@@ -91,7 +91,7 @@ class MainWindow(QMainWindow):
     
         self.ui.wired_connect.clicked.connect(lambda: UIFunctions.connect_wired(self))
 
-        self.ui.uploadCSVButton.clicked.connect(lambda: UIFunctions.uploadCSV(self))
+        self.ui.uploadCSVButton.clicked.connect(lambda: UIFunctions.retrieveData(self))
 
         self.ui.generate_code_button.clicked.connect(lambda: UIFunctions.get_config_sensors(self))
 
