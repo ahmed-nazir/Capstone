@@ -84,7 +84,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification \\ \progname: Formulate} 
+\title{Software Requirements Specification \\ \progname} 
 
 \author{\authname}
 \date{\today}
@@ -96,6 +96,8 @@
 \pagenumbering{arabic}
 
 \tableofcontents
+\listoftables
+\listoffigures
 
 ~\newpage
 
@@ -104,8 +106,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+October 5, 2022 & 1.0 & General edits by Ahmed, Muhanad, Tioluwalayomi, Stephen\\
 \bottomrule
 \end{tabularx}
 
@@ -168,6 +169,8 @@ Project Formulate aims to provide the McMaster Formula Electric team with a well
 %\end{tabular}\\
 \end{longtable*}
 
+\newpage
+
 \subsection{Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
@@ -195,58 +198,46 @@ Project Formulate aims to provide the McMaster Formula Electric team with a well
 
 \section{User Characteristics}
 
-
 \subsection{Stakeholders}
 
-The stakeholder for the capstone group project is MAC Formula Electric which is a student-run team on from McMaster University and their purpose is to design, build and compete with a fully electric formula-style racecar. Our product is designed to aid them in these tasks by making testing for their designs and builds faster and more efficient. The product will be a portable device with capability to test vibrations, shock, temperature, and humidity which then be saved to a database. This will help get and store data for testing ultimately making it faster to see the desired results of each test.
+Formula Electric teams exemplify a highly technical, extra-curricular engineer-
+ing team at the University level. On a yearly basis, these teams compete in com-
+petitions organized by a governing body, Formula SAE, who judge the quality
+and effectiveness of engineering ideas, designs, fabrications, and tests applied
+on a team’s vehicle.\\ 
+
+Specifically, ideal candidates who can benefit from our capstone will be For-
+mula Electric teams with 0-4 years of competition experience. Teams without
+four years of experience are ideal because they typically cannot finish com-
+prehensive tests to validate sub-team designs and overall vehicle design in a
+competition year.\\ 
+
+As a result, our primary stakeholder will be McMaster’s Formula Electric
+team because the team has 3 years of competition experience and faces difficulty
+validating all aspects of the vehicle through comprehensive testing.
+
+\newpage
 
 \subsection{Use Cases} 
-\begin{itemize}
+\begin{enumerate}
   
-  \item
-  \textbf{Device is turned on}\\
-   The device is turned on and test functioning can begin
-  
-  \item
-  \textbf{Switching of testing}\\ 
-  The device would be modular so depending on what test is required the device would be able to change from testing shock, vibrations, temperature, and humidity by just switching the module into the device.
+  \item \textbf{Device is turned on}\\ The device is turned on and test functioning can begin \item \textbf{Switching of testing}\\ The device would be modular so depending on what test is required the device would be able to change from testing shock, vibrations, temperature, and humidity by just switching the module into the device \item \textbf{Testing functionality}\\ The device will continually send receive information through an Arduino board, the values from the Arduino board will then get converted into a desktop application \item \textbf{Test data conversion}\\ The converted values from the desktop application will be sent to a remote database where the user will be able to access the data and use the information for what it is needed for \item \textbf{Device warning system}\\ The device will be able to tell the user if the equipment being tested is going above or is below the equipment threshold. This will allow the user to stop the testing before any important components get compromised on the unit \item \textbf{Device interrupted or turned off}\\ In event of the device turning ofF prematurely the data will be automatically saved into our local storage and stored for later use \item \textbf{User test data access}\\ The user can then access the data on a website where all the info will be stored through our database
 
-  \item 
-  \textbf{Testing begins}\\
-  The sensors will give raw data to the Arduino board continually. 
-  
-  \item 
-  \textbf{Testing functionality}\\
-  The device will continually send and receive information through an Arduino board, the values from the Arduino board will then get converted into readible values for our user on a desktop application
-  
-  \item 
-  \textbf{Test data conversion}\\
-  The converted values from the desktop application will be sent to a remote database where the user will be able to access the data.
-  
-  \item 
-  \textbf{Device warning system}\\
-  The device will be able to tell the user if the motor being tested is going above or is below the motor threshold. This will allow the user to stop the testing before any important components get compromised on the unit.
 
-  \item 
-  \textbf{Device interrupted or turned off}\\
-  In event of the the device turning of prematurely the data will be automatically saved on the database and stored for later use.
   
-  \item 
-  \textbf{User test data access}\\
-  The user can then access the data on a website where all the info will be stored through our database.
-  
-\end{itemize}
+\end{enumerate}
 
 \subsection{User Consideration}
-The design of the device is made with the user in mind, our users will be mainly engineering students trying to collect data on equipment they have designed. Since this is the case they will be able to customize the output parameters for what they need such as the gain and or the initial value of the test. This will allow for a more fluid way to setup the test for them. Since it is a student run club we would like to make it cost effective as well, other data collecting devices are expensive and are hard to set up, we would like to make data collecting for testing faster and cheaper so they are able to have a competitive edge against their competition. 
+The design of the device is made with the user in mind, our users will be mainly engineering students trying to collect data on equipment they have designed. Since this is the case they will be able to customize the output parameters for what they need such as the gain and or the initial value of the test. This will allow for a more fluid way to setup the test for them. Since it is a student run club we would like to make it cost effective as well, other data collecting devices are expensive and are hard to set up, we would like to make data collecting for testing faster and cheaper so they are able to have a competitive edge against their competition.
+
+\newpage
 
 \subsection{Impact}
-This design could allow for dangerous testing conditions for an unsupervised tester or a person who does not have full knowledge on what they are testing. Since this product is made for people who fully understand and created what they are testing they will be able to test the equipment in a safe and unsupervised manner. If this device was given to a person without full knowledge on what they are testing, there would be potential to cause damage to what they are testing or even worse themselves. Another impact would be how testing done, it would create faster and more efficient testing allowing for faster production of parts and equipment. This will increase the productivity of numerous companies who are in need of new ways to store their testing data in an efficient and easily accessible way.
+This design could allow for dangerous testing conditions for an unsupervised tester or a person who does not have full knowledge on what they are testing. Since this product is made for people who both fully understand and created what they are testing, they will be able to test the equipment in a safe and unsupervised manner. If this device was given to a person without full knowledge on what they are testing, there is potential to cause damage to what they are testing or even worse, themselves. Another impact would be how testing is done. It can create faster and more efficient testing, resulting in faster production of parts and equipment. This will increase the productivity of numerous companies who are in need of new ways to store their testing data in efficient and accessible ways.
 
+\newpage
 
 \section{System Description}
-
-\subsection{Assumptions}
 
 \subsection{Context Diagram}
 \begin{figure}[h!]
@@ -256,7 +247,7 @@ This design could allow for dangerous testing conditions for an unsupervised tes
 \label{Fig_SystemContext} 
 \end{center}
 \end{figure}
-
+\newpage
 \subsection{State Transition Diagram}
 \begin{figure}[h!]
 \begin{center}
@@ -284,7 +275,7 @@ This design could allow for dangerous testing conditions for an unsupervised tes
   Sending to Database & User has accepted the results and they are now sent to the database \\
   \hline
 \end{tabular}
-\\\\ \indent Table 1.0: State descriptions\\ \\ \\
+%\\\\ \indent Table 1.0: State descriptions\\
 
 \subsection{Monitored and Controlled Variables}
   \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
@@ -352,26 +343,30 @@ This design could allow for dangerous testing conditions for an unsupervised tes
   \end{center}
   \end{figure}
 
+  \newpage
+
 \section{Requirements}
 
 \subsection{Functional Requirements}
 Formulate consists of 3 main components, each with its own functional requirements. The device addresses the sensors and physical device which interacts directly with the user. The desktop application is the means for the user to select modes and submit data, and the data visualizer (website) is for the user to view old test case data to check if KPI's are met.
 
+
+
 \subsubsection{Priority 1} 
 
 \begin{itemize}
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should be able to measure vibration, temperature, humidity, and shock
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should be able to measure vibration, temperature, and humidity
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should connect to a PC wired to transmit data
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device must establish a wired connection with a PC in order to transmit data.
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a start button which activates the telemetry to start reading values between the PC and device 
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a stop button which stops the telemetry stops reading values between the PC and device
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should take the raw data from the sensors and convert it to usable values (g, $^\circ$C, \%)
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should take the raw data from the sensors (in volts) and convert it to usable values ($m/s^2$, $^\circ$C, \%)
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow users to preview the usable values coming from the device (Temperature, Humidity, Shock, Vibration) after a test
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow users to preview the usable values coming from the device (Temperature, Humidity Vibration) after a test
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to send the test results to the database
   
@@ -379,6 +374,7 @@ Formulate consists of 3 main components, each with its own functional requiremen
   
   \end{itemize}
 
+\newpage
 
 \subsubsection{Priority 2}
 \begin{itemize}
@@ -387,40 +383,29 @@ Formulate consists of 3 main components, each with its own functional requiremen
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] Mounting the device should not take more then 5 minutes
 
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should contain a rechargeable battery
-  \begin{description} \item[Rationale:] The device needs its own independent power source which will allow for it to be placed in areas without a power socket \end{description}
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should contain multiple power sources; rechargeable battery, 9v battery and a 120v wall socket
+  \begin{description} \item[Rationale:] The device needs its own independent power source which will allow for it to be placed in areas without a power socket, but also should give the user the flexibility depending on what environment they are in \end{description}
 
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should connect to a PC wirelessly to transmit data
-
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a screen to display the current status to the user
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device must establish a wireless connection with a PC in order to seamlessly transmit data.
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The modular sensors should have a snap on mounting mechanism to connect to the base
   \begin{description} \item[Rationale] Modular sensors need to have a rigid connection with the board with minimal movement to get the most accurate values from the sensor  \end{description}
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live raw data coming from the different sensors (Accelerometer, Thermocouple, Humidity Sensor) during a test
-  
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to configure the device's settings
-  \begin{description} \item[Rationale:] The device will need to have the wifi setting configured which will be done in the application \end{description}
-  
+
   \end{itemize}
 
 \subsubsection{Priority 3}
 \begin{itemize}
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have 4 connection ports to add module sensors to it
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have 2 connection ports to add module sensors to it
   \begin{description} \item[Rationale] Each connection port will make the device more modular and allow for users to add more sensors in the future for other tests  \end{description}
-
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to trim the data before sending it to the database
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The website should only allow users who have access to view the data
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The website should have the option to filter out the data by test conducted
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should show whether the tests passed according to threshold values
-  
   \item[FR \refstepcounter{reqnum}\thereqnum:] Any data pushed to the database should not be editable by the user
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should alert the user if any tests exceed the operating condition of the car
-  \begin{description} \item[Rationale] If at any point during the test it exceed operating conditions, the devices should make it obvious to the user  \end{description}
   
   \end{itemize}
 
@@ -484,15 +469,13 @@ Formulate consists of 3 main components, each with its own functional requiremen
 %Starting and stopping the device to get data using hardware , When the device is connected to the computer we can remote start and stop it using software 
 \item[LC\refstepcounter{lcnum}\thelcnum:] Method to start and stop the test on the device
 \begin{description} \item[Rationale:] The user should have the ability to perform a hardware start/stop or a remote start/stop from their PC \end{description}
-\begin{description} \item[Affected Requirements:] FR3, FR4 \end{description}
 
 \item[LC\refstepcounter{lcnum}\thelcnum:] The initial data we are collecting (Vibration, Shock, Temperature, Humidity)
 \begin{description} \item[Rationale:] Since the device is set to be modular, we may change the initial measured values we are testing with other ones \end{description}
-\begin{description} \item[Affected Requirements:] FR1 \end{description}
 
 \item[LC\refstepcounter{lcnum}\thelcnum:] The number of modular ports on the device
 \begin{description} \item[Rationale:] Depending on the number of input ports available on the board used, the number of input signals available may vary \end{description}
-\begin{description} \item[Affected Requirements:] FR15 \end{description}
+
 
 \end{itemize}
 
@@ -502,10 +485,9 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
 \item[ULC\refstepcounter{ulcnum}\theulcnum:] The sensors will remain modular to adapt to different tests that need to be conducted
 \begin{description} \item[Rationale:] The product should be expandable in the future to be able to test different values \end{description}
-\begin{description} \item[Referenced Requirements:] FR12, NFR5 \end{description}
 
 \item[ULC\refstepcounter{ulcnum}\theulcnum:] The communication methods between the data measurement hardware and the PC will be wired or wireless
-\begin{description} \item[Referenced Requirements:] FR10 \end{description}
+
 
 \end{itemize}
 
@@ -528,13 +510,16 @@ Formulate consists of 3 main components, each with its own functional requiremen
 %\\Table 1.0: Monitored Variables
 \\
 
+
 \section{Phase in Plan}
 
 The phase in plan is categorized into multiple sections, where each section represented a significant phase in the progress of project execution. A section is given a number in the hundreds (X00) to denote a significant phase in the project. Each section is subdivided further into segments given by numbers specified in the tens (XX0) to denote smaller steps within each phase. The expected order of segment completion follows the order of increasing number count; the lowest number segment should be completed first and the highest number segment should be completed last.\\
 
 Each segment has an overall goal that can include the coordination of multiple team members. Upon completion of each segment, the team members relevant to the segment will review and buyoff the readyness of the segment. Upon completion of buying off each segment within a section, the overall phase is considered to be bought off and completed with confidence. The relevant stakeholders must aim to buyoff each segment in a phase before the phase deadline.\\
 
-ADD SECTION RELATING PRIORITIES FROM FUNCTIONAL REQUIREMENTS TO X00 BUYOFFS
+The priorities for the Functional Requirements relate to the Phase in Plan because priorities 1, 2, and 3 correlates to the 100, 200, and 300 series phases of the project planning. This method benefits from the ability to assign stakeholders to each segment for project management.
+
+\newpage
 
 \noindent
 \subsection{Phase 0: Preperation (000 Series)}
@@ -554,7 +539,7 @@ Phase 0 Deadline: October 28, 2022\\
 
   020                              
   & Obtain licenses for 3D CAD software use and database access
-  & Stephen
+  & Ahmed, Muhanad
   \newline                                
   \\ \hline
 
@@ -572,7 +557,7 @@ Phase 0 Deadline: October 28, 2022\\
 
   050                                
   & Completion of device chassis mechanical design and modelling
-  & Stephen 
+  & Tioluwalayomi, Ahmed
   \newline                            
   \\ \hline
 
@@ -584,7 +569,7 @@ Phase 0 Deadline: October 28, 2022\\
 
   090                                
   & Device chassis manufactured
-  & Stephen 
+  & Ahmed, Tioluwalayomi, Muhanad
   \newline                            
   \\ \hline
 
@@ -603,49 +588,49 @@ Phase 1 Deadline: November 11, 2022\\
   \\ \hline
   110
   & Desktop application program developed with basic user interface
-  & Stephen
+  & Muhanad, Stephen
   \newline                                
   
   \\ \hline
   120                              
   & Desktop application program can recieve data from data measurement device using a wired connection
-  & Stephen
+  & Ahmed, Muhanad
   \newline                                
 
   \\ \hline
   130                          
   & Desktop application program can interface with database to send data
-  & Stephen
+  & Muhanad
   \newline                                
 
   \\ \hline
   140                                
   & Desktop application program can edit data from data measurement device before sending it to the database
-  & Stephen 
+  & Muhanad, Stephen 
   \newline                            
 
     \\ \hline
   150                                
   & Visualization application can pull data and generate KPI metrics from the database
-  & Stephen 
+  & Muhanad, Stephen  
   \newline 
 
   \\ \hline
   160                                
   & Integration between data measurement device and desktop application
-  & Stephen 
+  & Ahmed, Muhanad 
   \newline 
 
   \\ \hline
   170                                
   & Integration between desktop application and visualization application
-  & Stephen 
+  & Muhanad, Stephen  
   \newline 
 
   \\ \hline
   190                                
   & Integration between data measurement device, desktop application, and data measurement device
-  & Stephen 
+  & Tioluwalayomi, Muhanad, Ahmed, Stephen 
   \newline 
   \\ \hline
 
@@ -665,26 +650,38 @@ Phase 2 Deadline: February 3, 2023\\
   \multicolumn{1}{|c|}{\textbf{200 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
   \\ \hline
   210
-  & Mechanical design and modelling completion of physical user interface components on device chassis and connection modules
+  & Mechanical design and modelling completion of device chassis mounting mechanism
+  & Tioluwalayomi
+  \newline                                
+  \\ \hline
+
+  220
+  & Electrical sizing of rechargeable battery
   & Stephen
   \newline                                
   \\ \hline
 
-  220                              
+  230                              
   & Completion of wireless communication between data measurement device and desktop application 
-  & Stephen
+  & Tioluwalayomi, Ahmed
   \newline                                
   \\ \hline
 
-  230                          
-  & Completion of database security against tests that break utility of database
-  & Stephen
+  240
+  & Embedded programming of a device status screen on hardware chassis 
+  & Ahmed
+  \newline                                
+  \\ \hline
+
+  250                          
+  & Programming the PC application program to configure the wifi on the device
+  & Tioluwalayomi, Ahmed
   \newline                                
   \\ \hline
 
   290                                
-  & Completion of extended KPI features for visualization application
-  & Stephen 
+  & Embedded programming and regular programming to display live raw data from test equipment
+  & Muhanad, Stephen 
   \newline                            
   \\ \hline
 
@@ -693,83 +690,97 @@ Phase 2 Deadline: February 3, 2023\\
 \newpage
 
 \noindent
-Phase 3: Final Demonstrations (300 series)\\
+\subsection{Phase 3: Final Demonstrations (300 series)}
 Phase 3 Deadline: March 17, 2023\\
 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|p{2cm}|p{10cm}|p{2cm}|}
+  \hline
+  \multicolumn{1}{|c|}{\textbf{300 Buyoffs}} & \multicolumn{1}{c|}{\textbf{Explanation}} & \multicolumn{1}{|c|}{\textbf{Stakeholder(s)}}
+  \\ \hline
+  310
+  & Mechanical design of 4 connection ports to add sensor modules
+  & Tioluwalayomi
+  \newline                                
+  \\ \hline
+
+  320
+  & Programming the PC application to trim raw data sent from the measurement device
+  & Ahmed
+  \newline                                
+  \\ \hline
+
+  330                              
+  & Programming the website to restrict user viewing access
+  & Muhanad
+  \newline                                
+  \\ \hline
+
+  340
+  & Programming the website to filter by test type
+  & Stephen
+  \newline                                
+  \\ \hline
+
+  350                          
+  & Programming the PC application program to configure the wifi on the device
+  & Tioluwalayomi
+  \newline                                
+  \\ \hline
+
+  360                                
+  & Programming the website to show whether the test passed relative to threshold values
+  & Tioluwalayomi 
+  \newline                            
+  \\ \hline
+
+  370                                
+  & Programming the preventative measures from user directly editing database values
+  & Ahmed 
+  \newline    
+  \\ \hline
+
+  390                                
+  & Programming the website to show whether the test passed relative to threshold values
+  & Muhanad 
+  \newline    
+  \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\newpage
 
 \section{Appendix}
 
 \subsection{Knowledge Requirement}
 \begin{enumerate}
-  \item \textbf{Sensors/Embedded Systems:} To successfully complete this project our group needs to collectively understand how sensors and microcontrollers work. The main premise of our project is to automate testing of key components in a Formula Electric vehicle, this can only be done using a variety of sensors to monitor those components. To create almost any hardware device sensors are required as it is equivalent to being the eyes of the device, it allows for hardware to understand and map it's environment. These measurements that the sensor collects can be used by a microcontroller to make decisions on what to do according to the requirements. In our project specifically our hardware device needs to collect measurements from its environment and react accordingly with it, (i.e transmit it to a PC, alert the user if thresholds are exceeded, etc.)
+  \item \textbf{Sensors/Embedded Systems:} To successfully complete this project our group needs to collectively understand how sensors and microcontrollers work. The main premise of our project is to automate testing of key components in a Formula Electric vehicle, this can only be done using a variety of sensors to monitor those components. To create almost any hardware device sensors are required as it is equivalent to being the eyes of the device, it allows for hardware to understand and map it's environment. These measurements that the sensor collects can be used by a microcontroller to make decisions on what to do according to the requirements. In our project specifically our hardware device needs to collect measurements from its environment and react accordingly with it, (i.e transmit it to a PC, alert the user if thresholds are exceeded, etc.).
   
-  \item \textbf{Project Management:} STEPHEN
+  \item \textbf{Project Management:} Project management is a critical skill that we will need to acquire to complete this project with excellent execution. Particularly in our capstone project which utilizes multiple sub-systems working together, a cohesive management strategy is critical. Strong project management skills ensure sub-system goals meet their requirements, and ensure the timely integration of all subsystems.
   
   \item \textbf{Databases:} An essential function of Formulate is to collect test results and store them in a database. Therefore, a complete understanding of creating, accessing, securing, and editing databases is required to achieve that functionality. We are aiming to use a relational database, so all research on these topics will specific to relational databases.
   
-  \item \textbf{Presentations:} For our presentation we will all play a part in presenting and demonstrating how our new device. In our presention we will require the knowledge of how the device works and the usefulness of our device. Our knowledge will be learnt throughout the making of our capstone project as we get more familiar with its software and hardware components. Our presentation will be a demonstration of our knowledge as we will show how we made it and how it is uniquely designed by us. In order for our presentation to be a success we will have practice and create a unique way to entertain our audience. This will require creativity from us so we can stand out from the rest of the presentations, which we will discuss more and more during our weekly meetings. 
+  \item \textbf{Presentations:} For our presentation, we will all play a part in presenting and demonstrating how our device works. In our presentation, we will require the knowledge of how the device works and the usefulness of our device. Our knowledge will be learned throughout the making of our capstone project as we get more familiar with its software and hardware components. Our presentation will be a demonstration of our knowledge as we will show how we made it and how it was uniquely designed by us. In order for our presentation to be a success we will have to practice and create a unique way to entertain our audience. This will require creativity from us so that we can stand out from the rest of the presentations, which we will discuss more during our weekly meetings.
   
 \end{enumerate}
 
+\newpage
 
 \subsection{Knowledge Acquirement }
 
 \begin{enumerate}
   \item \textbf{Sensors/Embedded Systems:} There are many resources to help in mastering the skill, McMaster provides access to a platform called LinkedIn Learning, it provides useful relevant courses to programming an Arduino and how to use sensors. Other online resources such as YouTube also provides similar knowledge in these topics. The best way to learn something in my opinion is by experimenting with the technology, this is called the discovery phase. Getting familiar with the technology by messing around with it drastically improves how comfortable you are with it and how to use it. Ahmed will pursue this because he has some relevant coop experience in sensors and embedded systems and he would like to get more hands on experience working on these technologies. These skills are relevant to the type of work he wants to do in the future.
   
-  \item \textbf{Project Management:} STEPHEN
+  \item \textbf{Project Management:} One of the approaches our team plans on using to master the skill of project management is to look to our previous or current managers and mentors from internships for advice. There were moments during our internship where these people demonstrated effective project management strategies that we would like to emulate, and they are a great resource to receive advice from on how we can manage our capstone project effectively. In addition, we plan on seeking the advice of Dr. Smith, the professor for our capstone course, and our assigned teaching assistant Timofey Tomashevskiy, to guide areas of capstone project management we do not have experience in. Stephen would like to pursue the approach of seeking the advice of Dr. Smith and Timofey Tomashevskiy. This is because these two individuals are highly experienced with providing capstone project management help, and are much more accessible to our group as students of the capstone course relative to industry professionals.  
   
   \item \textbf{Databases:} Muhanad is currently taking a databases course (3DB3) at McMaster which is an introduction to all the fundamentals of relational databases. This includes the design and creation of legal databases based on relational constraints and the manipulation of data using SQL (Structured Query Language). This course will be very useful in terms of creating a fundamentally sound database. However, online resources will be used to determine where to host a database and how to make it secure in a way where only the application has write access to it. Muhanad is pursuing databases because he interacted with them briefly during his coop and found SQL to be very interesting. Therefore, he wishes to take a more in-depth look at databases and querying languages to gain a full understanding of them.
   
-  \item \textbf{Presentations:} In order to master the art of presentations you can take advice from difference audiences on what they like when someone is presenting something to them. The main focus is to keep the audience engaged and make sure they understand the presentation, feedback from different audiences will always help since you will see what audiences like to when watching a presentation and what keeps them engaged. Another way to master the skill of presentation is to watch notable presenters and speakers and see how they keep their audiences engage and make it easy for them to understand. For our method we will look at other presentations and critique what they did well and what they could improve and compare it to ours to see how we could improve our presentation and what to avoid when presenting our product.
+  \newpage
+  
+  \item \textbf{Presentations:} For our presentation we will all play a part in presenting and demonstrating how our new device. In our presentation we will require the knowledge of how the device works and the usefulness of our device. Our knowledge will be learned throughout the making of our capstone project as we get more familiar with software and hardware. Our presentation will be a demonstration of our knowledge as we will show how we made it and how it is uniquely designed by us. In order for our presentation to be a success, Tioluwalayomi will practice and create a unique way to entertain our audience. This will require creativity to stand out from the rest of the presentations, which we will discuss more during our weekly meetings.
   
 \end{enumerate}
-
-\newpage
-
-\bibliographystyle {plainnat}
-\bibliography {../../refs/References}
-
-\newpage
-
-\noindent \plt{The following is not part of the template, just some things to consider
-  when filing in the template.}
-
-\noindent \plt{Grammar, flow and \LaTeX advice:
-\begin{itemize}
-\item For Mac users \texttt{*.DS\_Store} should be in \texttt{.gitignore}
-\item \LaTeX{} and formatting rules
-\begin{itemize}
-\item Variables are italic, everything else not, includes subscripts (link to
-  document)
-\begin{itemize}
-\item \href{https://physics.nist.gov/cuu/pdf/typefaces.pdf}{Conventions}
-\item Watch out for implied multiplication
-\end{itemize}
-\item Use BibTeX
-\item Use cross-referencing
-\end{itemize}
-\item Grammar and writing rules
-\begin{itemize}
-\item Acronyms expanded on first usage (not just in table of acronyms)
-\item ``In order to'' should be ``to''
-\end{itemize}
-\end{itemize}}
-
-\noindent \plt{Advice on using the template:
-\begin{itemize}
-\item Difference between physical and software constraints
-\item Properties of a correct solution means \emph{additional} properties, not
-  a restating of the requirements (may be ``not applicable'' for your problem).
-  If you have a table of output constraints, then these are properties of a
-  correct solution.
-\item Assumptions have to be invoked somewhere
-\item ``Referenced by'' implies that there is an explicit reference
-\item Think of traceability matrix, list of assumption invocations and list of
-  reference by fields as automatically generatable
-\item If you say the format of the output (plot, table etc), then your
-  requirement could be more abstract
-\end{itemize}
-}
 
 \end{document}
