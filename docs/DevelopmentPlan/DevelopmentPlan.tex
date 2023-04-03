@@ -1,12 +1,12 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{float}
+\usepackage{fullpage}
+\usepackage{longtable}
 
-\title{Development Plan\\\progname}
 
-\author{\authname}
 
 \date{}
 
@@ -14,6 +14,13 @@
 \input{../Common}
 
 \begin{document}
+\title{Development Plan\\\progname}
+
+\author{\authname}
+\date{\today}
+
+\maketitle
+\newpage
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
@@ -23,13 +30,18 @@
 \midrule
 09/25/22 & Muhanad Sada & Workflow Plan, POC Demo Plan, Technology\\
 09/25/22 & Ahmed Nazir & Technology\\
+04/03/23 & Ahmed Nazir & Final Revision\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \newpage
+\tableofcontents
+\listoftables
 
-\maketitle
+\newpage
+
+
 
 \wss{Put your introductory blurb here.}
 
@@ -116,105 +128,112 @@ The programming language of choice is Python. Python provides the ideal balance 
 \subsubsection{Libraries}
 %Stephen updated this section, Sunday afternoon
 \begin{itemize}
-	\item Pandas: Data manipulation library
+	\item Pandas: Data manipulation and formatting library
 	%\item Matplotlib: Math library to help visualize data in graphs
 	\item PyQT: Python GUI library
+	\item Serial: Serial communication library
+	\item Socket: Networking library to connect via wireless
 	%\item PyFirmata: Python library that allows serial communication between Python and the Arduino board
 \end{itemize}
 
-
+\newpage
 \subsection{Software Tools}
 %Stephen updated this section, Sunday afternoon
 To assist with developing our product we will be using the following software tools.
 
-\begin{table}[!hbt]
-	%Stephen updated this section, Sunday afternoon
-	\centering
-	\begin{tabular}{|p{4cm}|p{8cm}|}
-	\hline
-	\multicolumn{1}{|c|}{\textbf{Tool Name}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
-	\\ \hline
-	Autodesk Inventor
-	&  Autodesk's Inventor will be used to complete CAD component and assembly design work to create our hardware  
-	\newline                              
-	\\ \hline
-	KiCad
-	& Kicad's schematic editor will be used to complete the electrical design of the electrical hardware component's power and signal connections. Kicad will also be used to generate the PCB layouts and trace connections
-	\newline                              
-	\\ \hline
-	VSCode
-	&  Our team will be using VSCode as our primary code editor because of large number of extensions available. VSCode also integrates well with Git and GitHub
-	\newline                              
-	\\ \hline
-	GitHub Desktop
-	&  GitHub desktop is an easy GUI to use and interacts with our GitHub repo to make code and file editing more efficient
-	\newline                              
-	\\ \hline
-	%Pylint
-	%&  The linter extension we plan on using is Pylint, it will keep our coding style consistent between different people and it is specifically made for Python
-	%\newline                              
-	\\ \hline
-	Arduino IDE
-	&  Software used to write and upload firmware code onto the Arduino board
-	\newline                     
-	\\ \hline
-	Amazon RDS
-	&  Also known as the Amazon Relational Database Service that allows you to create, connect to, and manage database instances
-	\newline                     
-	\\ \hline
-	\end{tabular}
-\end{table}
+
+	\begin{longtable}{|p{6cm}|p{10cm}|}
+		\hline
+		\multicolumn{1}{|c|}{\textbf{Tool Name}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
+		\\ \hline
+		Autodesk Inventor
+		&  Autodesk's Inventor will be used to complete CAD component and assembly design work to create our hardware  
+		\newline                              
+		\\ \hline
+		KiCad
+		& Kicad's schematic editor will be used to complete the electrical design of the electrical hardware component's power and signal connections. Kicad will also be used to generate the PCB layouts and trace connections
+		\newline                              
+		\\ \hline
+		VSCode
+		&  Our team will be using VSCode as our primary code editor because of large number of extensions available. VSCode also integrates well with Git and GitHub
+		\newline                              
+		\\ \hline
+		GitHub Desktop
+		&  GitHub desktop is an easy GUI to use and interacts with our GitHub repo to make code and file editing more efficient
+		\newline                              
+		\\ \hline
+		PyQT Designer
+		&  PyQT Designer will be used by our team to design the GUI in a fast an effective way
+		\newline                     
+		\\ \hline
+		%Pylint
+		%&  The linter extension we plan on using is Pylint, it will keep our coding style consistent between different people and it is specifically made for Python
+		%\newline                              
+		Arduino IDE
+		&  Software used to write and upload firmware code onto the Arduino board
+		\newline                     
+		\\ \hline
+		Amazon RDS
+		&  Also known as the Amazon Relational Database Service that allows you to create, connect to, and manage database instances
+		\newline                     
+		\\ \hline
+		\caption{Software Tools}
+	\end{longtable}
+
+
+%Ahmed updated this section Monday Morning
 
 \subsection{Hardware}
 \begin{itemize}
-	\item Arduino Board: Open-source microcontroller 
-	\item Wifi module: Gives Arduino Wifi access
+	\item Arduino UNO: Open-source microcontroller 
+	\item ESP8266 (NodeMCU 1.0): Wi-Fi module which gives Arduino Wi-Fi access
 	\item Sensors: Measuring desired values
 	\item 3D Printer: Printing CAD designed electronics enclosure and supporting mechanical components
 \end{itemize}
 
+
+
 \section{Coding Standard}
 
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|p{4cm}|p{8cm}|}
-	\hline
-	\multicolumn{1}{|c|}{\textbf{Coding Standard}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
-	\\ \hline
-	Coding readability
-	&  
-	\begin{itemize}
-		\item Capitalize SQL key words to differentiate them from columns and table names
-		\item Avoiding deep nested loops to help make it easier to follow and read
-		\item Avoid creating long function that do multiple tasks, instead make small functions which do a single task.
-		\item Writing comments consistently explaining what is happening in each section of the code
-		\item Using meaningful variables to help make code more understandable
-		\item Using appropriate naming conventions
-	\end{itemize}                                 
-	\\ \hline
-	Module headers
-	&  
-	\begin{itemize}
-		\item Creating module names
-		\item Creation date
-		\item History of changes to modules
-		\item Summary of what each module does
-		\item Functions and variable name changed in each modules
-		\item Tracking various issues in each module
-	\end{itemize} 
-                             
-	\\ \hline
-	Proper indentation
-	&
-	\begin{itemize}
-		\item Proper space between two function arguments after a comma
-		\item Proper indentation and spaces for nested blocks in code
-		\item All braces should start from a new line and the end of the braces also start on a new line
-	\end{itemize}
-	                             
-	\\ \hline
-	\end{tabular}
-\end{table}
+
+	\begin{longtable}{|p{6cm}|p{10cm}|}
+		\hline
+		\multicolumn{1}{|c|}{\textbf{Coding Standard}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
+		\\ \hline
+		Coding readability
+		&  
+		\begin{itemize}
+			\item Capitalize SQL key words to differentiate them from columns and table names
+			\item Avoiding deep nested loops to help make it easier to follow and read
+			\item Avoid creating long function that do multiple tasks, instead make small functions which do a single task.
+			\item Writing comments consistently explaining what is happening in each section of the code
+			\item Using meaningful variables to help make code more understandable
+			\item Using appropriate naming conventions
+		\end{itemize}                                 
+		\\ \hline
+		Module headers
+		&  
+		\begin{itemize}
+			\item Creating module names
+			\item Creation date
+			\item History of changes to modules
+			\item Summary of what each module does
+			\item Functions and variable name changed in each modules
+			\item Tracking various issues in each module
+		\end{itemize} 
+								
+		\\ \hline
+		Proper indentation
+		&
+		\begin{itemize}
+			\item Proper space between two function arguments after a comma
+			\item Proper indentation and spaces for nested blocks in code
+			\item All braces should start from a new line and the end of the braces also start on a new line
+		\end{itemize}
+									
+		\\ \hline
+	\end{longtable}
+
 
 \section{Project Scheduling}
 %Stephen updated this section, Sunday afternoon
