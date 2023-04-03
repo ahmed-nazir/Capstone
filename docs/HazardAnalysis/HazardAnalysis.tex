@@ -128,7 +128,7 @@ this potential failure mode.}
     &   $\bullet$ The Wi-Fi module is broken \newline
         $\bullet$ USB Device is not connected to PC \newline
         $\bullet$ PC is not connected to the device Wi-Fi \newline 
-    & Using the device LED show the systems connectivity \\
+    & Using the device's yellow LED to convey the system's connectivity \\
     \cline{2-6}
         & H1.\refstepcounter{fmeanum}\thefmeanum
     & System does not have power
@@ -137,7 +137,7 @@ this potential failure mode.}
         $\bullet$ Power cables are disconnected \newline
         $\bullet$ Too much current is drawn from Arduino \newline 
     & $\bullet$ Add a Power indicator to the device to alert the user if the device has power \newline
-      $\bullet$ Make the sensors get their power directly from the power source and not the arduino \newline \\
+      $\bullet$ Make the sensors get their power directly from the power source and not the Arduino \newline \\
 
     \cline{2-6}
         & H1.\refstepcounter{fmeanum}\thefmeanum
@@ -145,9 +145,9 @@ this potential failure mode.}
     &   $\bullet$ Hardware device breaks/gets damaged \newline
         $\bullet$ Sensors capture incorrect data \newline
         $\bullet$ Potential injury to those in vehicle \newline
-    &  $\bullet$ User didn’t affix Hardware properly \newline
+    &  $\bullet$ User didn’t affix hardware properly \newline
        $\bullet$ Mounting mechanism failed \newline
-    & The mounting mechanism should give the user feedback when the device is mounted correctly\\
+    & The mounting mechanism should give the user physical feedback when the device is mounted correctly\\
     
     
     \hline
@@ -181,7 +181,7 @@ this potential failure mode.}
     & $\bullet$ Database failure \newline
       $\bullet$ Connection failure between Desktop App and Database  \newline
       $\bullet$ PC not connected to the internet \newline
-    &Validate connection between desktop app and database to ensure data will be sent correctly\\
+    &Verify connection between desktop app and database to ensure data will be sent correctly\\
 
     \hline
 
@@ -189,7 +189,7 @@ this potential failure mode.}
     & Database Overload
     & The database is getting overloaded with data causing it to crash or freeze
     & User submits too much data within a very short time period
-    & Add a cool down timer after the user submits the data to the database so they will not be able to spam it constantly\\
+    & Add a cool down timer after the user submits the data to the database so they will not be able to spam test submissions\\
     \hline
 
     Data \newline Analytics Website & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
@@ -225,8 +225,8 @@ this potential failure mode.}
 \section{Safety and Security Requirements}
 
 \begin{itemize}
-  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should validate a connection between sensors, device, and application before starting measurements.
-    \begin{description} \item[Rationale] If the connections are not validated, then data might be lost as it never gets send to either the device, application and/or database.  \end{description}
+  \item[SR \refstepcounter{reqnum}\thereqnum:] The device should verify a connection between sensors, device, and application before starting measurements.
+    \begin{description} \item[Rationale] If the connections are not verified, then data might be lost as it never gets send to either the device, application and/or database.  \end{description}
     \begin{description} \item[Associated Hazards] H1.1, H2.1, H2.2, H2.3, H2.4  \end{description}
   
   \item[SR \refstepcounter{reqnum}\thereqnum:] The device should have a power LED indicating to the user if the battery is working.
