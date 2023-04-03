@@ -1,15 +1,17 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{float}
+\usepackage{fullpage}
+\usepackage{longtable}
 
 
 \title{Problem Statement and Goals\\\progname}
 
 \author{\authname}
 
-\date{}
+\date{\today}
 
 \input{../Comments}
 \input{../Common}
@@ -17,6 +19,7 @@
 \begin{document}
 
 \maketitle
+\newpage
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
@@ -26,10 +29,17 @@
 \midrule
 09/24/22 & Ahmed Nazir & Goals, Stretch Goals\\
 09/25/22 & Stephen Oh & Problem Statement, Input/Output, Stakeholders\\
+04/03/23 & Stephen, Ahmed & Final Revision\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+\newpage
+\tableofcontents
+\listoftables
+
+
+\newpage
 \section{Problem Statement}
 
 \wss{You should check your problem statement with the
@@ -42,7 +52,7 @@ test, learn (DBTL) cycle. In teams that have not yet reached maturity in complet
 timely DBTL cycles, inexperience in the testing phase causes undesirable inefficiencies in testing
 workflow such as unstandardized testing styles, collection of data, and storage of data. Such
 inefficiencies also affect team workflow performance at the macro scale due to a reduced ability to
-clearly view aggregate trends from unstandardized testing workflows. \newpage
+clearly view aggregate trends from unstandardized testing workflows. 
 
 \subsection{Problem}
 
@@ -72,7 +82,7 @@ A. Tabular view of most recently collected test data over the test duration time
 B. Test data storage in the database. \\
 C. Graphical view on visualization platform of test data over time. \\
 D. Tabular view on visualization platform of Key Performance Indicators. \\
-E. Visual indication from electrical hardware conveying device on/off state and wireless connection state. \newpage
+E. Visual indication from electrical hardware conveying device on/off state and wireless connection state. 
 %C. Historical trends of related test Key Performance Indicator results. \\
 %D. Testing trends across sub-teams. \newpage
 
@@ -94,53 +104,51 @@ Our main environment for software programming will be Visual Studio Code. This i
 
 
 \wss{Hardware and software}
-
+\newpage
 \section{Goals}
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{|p{4cm}|p{8cm}|}
-        \hline
-        \multicolumn{1}{|c|}{\textbf{Goals}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
-        \\ \hline
-        Electrical Hardware capable of collecting sensor test data
-        & The electrical hardware should be able to obtain and record sensor test data for the main measurements desired. The hardware should be able to collect vibration, shock, temperature and humidity measurements
-        \newline                                
-        \\ \hline
-        Wired and wireless hardware to laptop connection
-        & The hardware can support user selection between connection via a wired connection between the hardware to a laptop running the application or a wireless connection between the hardware and the laptop
-        \newline                                
-        \\ \hline
-        Wireless connection failsafe test data storage
-        & Electrical Hardware can save a complete data set from the previous test in a local memory module
-        \newline                                
-        \\ \hline
-        Electrical connection mechanism between the electrical hardware and sensor conductors
-        & The electrical hardware allows the user to fasten and unfasten sensor conductors to support varying test setups
-        \newline                                
-        \\ \hline
-        A user interface which interacts and submits the data                                 
-        & A modern GUI that is intuitive and easy to use, which should be able to communicate with our hardware to receive the measurements from the sensor. The GUI should have two modes, the first showing the live data as it comes from the device. The second mode should allow for the user to preview the data from the test, and extract certain important parts before sending it into the database  
-        \newline                                
-        \\ \hline
-        A record of the historical data should be organized                                
-        & To keep testing consistent and comparable, all previous test data should be organized into a database which cannot be edited to prevent users from tampering with test results. Historical data will allow Formula teams to be able to see how certain modifications to their design can improve or hurt motor test results. 
-        \newline                                
-        \\ \hline
-        The final product should have a website which displays the data in a useful manner                                
-        & Once all the  tests are sent to the database, we will have a website which shows all the major test information in a data analytics platform to quickly and easily see if the vehicle is hitting targets  
-        \newline                              
-        \\ \hline
-        Setup of our device should be quick and easy                               
-        & When a user would like to conduct a test our hardware should be hassle free and not add too much time to the overall setup
-        \newline                            
-        \\ \hline
-        \end{tabular}
-    \end{table}
+    \begin{longtable}{|p{6cm}|p{10cm}|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Goals}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
+    \\ \hline
+    Electrical Hardware capable of collecting sensor test data
+    & The electrical hardware should be able to obtain and record sensor test data for the main measurements desired. The hardware should be able to collect vibration, shock, temperature and humidity measurements
+    \newline                                
+    \\ \hline
+    Wired and wireless hardware to laptop connection
+    & The hardware can support user selection between connection via a wired connection between the hardware to a laptop running the application or a wireless connection between the hardware and the laptop
+    \newline                                
+    \\ \hline
+    Wireless connection failsafe test data storage
+    & Electrical Hardware can save a complete data set from the previous test in a local memory module
+    \newline                                
+    \\ \hline
+    Electrical connection mechanism between the electrical hardware and sensor conductors
+    & The electrical hardware allows the user to fasten and unfasten sensor conductors to support varying test setups
+    \newline                                
+    \\ \hline
+    A user interface which interacts and submits the data                                 
+    & A modern GUI that is intuitive and easy to use, which should be able to communicate with our hardware to receive the measurements from the sensor. The GUI should have two modes, the first showing the live data as it comes from the device. The second mode should allow for the user to preview the data from the test, and extract certain important parts before sending it into the database  
+    \newline                                
+    \\ \hline
+    A record of the historical data should be organized                                
+    & To keep testing consistent and comparable, all previous test data should be organized into a database which cannot be edited to prevent users from tampering with test results. Historical data will allow Formula teams to be able to see how certain modifications to their design can improve or hurt motor test results. 
+    \newline                                
+    \\ \hline
+    The final product should have a website which displays the data in a useful manner                                
+    & Once all the  tests are sent to the database, we will have a website which shows all the major test information in a data analytics platform to quickly and easily see if the vehicle is hitting targets  
+    \newline                              
+    \\ \hline
+    Setup of our device should be quick and easy                               
+    & When a user would like to conduct a test our hardware should be hassle free and not add too much time to the overall setup
+    \newline                            
+    \\ \hline
+    \caption{Goals}
+    \end{longtable}
+  
     
 \section{Stretch Goals}
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{|p{4cm}|p{8cm}|}
+    \begin{longtable}{|p{6cm}|p{10cm}|}
+        
         \hline
         \multicolumn{1}{|c|}{\textbf{Goals}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
         \\ \hline
@@ -159,8 +167,10 @@ Our main environment for software programming will be Visual Studio Code. This i
         Security                              
         & When data is being transmitted from our hardware device to our computer, the data should be encrypted and secure to prevent tampering with data
         \newline                           
-        \\ \hline
-        \end{tabular}
-    \end{table}
+        \\ 
+        \hline
+        \caption{Stretch Goals}
+    \end{longtable}
+
 
 \end{document}
