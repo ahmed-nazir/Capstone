@@ -19,7 +19,7 @@
 \usepackage{fullpage}
 \begin{document}
 
-\title{Project Title: System Verification and Validation Plan for \progname{}} 
+\title{System Verification and Validation Plan \\\progname{}} 
 \author{\authname}
 \date{\today}
 	
@@ -32,13 +32,17 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Developer} & {\bf Notes}\\
 \midrule
-October 30 & Stephen & Added General Information and Plan\\
+10/30/22 & Stephen & Added General Information and Plan\\
+04/03/23 & Ahmed & Final Revision\\
+
 \bottomrule
 \end{tabularx}
 
 \newpage
 
 \tableofcontents
+\listoftables
+\listoffigures
 
 
 
@@ -107,7 +111,7 @@ October 30 & Stephen & Added General Information and Plan\\
   before they are written, since by the time the project is done, they will be
   written.}
 
-  Talk about how this document draws from the system requirements gathered during software requirements specification (SRS) and hazard analysis.\\
+  %Talk about how this document draws from the system requirements gathered during software requirements specification (SRS) and hazard analysis.\\
 
   This document references a variety of requirements generated during the Software Requirements Specification (SRS) process and the Hazard Analysis (HA) process for the Formulate system. \\
 
@@ -272,44 +276,44 @@ Ahmed and Muhanad will lead the group wide discussion for design verification ac
 
 \item{\bf{ST-SV 1}}
 
-Type: Manual
+\underline{Type:} Manual
 					
-Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
+\underline{Initial State:} Device is on, measuring and sending values to the application, and connection to database has been verified
 					
-Input: The device is placed in temperature controlled box at 25$^{\circ}$C
+\underline{Input:} The device is placed in temperature controlled box at 25$^{\circ}$C
 %Stephen updated this section, Sunday afternoon
 					
-Output: The temperature sensor on the device should consistently read 25$^{\circ}$C within a 5\% error for ten successive readings 
+\underline{Output:} The temperature sensor on the device should consistently read 25$^{\circ}$C within a 5\% error for ten successive readings 
 
 %Test Case Derivation: \wss{Justify the expected value given in the Output field}
 					
-How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box to 25$^{\circ}$C. Using a digital thermometer we will compare the results of our device to the digital thermometer\\
+\underline{How test will be performed:} The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box to 25$^{\circ}$C. Using a digital thermometer we will compare the results of our device to the digital thermometer\\
 
 		
 \item{\bf{ST-SV 2}}
 
-Type: Manual
+\underline{Type:} Manual
 					
-Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
+\underline{Initial State:} Device is on, measuring and sending values to the application, and connection to database has been verified
 					
-Input: The device will be placed in a humidity controlled box which will be 40\% humidity
+\underline{Input:} The device will be placed in a humidity controlled box which will be 40\% humidity
 %Stephen updated this section, Sunday afternoon
 					
-Output: The humidity sensor on the device should consistently read 40\% humidity within a 5\% error for 10 successive readings
+\underline{Output:} The humidity sensor on the device should consistently read 40\% humidity within a 5\% error for 10 successive readings
 
-How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box to 50$^{\circ}$C. Using a digital humidity monitor we will compare the results of our device to the digital sensor
+\underline{How test will be performed:} The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box to 50$^{\circ}$C. Using a digital humidity monitor we will compare the results of our device to the digital sensor
 
 \item{\bf{ST-SV 3}}
 
-Type: Manual
+\underline{Type:} Manual
 					
-Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
+\underline{Initial State:} Device is on, measuring and sending values to the application, and connection to database has been verified
 %Stephen updated this section, Sunday afternoon
-Input: The device will be placed on a constantly vibrating platform at 1 Hertz for 10 seconds.
+\underline{Input:} The device will be placed on a constantly vibrating platform at 1 Hertz for 10 seconds.
 					
-Output: The accelerometer sensor should consistently read a vibration of 1 Hz within a 5\% error for 10 seconds
+\underline{Output:} The accelerometer sensor should consistently read a vibration of 1 Hz within a 5\% error for 10 seconds
 
-How test will be performed: The device will be placed on a constantly vibrating platform which is set to a known vibration. We will start a test on our device and compare the output of our accelerometer with the known vibration
+\underline{How test will be performed:} The device will be placed on a constantly vibrating platform which is set to a known vibration. We will start a test on our device and compare the output of our accelerometer with the known vibration
 
 \end{enumerate}
 
@@ -318,59 +322,59 @@ How test will be performed: The device will be placed on a constantly vibrating 
 
   \item{\bf{ST-DT 1}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+  \underline{Initial State:} Device is on and is connected to a PC via cable or via Wi-Fi
             
-  Input: The start button is pressed
+  \underline{Input:} The start button is pressed
             
-  Output: All readings from all sensors should be sent to the PC for 30 consecutive readings within 1 second of pressing the start button
+  \underline{Output:} All readings from all sensors should be sent to the PC for 30 consecutive readings within 1 second of pressing the start button
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: While the device is connected to the PC the start button will be pressed to check if telemetry data is being sent to the PC. The emphasis is on the ability of data transmission and not correctness\\
+  \underline{How test will be performed:} While the device is connected to the PC the start button will be pressed to check if telemetry data is being sent to the PC. The emphasis is on the ability of data transmission and not correctness\\
 
   \item{\bf{ST-DT 2}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+  \underline{Initial State:} Device is on and is connected to a PC via cable or via Wi-Fi
             
-  Input: The start button is pressed multiple times
+  \underline{Input:} The start button is pressed 10 times consecutively
             
-  Output: The device should continue to send data to the PC regardless of how many times the start button is pressed
+  \underline{Output:} The device should continue to send data to the PC regardless of how many times the start button is pressed
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: While the device is connected to the PC the start button will be pressed and then after a few seconds pressed again 10 more times to check if telemetry data transmission to the PC cannot be broken by pressing the start button\\
+  \underline{ How test will be performed:} While the device is connected to the PC the start button will be pressed and then after a few seconds pressed again 10 more times to check if telemetry data transmission to the PC cannot be broken by pressing the start button\\
 
   \item{\bf{ST-DT 3}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+  \underline{Initial State:} Device is on and is connected to a PC via cable or via Wi-Fi
             
-  Input: The stop button is pressed
+  \underline{Input:} The stop button is pressed
             
-  Output: All sensor readings should stop being sent to the PC within 1 second of pressing the stop button
+  \underline{Output:} All sensor readings should stop being sent to the PC within 1 second of pressing the stop button
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: While the device is connected to the PC the stop button will be pressed to check if telemetry data is stopped\\
+  \underline{How test will be performed:} While the device is connected to the PC the stop button will be pressed to check if telemetry data is stopped\\
 
   \item{\bf{ST-DT 4}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
+  \underline{Initial State:} Device is on and is connected to a PC via cable or via Wi-Fi
             
-  Input: The stop button is pressed 10 times
+  \underline{Input:} The stop button is pressed 10 times
             
-  Output: The device should not send data to the PC regardless of how many times the stop button is pressed
+  \underline{Output:} The device should not send data to the PC regardless of how many times the stop button is pressed
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: While the device is connected to the PC the stop button will be pressed in an interval of 2 seconds to check if telemetry data is has stopped\\
+  \underline{How test will be performed:} While the device is connected to the PC the stop button will be pressed 10 times in an interval of 2 seconds to check if telemetry data is has stopped\\
 
   \end{enumerate}
 
@@ -379,57 +383,59 @@ How test will be performed: The device will be placed on a constantly vibrating 
   
     \item{\bf{ST-DH 1}}
     
-    Type: Manual
+    \underline{Type:} Manual
               
-    Initial State: Device is on and is connected to a PC, no sensors are attached
+    \underline{Initial State:} Device is on and is connected to a PC, no sensors are attached
               
-    Input: A sensor is connected using the snap on connector and start is pressed
+    \underline{Input:} A sensor is connected using the snap on connector and start is pressed
               
-    Output: The device should start sending data to the PC within 1 second of pressing the start button and should be firmly attached to the device at a vibration of 1 Hertz.
+    \underline{Output:} The device should start sending data to the PC within 1 second of pressing the start button and should be firmly attached to the device at a vibration of 1 Hertz.
               
-    How test will be performed: While the device is connected to the PC a sensor is connected to the modular port on the device and the start button is pressed, the sensor will be shaken at 1 Hertz and it should still continue to send data\\
+    \underline{How test will be performed:} While the device is connected to the PC a sensor is connected to the modular port on the device and the start button is pressed, the sensor will be shaken at 1 Hertz and it should still continue to send data\\
   
     \item{\bf{ST-DH 2}}
     %Stephen updated this section, Sunday afternoon
-    Type: Manual
+    \underline{Type:} Manual
               
-    Initial State: Device is on but the battery has less than 5 minutes of charge
+    \underline{Initial State:} Device is on but the battery has less than 5 minutes of charge
               
-    Input: User swaps the battery
+    \underline{Input:} User swaps the battery
               
-    Output: The battery should provide a full 2 hours of charge in testing time
+    \underline{Output} The battery should provide a full 2 hours of charge in testing time
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
-    How test will be performed: We will continue to use the device until the battery is completely drained, once its low we will start to charge it and check if the battery increases\\
+    \underline{How test will be performed:} We will continue to use the device until the battery is completely drained, once its low we will start to charge it and check if the battery increases\\
 
     \item{\bf{ST-DH 3}}
     
-    Type: Manual
+    \underline{Type:} Manual
               
-    Initial State: Device is fully mounted on a test platform
+    \underline{Initial State:} Device is fully mounted on a test platform
               
-    Input: User will apply 49N of force on every side of the device
+    \underline{Input:} User will apply 49N of force on every side of the device
               
-    Output: The fastened device should not show signs of deformation or changes in position
+    \underline{Output:} The fastened device should not show signs of deformation or changes in position
+
+    \underline{Rationale:} This will test the rigidity and durability of our mounting mechanism and ensure that our device can withstand the forces it will face while mounted on a Formula E vehicle.
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
-    How test will be performed: Once the device is mounted we will place 5kg on top of different sides of the device to check if the mount can withstand it \\
+    \underline{How test will be performed:} Once the device is mounted we will place 5kg on top of different sides of the device to check if the mount can withstand it \\
 
     \item{\bf{ST-DH 4}}
     
-    Type: Manual
+    \underline{Type:} Manual
               
-    Initial State: Device is not mounted on anything
+    \underline{Initial State:} Device is not mounted on anything
               
-    Input: User will begin to mount the device on the Formula SAE car
+    \underline{Input:} User will begin to mount the device on the Formula SAE car
               
-    Output: The device should be fully installed under 5 minutes
+    \underline{Output:} The device should be fully installed under 5 minutes
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
-    How test will be performed: While someone is mounting the device another person is timing them \\
+    \underline{How test will be performed:} While someone is mounting the device another person is timing them \\
 
     %Stephen updated this section, Sunday afternoon
     %\item{\bf{ST-DH 5}}
@@ -444,7 +450,7 @@ How test will be performed: The device will be placed on a constantly vibrating 
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
-    How test will be performed: The operating condition of the device will be set to 25$^{\circ}$C using the desktop application and the device will then be placed in a 30$^{\circ}$C environment\\
+    %How test will be performed: The operating condition of the device will be set to 25$^{\circ}$C using the desktop application and the device will then be placed in a 30$^{\circ}$C environment\\
   
     \end{enumerate}
 
@@ -455,73 +461,75 @@ How test will be performed: The device will be placed on a constantly vibrating 
   
   \item{\bf{ST-DA 1}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC, the desktop application is open and connected to the device
+  \underline{Initial State:} Device is on and is connected to a PC, the desktop application is open and connected to the device
             
-  Input: User selects the most recent test case
+  \underline{Input:} User selects the retrieve test case
             
-  Output: A table with all the raw test data should populate the screen
+  \underline{Output:} A table with all the raw test data should populate the screen
   
-  %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+  \underline{Rationale:} This tests if the desktop application can read the last test performed from the local storage incase connectivity was lost \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: After a test is completed on the device, it will be connected to the PC and the user should be able to view the most recent test after clicking view\\
+  \underline{How test will be performed:} After a test is completed on the device, it will be connected to the PC and the user should be able to view the most recent test after clicking retrieve\\
 
-  \item{\bf{ST-DA 2}}
+  %\item{\bf{ST-DA 2}}
   
-  Type: Manual
+  %Type: Manual
             
-  Initial State: Device is on and is connected to a PC, the desktop application is open and test data is open
+  %Initial State: Device is on and is connected to a PC, the desktop application is open and test data is open
             
-  Input: User selects rows and columns to delete and hits the delete key
+  %Input: User selects rows and columns to delete and hits the delete key
             
-  Output: The table with the test data should update to reflect the newly deleted rows
+  %Output: The table with the test data should update to reflect the newly deleted rows
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: A test will be conducted but the start button will be pressed early, the initial 20 seconds of the test does not provide useful data and the user will select and delete those rows\\
+  %How test will be performed: A test will be conducted but the start button will be pressed early, the initial 20 seconds of the test does not provide useful data and the user will select and delete those rows\\
 
   \item{\bf{ST-DA 3}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC, the desktop application is open and test data is open
+  \underline{Initial State:} Device is on and is connected to a PC, the desktop application is open and test data is open
             
-  Input: User hits the submit to database button
+  \underline{Input:} User hits the submit to database button
             
-  Output: The test data in the table should be sent to the database
+  \underline{Output:} The test data in the table should be sent to the database
   
+  \underline{Rationale:} This will test if the desktop application can connect with the database and send data
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: After a test is conducted and the data will be viewed on the desktop app, the user will preview the data and click submit to database \\
+  \underline{How test will be performed:} After a test is conducted and the data will be viewed on the desktop app, the user will preview the data and click submit to database \\
 
   \item{\bf{ST-DA 4}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC, the desktop application is open but no tests are done
+  \underline{Initial State:} Device is on and is connected to a PC, the desktop application is open but no tests are done
             
-  Input: User hits the submit to database button
+  \underline{Input:} User hits the submit to database button
             
-  Output: The application should alert the user that no data was recorded and not send anything to the database
+  \underline{Output:} The application should alert the user that no data was recorded and not send anything to the database
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: No tests will be performed and an empty table will be shown. Submit to database will be clicked \\
+  \underline{How test will be performed:} No tests will be performed and an empty table will be shown. Submit to database will be clicked \\
 
   \item{\bf{ST-DA 5}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Device is on and is connected to a PC, the desktop application is open
+  \underline{Initial State:} Device is on and is connected to a PC, the desktop application is open
             
-  Input: User select live data viewing on the application
+  \underline{Input:} User clicks the start test button on the application
             
-  Output: The application should start to receive live data from the device
+  \underline{Output:} The application should start to receive live data from the device and display it on the table
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
+  \underline{Rationale:} This test verifies that our desktop application can read live data as the sensors are outputting them
             
-  How test will be performed: The hardware device will be plugged into the PC and once we hit the live data button on the application all the sensors will display their output\\
+  \underline{How test will be performed:} The hardware device will be plugged into the PC and once we hit the start button on the application all the sensors will display their output\\
   
 
 \end{enumerate}
@@ -531,31 +539,31 @@ How test will be performed: The device will be placed on a constantly vibrating 
   
   \item{\bf{ST-DAW 1}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: The database contains test data and is connected to the analytics platform
+  \underline{Initial State:} The database contains test data and is connected to the analytics platform
             
-  Input: User logs into the analytics platform and selects a test
+  \underline{Input:} User logs into the analytics platform and selects a test
             
-  Output: The test data is displayed showing the results over time for that particular test
+  \underline{Output:} The test data is displayed showing the results over time for that particular test
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: We will populate the database with different tests and the user once logged in will select a specific test to view\\
+  \underline{How test will be performed:} We will populate the database with different tests and the user once logged in will select a specific test to view\\
 
   \item{\bf{ST-DAW 2}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: The database contains test data and is connected to the analytics platform
+  \underline{Initial State:} The database contains test data and is connected to the analytics platform
             
-  Input: Unauthorized user attempts to login
+  \underline{Input:} Unauthorized user attempts to login
             
-  Output: The website alerts the user they are not authorized to view the dashboard
+  \underline{Output:} The website alerts the user they are not authorized to view the dashboard
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: One team member will not have privileges to view the dashboard and will attempt to login\\
+  \underline{How test will be performed:} One team member will not have privileges to view the dashboard and will attempt to login\\
 
 \end{enumerate}
 
@@ -565,15 +573,17 @@ How test will be performed: The device will be placed on a constantly vibrating 
   
   \item{\bf{ST-D 1}}
   
-  Type: Manual
+  \underline{Type:} Manual
             
-  Initial State: Database is active
+  \underline{Initial State:} Database is active
             
-  Input: User submits data multiple times within 5 seconds
+  \underline{Input:} User submits data multiple times within 5 seconds
             
-  Output: Database stops accepting new data and alerts user
+  \underline{Output:} Database stops accepting new data and alerts user
+
+  \underline{Rationale:} This test will check if it is possible to spam the database with data, it keeps the database safe from unintended purposes
             
-  How test will be performed: After a test is completed on the device, it will be previewed using the desktop app and the submit to database button will be pressed repeatedly\\
+  \underline{How test will be performed:} After a test is completed on the device, it will be previewed using the desktop app and the submit to database button will be pressed repeatedly\\
 \end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
@@ -848,7 +858,7 @@ Oh, S., Nazir, A., Sada, M., amp; Babayeju, T. (n.d.). (rep.). Software Requirem
 \noindent \\
 Oh, S., Nazir, A., Sada, M., amp; Babayeju, T. (n.d.). (rep.). Hazard Analysis MECHTRON 4TB6. \\
 
-
+\newpage
 \section{Appendix}
 
 
@@ -862,6 +872,21 @@ Oh, S., Nazir, A., Sada, M., amp; Babayeju, T. (n.d.). (rep.). Hazard Analysis M
   \item[\bf{SQ3}]{How did you enjoy your experience using Formulate's application UI? Rate the UI on the following categories from 1 to 5: login process, responsiveness, accessibility, and sending results to the database.}
 
 \end{enumerate}
+
+
+\subsection{Reflection}
+\subsubsection{Knowledge Required}
+  \begin{enumerate}
+    \item In order to ensure the success of our project, it is essential that our team enhances our understanding of how sensors operate, as we work to complete our verification and validation plan. It is imperative that we accurately capture and interpret data from the sensors, which entails mitigating any potential interference, optimizing calibration, and implementing the sensors effectively. Only by mastering these critical aspects of sensor technology can we ensure that our device functions properly and delivers optimal performance.
+  
+  \end{enumerate}
+
+\subsubsection{Approach}
+  \begin{enumerate}
+    \item Our team aims to elevate our sensor expertise through a twofold approach. Firstly, we plan to conduct extensive research on the workings of digital and analog sensors, utilizing a range of resources such as scholarly papers and informative YouTube videos. This will enable us to establish a firm theoretical foundation of sensor fundamentals, allowing us to comprehend and apply sensor concepts more effectively. Secondly, we will embark on a practical journey by conducting experiments on our current sensors to explore the impact of various environmental factors on their performance. By subjecting these sensors to different conditions, we can identify the optimal configuration to obtain the most accurate readings. This hands-on approach will supplement our theoretical knowledge and provide valuable insights into the real-world application of sensor technology. From our team Ahmed will be pursing this because of his previous coop background utilizing different sensors and his general interest in the area.
+  
+  \end{enumerate}
+
 
 \wss{This is a section that would be appropriate for some projects.}
 
