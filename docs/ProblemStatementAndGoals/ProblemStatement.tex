@@ -36,10 +36,13 @@
 \href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
 {problem statement checklist}.}
 \wss{You can change the section headings, as long as you include the required information.}
-
-Competitive engineering extracurricular activities at the University level revolves around the design, build, test, learn (DBTL) cycle. In teams that have not yet reached maturity in completing high quality and timely DBTL cycles, the design/building phases are over-prioritized, leaving the testing/learning phases under-resourced.     \\
-
-Most teams struggling to achieve timely DBTL cycles compete in deeply technical applications of engineering. Problematically, deeply technical applications demand significant amounts of time into the design/build phase of a competition year to create a working prototype. \newpage
+%Stephen updated this section, Sunday afternoon
+Competitive engineering extracurricular activities at the University level revolve around the design, build,
+test, learn (DBTL) cycle. In teams that have not yet reached maturity in completing high quality and
+timely DBTL cycles, inexperience in the testing phase causes undesirable inefficiencies in testing
+workflow such as unstandardized testing styles, collection of data, and storage of data. Such
+inefficiencies also affect team workflow performance at the macro scale due to a reduced ability to
+clearly view aggregate trends from unstandardized testing workflows. \newpage
 
 \subsection{Problem}
 
@@ -50,40 +53,44 @@ Our capstone group recognizes the challenge teams face with the under-allocation
 
 \wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
 Use abstraction so that you can avoid details.}
+%Stephen updated this section, Sunday afternoon
 
 The solution will collect raw data as input and output Key Performance Indicators (KPI) statistics generated from test data. \\
 
-Raw data input to the system will normally be aggregated upon completion of the test. The system will then communicate the contents of the aggregated data to a computing device. Users will have the opportunity to provide input on the raw data collected before saving it to a database. This input should allow the user to modify the raw data to delete inconsistent data points before sending output. The user will then submit the data to a database with additional information to specify key details of the test. An application will then allow users to view generated KPI statistics on the test data stored in the database. \\
+Raw data input to the system will normally be aggregated upon completion of the test. The system will then communicate the contents of the aggregated data to a computing device. Users will have the opportunity to provide input on the raw data collected before saving it to a database. This input should allow the user to add contextual details to the test data to describe what the test is doing. The user will then submit the data to a database with additional information to specify key details of the test. A visualization platform will then allow users to view generated KPI statistics on the test data stored in the database. \\
 
 Inputs: \\
-A. Raw data collected by testing equipment. \\
-B. Communication method mode select between wired versus wireless transfer of raw test data. \\
-C. User modifications of raw test data file to maintain consistency in data through data point modifications. \\
-D. User notes on modified test data file to specify details of test data collected. \\
-E. Data processing mode select between generating KPI metrics in real time, live data collection, versus generating KPI metrics in post with data from a complete test. \\
+A. User login to link test data to team member. \\
+B. Raw data collected by testing sensors. \\
+C. Communication method mode selection between wired versus wireless transfer of raw test data between the hardware and the desktop application. \\
+%C. User modifications of raw test data file to maintain consistency in data through data point modifications. \\
+D. User notes and picture on test data file to specify contextual details of test data collected. \\
+%E. Data processing mode select between generating KPI metrics in real time, live data collection, versus generating KPI metrics in post with data from a complete test. \\
 
 Outputs: \\
-A. Graphical view of test case data over time. \\
-B. Tabular view of Key Performance Indicators. \\
-C. Historical trends of related test Key Performance Indicator results. \\
-D. Testing trends across sub-teams. \newpage
+A. Tabular view of most recently collected test data over the test duration time on user application upon test completion. \\
+B. Test data storage in the database. \\
+C. Graphical view on visualization platform of test data over time. \\
+D. Tabular view on visualization platform of Key Performance Indicators. \\
+E. Visual indication from electrical hardware conveying device on/off state and wireless connection state. \newpage
+%C. Historical trends of related test Key Performance Indicator results. \\
+%D. Testing trends across sub-teams. \newpage
 
 \subsection{Stakeholders}
 
-Formula Electric teams exemplify a highly technical, extra-curricular engineering team at the University level. On a yearly basis, these teams compete in competitions organized by a governing body, Formula SAE, who judge the quality and effectiveness of engineering ideas, designs, fabrications, and tests applied on a team's vehicle. \\
+Formula Electric teams exemplify a highly technical, extra-curricular engineering team at the University level. On a yearly basis, these teams participate in competitions organized by a governing body, Formula SAE, who judge the quality and effectiveness of engineering ideas, designs, fabrications, and tests applied on a team's vehicle. \\
 
-Specifically, ideal candidates who can benefit from our capstone will be Formula Electric teams with 0-4 years of competition experience. Teams without four years of experience are ideal because they typically cannot finish comprehensive tests to  validate sub-team designs and overall vehicle design in a competition year. \\
+Specifically, ideal candidates who can benefit from our capstone will be Formula Electric teams with 0-4 years of competition experience. Teams without four years of experience are ideal because they typically cannot finish comprehensive tests to validate sub-team designs and overall vehicle design in a competition year. \\
 
-As a result, our primary stakeholder will be McMaster's Formula Electric team because the team has 3 years of competition experience and faces difficulty validating all aspects of the vehicle through comprehensive testing.
+As a result, our primary stakeholder will be McMaster's Formula Electric team because the team has 3 years of competition experience and faces difficulty validating all aspects of the vehicle through comprehensive testing. \\
 
 
 
 
 \subsection{Environment}
+The editing environment for the Arduino will be the Arduino Software IDE which has a text editor for writing code, a serial monitor to receive messages, a toolbar for common functions, and multiple menus for various applications. In this environment, the Arduino can be programmed to communicate with the user interface application running in parallel. \\
 
-The environment for our Arduino will include the use of the Arduino Software IDE which has a text editor for writing code, an area to receive messages, a toolbar for common functions and multiple menus for various uses. In the environment, it will allow our Arduino to be programmed and communicate with the various programs we have running. \\
-
-Our main environment for software programming will be VSCode. This is where we will write our various codes to run functions that will program our Arduino and other functions that we will need. We will also use it to write our SQL code which will continually be receiving data from our hardware components.
+Our main environment for software programming will be Visual Studio Code. This is where we will write our code to run functions that will program our Arduino and other functions that we will need. It will also be used to write SQL code which can continually receive data from our hardware components.
 
 
 \wss{Hardware and software}
@@ -95,8 +102,20 @@ Our main environment for software programming will be VSCode. This is where we w
         \hline
         \multicolumn{1}{|c|}{\textbf{Goals}} & \multicolumn{1}{c|}{\textbf{Explanation}} 
         \\ \hline
-        Hardware collects data points from tests
-        & Our final hardware component should be able to record test data for the main components we want to measure. It should measure vibration, shock, temperature and humidity  
+        Electrical Hardware capable of collecting sensor test data
+        & The electrical hardware should be able to obtain and record sensor test data for the main measurements desired. The hardware should be able to collect vibration, shock, temperature and humidity measurements
+        \newline                                
+        \\ \hline
+        Wired and wireless hardware to laptop connection
+        & The hardware can support user selection between connection via a wired connection between the hardware to a laptop running the application or a wireless connection between the hardware and the laptop
+        \newline                                
+        \\ \hline
+        Wireless connection failsafe test data storage
+        & Electrical Hardware can save a complete data set from the previous test in a local memory module
+        \newline                                
+        \\ \hline
+        Electrical connection mechanism between the electrical hardware and sensor conductors
+        & The electrical hardware allows the user to fasten and unfasten sensor conductors to support varying test setups
         \newline                                
         \\ \hline
         A user interface which interacts and submits the data                                 
