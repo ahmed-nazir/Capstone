@@ -356,21 +356,21 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
 \begin{itemize}
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should be able to measure vibration, temperature, and humidity
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should be able to measure vibration, temperature, and humidity every second
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device must establish a wired connection with a PC in order to transmit data.
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device must be capable of establishing a wired connection with a PC to transmit sensor test data and power
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a start button which activates the telemetry to start reading values between the PC and device 
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a stop button which stops the telemetry stops reading values between the PC and device
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should have a stop button which stops the telemetry from reading values between the PC and device
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should take the raw data from the sensors (in volts) and convert it to usable values ($m/s^2$, $^\circ$C, \%)
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should take the raw data from the sensors (in volts) and convert it to human-readable and meaningful values ($m/s^2$, $^\circ$C, \%)
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow users to preview the usable values coming from the device (Temperature, Humidity Vibration) after a test
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should present users with a preview of the values coming from the device (Temperature, Humidity Vibration) after a stopping test
 
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to send the test results to the database
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should allow the user to submit the test results to the database
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should be able to read the test results from the database
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The website should be able to poll the test results from the database when the user refreshes the dataset
   
   \end{itemize}
 
@@ -381,17 +381,17 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
   \item[FR \refstepcounter{reqnum}\thereqnum:] The device's mount to the Formula SAE car should be able to withstand 5g's of force
   
-  \item[FR \refstepcounter{reqnum}\thereqnum:] Mounting the device should not take more then 5 minutes
+  \item[FR \refstepcounter{reqnum}\thereqnum:] Mounting the device should not take more than 5 minutes
 
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should contain multiple power sources; rechargeable battery, 9v battery and a 120v wall socket
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device should contain 3 power sources; rechargeable battery, 9v battery and a 120v wall socket
   \begin{description} \item[Rationale:] The device needs its own independent power source which will allow for it to be placed in areas without a power socket, but also should give the user the flexibility depending on what environment they are in \end{description}
 
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The device must establish a wireless connection with a PC in order to seamlessly transmit data.
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The device must establish a wireless connection with a PC in order to transmit data without a physical connection.
   
   \item[FR \refstepcounter{reqnum}\thereqnum:] The modular sensors should have a snap on mounting mechanism to connect to the base
   \begin{description} \item[Rationale] Modular sensors need to have a rigid connection with the board with minimal movement to get the most accurate values from the sensor  \end{description}
 
-  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live raw data coming from the different sensors (Accelerometer, Thermocouple, Humidity Sensor) during a test
+  \item[FR \refstepcounter{reqnum}\thereqnum:] The application should show live data, where raw data is considered to be data transmission occurring every second,  from each sensor (Accelerometer, Thermocouple, Humidity Sensor) during a test
 
   \end{itemize}
 
@@ -418,11 +418,11 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Learning}\\
-    The user will be able to learn the device's operation quickly to integrate into their testing workflow efficiently
+    The user will be able to learn the device's operation quickly to integrate into their testing workflow efficiently. If the user waches an educational product video and is able to complete the test setup and navigate the user interface without re-watching the educational video, the ease of learning requirement can be considered to be accomplished
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Use}\\
-    The system will be fast at processing data such that additional overhead through the use of the device is less than if all components of the testing workflow were completed individually
+    The system will be fast at processing data such that additional overhead through the use of the device is less than if all components of the testing workflow were completed individually. If the user is able to complete test setup, navigate the user interface to complete a test, submit the test data, and view the dashboard in under 10 minutes, not including the time needed to test, the ease of use requirement can be considered to be accomplished
 
 \subsubsection{Performance} 
 
@@ -432,17 +432,17 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Reliability and Availability}\\
-    The system will be fail-safe to withstand single point of failures in components with high probability of operational failure
+    The system will be fail-safe to withstand single point of failures in components with high probability of operational failure. Single points of failure include the Wi-Fi module experiencing a connection failure during wireless testing
 
 \subsubsection{Operational}
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
       \textbf{Expected Technological Environment}\\
-    The device will be able to facilitate a variety of tests using a range of equipment, as long as the equipment is compatible with the data measuring hardware
+    The device will be able to facilitate a variety of tests using a range of equipment, as long as the equipment is compatible with the data measuring hardware. Users should be able to find and purchase at least one sensor offered at large e-commerce stores that is suitable of taking the correct measurement with our data measuring hardware
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Expected Physical Environment}\\
-    The system will be operational under a wide range of temperatures and operational vibrations
+    The system will be operational under a wide range of temperatures and operational vibrations. Typical MAC Formula Electric driving applications should not pose risks in the device's operability due to temperature or vibrations
 
 \subsubsection{Maintainability and Portability}
 
@@ -656,7 +656,7 @@ Phase 2 Deadline: February 3, 2023\\
   \\ \hline
 
   220
-  & Electrical sizing of rechargeable battery
+  & Electrical sizing of battery
   & Stephen
   \newline                                
   \\ \hline
@@ -667,15 +667,21 @@ Phase 2 Deadline: February 3, 2023\\
   \newline                                
   \\ \hline
 
-  240
-  & Embedded programming of a device status screen on hardware chassis 
-  & Ahmed
+  %40
+  %& Embedded programming of a device status screen on hardware chassis 
+  %& Ahmed
+  %\newline                                
+  %\\ \hline
+
+  240                          
+  & Programming the PC application program to configure the wifi on the device
+  & Tioluwalayomi, Ahmed
   \newline                                
   \\ \hline
 
   250                          
-  & Programming the PC application program to configure the wifi on the device
-  & Tioluwalayomi, Ahmed
+  & Completing custom PCB design and receiving manufactured PCB's. Device chassis re-designed and manufactured to fit PCB board and electronics
+  & Stephen, Ahmed
   \newline                                
   \\ \hline
 
@@ -739,6 +745,12 @@ Phase 3 Deadline: March 17, 2023\\
   & Programming the preventative measures from user directly editing database values
   & Ahmed 
   \newline    
+  \\ \hline
+
+  380                          
+  & Completing second iteration of custom PCB design and receiving manufactured PCB's. Device chassis re-designed and manufactured to fit second revision's PCB board and electronics
+  & Stephen, Ahmed
+  \newline                                
   \\ \hline
 
   390                                
