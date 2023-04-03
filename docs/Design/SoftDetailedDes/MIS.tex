@@ -113,6 +113,10 @@ found at \url{https://github.com/ahmed-nazir/Capstone}.  \wss{provide the url fo
       \hline
     \end{tabular}
 
+    %AHMED - ADDED MY NEW FUNCTIONS
+
+    %MOH PLEASE ADD YOUR NEW FUNCTIONS HERE
+
     \subsection{Module - ui\_functions.py}
 
     \subsubsection{Description}
@@ -132,8 +136,6 @@ found at \url{https://github.com/ahmed-nazir/Capstone}.  \wss{provide the url fo
         \hline
         continue\_signup() - Checks if all the sign up fields are valid and stores account/login details in database & Self & None \\
         \hline
-        connectToArduino() - Connects and disconnects to Arduino (Wired or Wireless) & Self & None \\
-        \hline
         startTest() - Starts the test on the device and begins collecting data & Self & None\\
         \hline
         runProg() - Creates another thread which will allow the GUI to be operable while it is conducting tests & Self & None\\
@@ -143,6 +145,36 @@ found at \url{https://github.com/ahmed-nazir/Capstone}.  \wss{provide the url fo
         declineData() - Erases the data collected from the last test and does not submit it to the database & Self & None\\
         \hline
         submitData() - Submits data from the test to the Azure database & Self & None\\
+        \hline
+        retrieveData() - Retrieves data from the local onboard storage & Self & None\\
+        \hline
+        connect\_wireless() - Connects to the device via Wi-Fi & Self & None\\
+        \hline
+        disconnect\_wireless() - Disconnects the PC from the device Wi-Fi network & Self & None\\
+        \hline
+        connectWired() - Connects to the device via COM port (wired connection) & Self & None\\
+        \hline
+        disconnect\_wired() - Disconnects from the COM port currently connect & Self & None\\
+        \hline
+        view\_dashboard() - Directs user to PowerBi dashboard on their browser & Self & None\\
+        \hline
+        ping() - Retrieves the currently configured sensors and displays it for the user & Self & None\\
+        \hline
+        select\_com() - Checks the current COM ports detected and displays them in a drop down & Self & None\\
+        \hline
+        make\_config\_page() - Loads the saved sensors in the configuration page drop down & Self & None\\
+        \hline
+        autofill\_config() - Automatically fills out the fields in the sensor config menu when users select a saved sensor & Self & None\\
+        \hline
+        gen\_config\_sensors() - Generates the Arduino code if the fields are not empty & Self & None\\
+        \hline
+        saveConfiguration1() - Saves the sensor configuration for sensor 1 in savedSensors.json & Self & None\\
+        \hline
+        saveConfiguration2() - Saves the sensor configuration for sensor 2 in savedSensors.json & Self & None\\
+        \hline
+        saveConfiguration3() - Saves the sensor configuration for sensor 3 in savedSensors.json & Self & None\\
+        \hline
+        saveConfiguration4() - Saves the sensor configuration for sensor 4 in savedSensors.json & Self & None\\
         \hline
       \end{tabular}
 
@@ -160,6 +192,22 @@ found at \url{https://github.com/ahmed-nazir/Capstone}.  \wss{provide the url fo
 
   \subsubsection{Exception Handling}
   Input validation of the user information is the main form of exception handling. User fields for signing up are checked to ensure that they are not empty and that the password follows the rules of having 8 minimum characters and includes an alphabet, number, and an non-alphanumeric character. When logging in, inputted passwords are checked to ensure that they match the passwords stored in the database. Users will see error messages in the GUI according to what they inputted incorrectly.
+
+  \subsection{Module - arduino\_code\_generator.py}
+  \subsubsection{Description}
+  This module generates Arduino code based on the users inputs in the configure sensors page. It produces a mainArduino.ino file which the user can use to flash their Arduino.
+  \subsubsection{Classes}
+    \textbf{Class:} CodeGenerator() - Contains the functions that write the Arduino code \\
+    
+      \noindent \begin{tabular}{| p{0.6\textwidth} | p{0.2\textwidth}| p{0.2\textwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        Methods & Parameters & Return\\
+        \hline
+        generate() - gets the data which give information on the sensors attached and generates the mainArduino.ino file  & data & None \\
+        \hline
+      \end{tabular}
+
 
   \subsection{Module - main.py}
 
