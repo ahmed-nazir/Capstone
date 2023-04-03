@@ -37,49 +37,98 @@ supervisor's response to your Rev 0 demonstration to them.}
 
 \subsection{SRS and Hazard Analysis}
 %From Smith's template
+%Stephen: Do we need this? Did we iterate based off SRS / HA docs?
 
 \subsection{Design and Design Documentation}
 %From Smith's template
+%Stephen: Do we need this? Did we iterate based off Design docs?
 
 \subsection{VnV Plan and Report}
 %From Smith's template
+%Stephen: Do we need this? Did we iterate based off VnV docs?
 
-\subsection{Proof of Concept Demonstration}
+%\subsection{Proof of Concept Demonstration}
 %Something Stephen added
-At this point of the project, the user interface application allowed the user to connect to the device, start and stop a test, and submit the collected test data to the database. \\
+%At this point of the project, the user interface application allowed the user to connect to the device, start and stop a test, and submit the collected test data to the database. \\
 
-Upon completion of the demonstration, our team received valuable feedback on how we can increase utility in stored test data from the instructor and the TA after our POC demonstration. By changing the user interface to include test description fields for the user to convey the purpose of the test session and the ability to link a picture of the test setup used to generate data, the value of the data collected increased because users have additional information to contextualize the test data collected in the past. \\
+%Upon completion of the demonstration, our team received valuable feedback on how we can increase utility in stored test data from the instructor and the TA after our POC demonstration. By changing the user interface to include test description fields for the user to convey the purpose of the test session and the ability to link a picture of the test setup used to generate data, the value of the data collected increased because users have additional information to contextualize the test data collected in the past. We also changed the visual formatting and KPI statistics of our data visualization platform to include a color scheme that is consistent with the user interface, and varied colors for graphical depictions of test data. \\
 %INSERT PICTURE if available
 
 
-\subsection{Revision 0 Demonstration and Testing Session with McMaster Formula Electric}
+%\subsection{Revision 0 Demonstration and Testing Session with McMaster Formula Electric}
 %Something Stephen added
-After implementing the feedback from the POC demonstration, our team prepared a Revision 0 iteration of the project after spending time in design, manufacturing, and testing. The Revision 0 iteration met all required technical elements of the envisioned solution. \\
+%After implementing the feedback from the POC demonstration, our team prepared a Revision 0 iteration of the project after spending time in design, manufacturing, and testing. The Revision 0 iteration met all required technical elements of the envisioned solution. \\
 
-Upon completion of the demonstration, our team received feedback from the instructor and the TA on how we can improve the usability of the project by optimizing elements of the user experience. In scenario's where the user must adjust the Arduino code to match a new test setup with new sensors, our team changed the interface such that the user interacts with a guided test setup interface that abstracts Arduino code generation. Whereas in the previous implementation which was challenging for the user, they were expected to directly interact with Arduino code we developed to adjust lines of code to reflect the new test setup. \\
+%Upon completion of the demonstration, our team received feedback from the instructor and the TA on how we can improve the usability of the project by optimizing elements of the user experience. In scenario's where the user must adjust the Arduino code to match a new test setup with new sensors, our team changed the interface such that the user interacts with a guided test setup interface that abstracts Arduino code generation. Whereas in the previous implementation which was challenging for the user, they were expected to directly interact with Arduino code we developed to adjust lines of code to reflect the new test setup. \\
 
-\subsection{Testing Sessions with McMaster Formula Electric}
+%\subsection{Testing Sessions with McMaster Formula Electric}
 %Something Stephen added
-Soon after the Revision 0 demonstration, our team worked with the cooling system members of the McMaster Formula Electric team to gain valuable insight on additional areas of improvement. Notably at this point of the project, the implementation was identical to the Revision 0 demonstration. \\
+%Soon after the Revision 0 demonstration, our team worked with the cooling system members of the McMaster Formula Electric team to gain valuable insight on additional areas of improvement. Notably at this point of the project, the implementation was identical to the Revision 0 demonstration. \\
 
-Upon completion of the cooling system testing sessions with the Formula Electric team, we received feedback on how the project's portability can be improved. A main concern our team noted from a member of the cooling system was the relatively large form factor of the Revision 0 implementation. It was noted that the member found the device difficult to integrate the device into the benchtop testing setup due to its size. As a result, our team reduced the area of the PCB and the 3D printed enclosure to accommodate the need for a device with a smaller form factor. \\
+%Upon completion of the cooling system testing sessions with the Formula Electric team, we received feedback on how the project's portability can be improved. A main concern our team noted from a member of the cooling system was the relatively large form factor of the Revision 0 implementation. It was noted that the member found the device difficult to integrate the device into the benchtop testing setup due to its size. As a result, our team reduced the area of the PCB and the 3D printed enclosure to accommodate the need for a device with a smaller form factor. \\
 
 
-\subsection{Revision 1 Demonstration}
+%\subsection{Revision 1 Demonstration}
 %Something Stephen added
-After implementing the feedback from the Revision 0 demonstration and testing session with McMaster Formula Electric, our team prepared a Revision 1 iteration of the project after spending time in design, manufacturing, and testing. The Revision 1 iteration represents a finalized version of the project that met all required technical elements of the envisioned solution and had additional features to support user experience optimization. \\
+%After implementing the feedback from the Revision 0 demonstration and testing session with McMaster Formula Electric, our team prepared a Revision 1 iteration of the project after spending time in design, manufacturing, and testing. The Revision 1 iteration represents a finalized version of the project that met all required technical elements of the envisioned solution and had additional features to support user experience optimization. \\
 
-Upon completion of the demonstration, our team received final comments on how we can educate McMaster Formula Electric members effectively and efficiently about our product from the instructor and the TA. By creating an educational training video on what typical device and user interface operation looks like, members of the McMaster Formula Electric team can quickly integrate our project into their workflows. \\
+%Upon completion of the demonstration, our team received final comments on how we can educate McMaster Formula Electric members effectively and efficiently about our product from the instructor and the TA. By creating an educational training video on what typical device and user interface operation looks like, members of the McMaster Formula Electric team can quickly integrate our project into their workflows. \\
 
 \section{Design Iteration (LO11)}
 
 \plt{Explain how you arrived at your final design and implementation.  How did
 the design evolve from the first version to the final version?} 
+%Blurb added by Stephen: We can follow the points made for the Final Demo powerpoint here
+
+\subsection{Printed Circuit Board Design}
+%Something Stephen added
+%Reduction of PCB area by 53.5% from rev0 to rev1. This is about how we did it
+Robust electrical connections between the electronic components of the device were a major point of focus for our project. The main electronics requiring robust power and signal electrical connections were the Arduino (microcontroller), ESP8266 (Wi-Fi module), and micro-SD card (local memory storage). \\
+
+The first iteration in electrical connections occurred between the Proof of Concept and Revision 0 Demonstrations through the transition from a breadboard and jumper wire electrical implementation to a custom design PCB. The power and signal connections made on the breadboard were translated onto an electrical schematic in KiCad, a schematic capture and PCB design software. The PCB layout and trace routes were then created using the schematic to complete the PCB design. \\
+
+The second iteration in electrical connections occurred between the Revision 0 and Revision 1 Demonstrations through the transition from a custom design PCB to a custom design PCB with a smaller form factor. The second custom PCB design achieved a reduction in board size by 53\% from 151 mm x 112 mm down to 97 mm x 81 mm. The use of both planes of the PCB to solder the electronic components was the primary driver in area reduction from Revision 0, which required all electronic components to solder onto the same plane. \\
+
+\subsection{Chassis Design}
+%Something Stephen added
+%Reduction of Chassis volume by 53% from rev0 to rev1
+
+\subsection{Sensor Configuration Interface}
+%Something Stephen added
+%Iterating from expecting the user to manually adjust raw Arduino code to writing code that writes code for the user to interact it. This is about how we did it (it being how did we make code that writes code)
+
+\subsection{Data Visualization Page}
+%Something Stephen added
+%Iterating from a data visualization page where metrics and graphical visuals didn't "pop" in rev0, but KPI and graphs now stand out in rev1. This is about how we did it
 
 \section{Design Decisions (LO12)}
 
 \plt{Reflect and justify your design decisions.  How did limitations,
  assumptions, and constraints influence your decisions?}
+
+\subsection{Custom Printed Circuit Board}
+%Something Stephen added
+%Why did you choose to design and purchase a custom PCB? This is about why we did it
+The choice to design a custom PCB to interconnect all electrical components was driven by a PCB's ability to maintain  electrical connectivity in high vibration environments. Particularly in McMaster Formula Electric's application as a vehicle driving on top of a road, the device was expected to maintain functionality in high vibration environments such as high vibrations due to rough road surfaces. \\
+
+Furthermore, PCB's provided a space effective solution to electrical connections relative to jumper wires connected to a breadboard circuit because of the planar copper connections between components. As a result, the overall height required by the electrical circuit was minimized using a 2-layer PCB. The PCB's permanent connections were also desirable for power and signal connections between the Arduino, local memory module, Wi-Fi module, and terminal blocks because those component and their respective connections were always the same irrespective of the test setup. \\
+
+\subsection{3D Printed Chassis}
+%Something Stephen added
+%Why did you choose to 3D print the chassis as opposed to purchasing an enclosure from a store? This is about why we did it
+
+\subsection{Code that Writes Code}
+%Something Stephen added
+%Why did you choose to write code that writes code? This is about why we did it
+
+\subsection{Data Visualization Page}
+%Something Stephen added
+%Why did you choose to create a Data Visualization Page? eg: why have a page in PowerBi where the user can select an Acceleration Page and view both KPI+Graphical depictions? This is about why we did it
+
+
+
+
+
 
 \section{Economic Considerations (LO23)}
 
