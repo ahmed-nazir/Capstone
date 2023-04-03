@@ -232,8 +232,8 @@ Ahmed and Muhanad will lead the group wide discussion for design verification ac
   Tools will not be used to automate testing, profile, or code coverage for software flashed on embedded hardware because of the available tools incur high additional overhead to testing effort and times. The group plans on completing extensive unit testing for embedded software to compensate for the absence of automated testing and coverage tools.\\
 
   The desktop application will likely use Visual Studio's memory usage tool to profile the program during execution.\\
-
-  PyLint and SQLFluff will be used as the static code analysis tools to support uniformity in the desktop application and database programs respectively.\\
+%Stephen updated this section, Sunday afternoon
+  %PyLint and SQLFluff will be used as the static code analysis tools to support uniformity in the desktop application and database programs respectively.\\
 
   Code coverage will be completed manually for the desktop, database, and the dashboard programs. This decision will be feasible as the expected size of software for the applications listed above is relatively small. As a result, it is reasonable for to manually check the amount of code coverage achieved through tests.\\
 
@@ -277,12 +277,13 @@ Type: Manual
 Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
 					
 Input: The device is placed in temperature controlled box at 25$^{\circ}$C
+%Stephen updated this section, Sunday afternoon
 					
-Output: The temperature sensor on the device should consistently read 25$^{\circ}$C
+Output: The temperature sensor on the device should consistently read 25$^{\circ}$C within a 5\% error for ten successive readings 
 
 %Test Case Derivation: \wss{Justify the expected value given in the Output field}
 					
-How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box. Using a digital thermometer we will compare the results of our device to the digital thermometer\\
+How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box to 25$^{\circ}$C. Using a digital thermometer we will compare the results of our device to the digital thermometer\\
 
 		
 \item{\bf{ST-SV 2}}
@@ -291,21 +292,22 @@ Type: Manual
 					
 Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
 					
-Input: The device will be placed in an humidity controlled box which will be around 40\% humidity
+Input: The device will be placed in a humidity controlled box which will be 40\% humidity
+%Stephen updated this section, Sunday afternoon
 					
-Output: The humidity sensor on the device should consistently read 40\% humidity
+Output: The humidity sensor on the device should consistently read 40\% humidity within a 5\% error for 10 successive readings
 
-How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box. Using a digital humidity monitor we will compare the results of our device to the digital sensor
+How test will be performed: The device will be placed in a styrofoam insulated box and a hair dryer will be used to heat the box to 50$^{\circ}$C. Using a digital humidity monitor we will compare the results of our device to the digital sensor
 
 \item{\bf{ST-SV 3}}
 
 Type: Manual
 					
 Initial State: Device is on, measuring and sending values to the application, and connection to database has been verified
+%Stephen updated this section, Sunday afternoon
+Input: The device will be placed on a constantly vibrating platform at 1 Hertz for 10 seconds.
 					
-Input: The device will be placed on a constantly vibrating platform with a known vibration
-					
-Output: The accelerometer sensor should consistently read the known vibration
+Output: The accelerometer sensor should consistently read a vibration of 1 Hz within a 5\% error for 10 seconds
 
 How test will be performed: The device will be placed on a constantly vibrating platform which is set to a known vibration. We will start a test on our device and compare the output of our accelerometer with the known vibration
 
@@ -322,11 +324,11 @@ How test will be performed: The device will be placed on a constantly vibrating 
             
   Input: The start button is pressed
             
-  Output: All the readings from all the different sensors should be sent to the PC
+  Output: All readings from all sensors should be sent to the PC for 30 consecutive readings within 1 second of pressing the start button
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: While the device is connected to the PC the start button will be pressed to check if telemetry data is being sent to the PC\\
+  How test will be performed: While the device is connected to the PC the start button will be pressed to check if telemetry data is being sent to the PC. The emphasis is on the ability of data transmission and not correctness\\
 
   \item{\bf{ST-DT 2}}
   
@@ -340,7 +342,7 @@ How test will be performed: The device will be placed on a constantly vibrating 
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
-  How test will be performed: While the device is connected to the PC the start button will be pressed and then after a few seconds pressed again 2 more times to check if telemetry data is still being sent to the PC\\
+  How test will be performed: While the device is connected to the PC the start button will be pressed and then after a few seconds pressed again 10 more times to check if telemetry data transmission to the PC cannot be broken by pressing the start button\\
 
   \item{\bf{ST-DT 3}}
   
@@ -350,7 +352,7 @@ How test will be performed: The device will be placed on a constantly vibrating 
             
   Input: The stop button is pressed
             
-  Output: All the readings from all the different sensors should stop being sent to the PC
+  Output: All sensor readings should stop being sent to the PC within 1 second of pressing the stop button
   
   %Test Case Derivation: \wss{Justify the expected value given in the Output field}
             
@@ -362,7 +364,7 @@ How test will be performed: The device will be placed on a constantly vibrating 
             
   Initial State: Device is on and is connected to a PC via cable or via Wi-Fi
             
-  Input: The stop button is pressed multiple times
+  Input: The stop button is pressed 10 times
             
   Output: The device should not send data to the PC regardless of how many times the stop button is pressed
   
@@ -383,19 +385,19 @@ How test will be performed: The device will be placed on a constantly vibrating 
               
     Input: A sensor is connected using the snap on connector and start is pressed
               
-    Output: The device should start sending data to the PC and should be firmly attached to the device
+    Output: The device should start sending data to the PC within 1 second of pressing the start button and should be firmly attached to the device at a vibration of 1 Hertz.
               
-    How test will be performed: While the device is connected to the PC a sensor is connected to the modular port on the device and the start button is pressed, the sensor will be nudged around and it should still continue to send data\\
+    How test will be performed: While the device is connected to the PC a sensor is connected to the modular port on the device and the start button is pressed, the sensor will be shaken at 1 Hertz and it should still continue to send data\\
   
     \item{\bf{ST-DH 2}}
-    
+    %Stephen updated this section, Sunday afternoon
     Type: Manual
               
-    Initial State: Device is on but is low on battery
+    Initial State: Device is on but the battery has less than 5 minutes of charge
               
-    Input: User plugs the battery in with a charger
+    Input: User swaps the battery
               
-    Output: The battery should begin to charge
+    Output: The battery should provide a full 2 hours of charge in testing time
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
@@ -409,7 +411,7 @@ How test will be performed: The device will be placed on a constantly vibrating 
               
     Input: User will apply 49N of force on every side of the device
               
-    Output: The device should not move at all
+    Output: The fastened device should not show signs of deformation or changes in position
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
@@ -429,15 +431,16 @@ How test will be performed: The device will be placed on a constantly vibrating 
               
     How test will be performed: While someone is mounting the device another person is timing them \\
 
-    \item{\bf{ST-DH 5}}
+    %Stephen updated this section, Sunday afternoon
+    %\item{\bf{ST-DH 5}}
     
-    Type: Manual
+   % Type: Manual
               
-    Initial State: Device is on and is connected to a PC via cable or via Wi-Fi. The operating conditions need to be set
+   % Initial State: Device is on and is connected to a PC via cable or via Wi-Fi. The operating conditions need to be set
               
-    Input: User will place the device in an environment at 30$^{\circ}$C
+    %Input: User will place the device in an environment at 30$^{\circ}$C
               
-    Output: The device should alert the user that operating conditions are exceeded via the screen and speaker
+   % Output: The device should alert the user that operating conditions are exceeded via the screen and speaker
     
     %Test Case Derivation: \wss{Justify the expected value given in the Output field}
               
@@ -630,16 +633,16 @@ How test will be performed: While device, application, and database are fully fu
 will be turned off. The other component(s) will be inspected to ensure that they are operational and indicating that the other component(s) are disconnected.
 
 \end{enumerate}
-
+\newpage
 \subsubsection{Usability}
 
 \begin{enumerate}
-
-\item{\bf{ST-U 1}}
+%Stephen updated this section, Sunday afternoon
+\item{\bf{ST-U 1-A}}
 
 Type: Dynamic, Manual
           
-Initial State: Device is turned off and nothing is connected, only the application is loaded on to the computer
+Initial State: Device is turned off and nothing is connected, only the application is loaded on to the computer and the correct Arduino code to the test setup is flashed onto the micro-controller
           
 Input/Condition: Users will be asked to setup device and start taking measurements, and the rate setup process using a survey
           
@@ -648,42 +651,81 @@ Output/Result: Time for setup and data to appear on the application should be le
 How test will be performed: A test group will be educated on the setup and connection of the device, then they will attempt to do that process. 
 Each person will be timed and compared to the 5 minute threshold. In addition, they will be given a survey to rate the difficulty of the setup process on a scale from 
 1 to 5 on the following categories: overall setup, sensor mount, device mount, start up procedure, and measuring procedure (refer to SQ1).  
+%Stephen updated this section, Sunday afternoon
+\item{\bf{ST-U 1-B}}
 
-\item{\bf{ST-U 2}}
+Type: Dynamic, Manual
+          
+Initial State: Device is turned off and nothing is connected, only the application is loaded on to the computer and the Arduino code must be adjusted to the test setup is flashed onto the micro-controller
+          
+Input/Condition: Users will be asked to setup device and start taking measurements, and the rate setup process using a survey
+          
+Output/Result: Time for setup and data to appear on the application should be less than 5 minutes and an average score of 3 should be achieved on each user's survey.
+          
+How test will be performed: A test group will be educated on the setup and connection of the device, then they will attempt to do that process. 
+Each person will be timed and compared to the 5 minute threshold. In addition, they will be given a survey to rate the difficulty of the setup process on a scale from 
+1 to 5 on the following categories: overall setup, sensor mount, device mount, start up procedure, and measuring procedure (refer to SQ1).  
+%Stephen updated this section, Sunday afternoon
+\item{\bf{ST-U 2-A}}
 
 Type: Dynamic, Manual
 					
-Initial State: Device is given to McMaster's Formula E team to use
+Initial State: Device is given to McMaster's Formula Electric team to use with a wired connection to the laptop
 					
-Input/Condition: Using a survey, Formula E members will compare their current testing process to the Formulate process
+Input/Condition: Using a survey, Formula Electric members will compare their current testing process to the Formulate process
 					
 Output/Result: All users need to select Formulate in at least 3 of the 4 categories
 					
 How test will be performed: Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use, and portability (refer to SQ2).
-
-\item{\bf{ST-U 3}}
+%Stephen updated this section, Sunday afternoon
+\item{\bf{ST-U 2-B}}
 
 Type: Dynamic, Manual
 					
-Initial State: Device is set up and waiting to start measuring, application is loaded onto the computer
+Initial State: Device is given to McMaster's Formula Electric team to use with a wireless connection to the laptop
 					
-Input/Condition: Users are asked to log into the application and use the UI to observe data and send results to the database, and rate the UI using a survey
+Input/Condition: Using a survey, Formula Electric members will compare their current testing process to the Formulate process
+					
+Output/Result: All users need to select Formulate in at least 3 of the 4 categories
+					
+How test will be performed: Formula E members will select which process is preferred in the following categories: speed, data collection, ease of use, and portability (refer to SQ2).
+%Stephen updated this section, Sunday afternoon
+\item{\bf{ST-U 3-A}}
+
+Type: Dynamic, Manual
+					
+Initial State: Device is set up and waiting to start measuring via a wired connection, application is loaded onto the computer
+					
+Input/Condition: Users are asked to log into the application and use the UI to observe data. The wired connection is broken by removing the physical connection. Users are asked through a survey how easy the recovery method for test data collected onto the local memory was and submitting the data to the database
 					
 Output/Result: An average score of 3 should be achieved on each user's survey
 					
 How test will be performed: A test group will be asked to use the application UI and rate it on the following categories on a scale from 1 to 5: login process, responsiveness, accessibility, and sending results to the database (refer to SQ3).
-
-\item{\bf{ST-U 4}}
+%Stephen updated this section, Sunday afternoon
+\item{\bf{ST-U 3-B}}
 
 Type: Dynamic, Manual
 					
-Initial State: Device is set up and waiting to start measuring, application is loaded onto the computer
+Initial State: Device is set up and waiting to start measuring, application is loaded onto the computer, the user is logged in
 					
-Input/Condition: Users will begin testing a variety of test on the equipment.
+Input/Condition: Users are asked to use the UI to observe data and send results to the database, and rate the UI using a survey when the connection between the UI and the database was broken
 					
-Output/Result: Users will either be allowed to continue test or not depending of the compatability of the test to our device.
+Output/Result: An average score of 3 should be achieved on each user's survey
 					
-How test will be performed: Users will begin testing doing different tests with different equipment and based on the the compatability of the equipment to the test it will either allow you to continue or stop you from running the test to help avoid damaging equipment.
+How test will be performed: A test group will be asked to use the application UI and rate it on the following categories on a scale from 1 to 5: login process, responsiveness, accessibility, and sending results to the database (refer to SQ3).
+%Stephen updated this section, Sunday afternoon
+%% NOTE: Do we need this section? I commented this out for now (S.O)
+%\item{\bf{ST-U 4}}
+
+%Type: Dynamic, Manual
+					
+%Initial State: Device is set up and waiting to start measuring, application is loaded onto the computer
+					
+%Input/Condition: Users will begin testing a variety of test on the equipment.
+					
+%utput/Result: Users will either be allowed to continue test or not depending of the compatability of the test to our device.
+					
+%How test will be performed: Users will begin testing doing different tests with different equipment and based on the the compatability of the equipment to the test it will either allow you to continue or stop you from running the test to help avoid damaging equipment.
 
 \end{enumerate}
 

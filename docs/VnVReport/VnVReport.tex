@@ -93,7 +93,7 @@ March 3, 2023 & 1.0 & Final Revision\\
 
 
 \section{Functional Requirements Evaluation}
-\subsection{Sensor Validation}
+\subsection{Sensor Verification}
 %sensor validation: Stephen
 \begin{table}[H]
   \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
@@ -219,14 +219,14 @@ We created our Data Analytics Website through a visualization tool called Power 
     \hline
     ST-U 1-B & Manual & User adjusts Arduino code for a fluid flow rate sensor, connects the sensor to the device, begins collecting sensor test data and gathers data for 1 minute, completes collecting sensor test data, adds remarks to the test, and submits test data to database & User completed the process in 49 minutes 15 seconds and rated the overall experience a 2. The sensor mount and measuring procedure categories were given a 5. All other cattegories were given a 4 & Fail \\
     \hline
-    ST-U 2-A & Manual & Device collecting sensor data with wired connection to a laptop running the python application & Python application GUI displayed at minimal latency. Less than 1 second latency for changes in sensor measurements to display on GUI & Pass \\
+    ST-U 2-A & Manual & Device collecting sensor data with wired connection to a laptop running the python application & Python application GUI displayed at minimal latency. Less than 1 second latency for changes in sensor measurements to display on GUI. Users selected Formulate for all 4 categories & Pass \\
     \hline
-    ST-U 2-B & Manual & Device collecting sensor data with wireless connection to a laptop running the python application & Python application GUI displayed at minimal latency. Less than 1 second latency for changes in sensor measurements to display on GUI & Pass \\
+    ST-U 2-B & Manual & Device collecting sensor data with wireless connection to a laptop running the python application & Python application GUI displayed at minimal latency. Less than 1 second latency for changes in sensor measurements to display on GUI. Users selected Formulate for all 4 categories& Pass \\
     \hline
 
-    ST-U 3-A & Manual & Device connection to application is broken. User submits previous test data held on the micro-SD module to the database & Test data submits and test contents can be viewed on dashboard & Pass \\
+    ST-U 3-A & Manual & Device connection to application is broken. User submits previous test data held on the micro-SD module to the database & Test data submits and test contents can be viewed on dashboard. An average score of 4 was provided & Pass \\
     \hline
-    ST-U 3-B & Manual & Application connection to database is broken. User can connect a temperature sensor, start a test, and stop a test & Device recognizes sensor, starts test, and stops test & Pass  \\
+    ST-U 3-B & Manual & Application connection to database is broken. User can connect a temperature sensor, start a test, and stop a test & Device recognizes sensor, starts test, and stops test. An average score of 4 was provided & Pass  \\
     \hline
   \end{tabular}
   \caption{Usability}
