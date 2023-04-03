@@ -200,16 +200,16 @@ Project Formulate aims to provide the McMaster Formula Electric team with a well
 
 \subsection{Stakeholders}
 
-Formula Electric teams exemplify a highly technical, extra-curricular engineer-
-ing team at the University level. On a yearly basis, these teams compete in com-
-petitions organized by a governing body, Formula SAE, who judge the quality
+Formula Electric teams exemplify a highly technical, extra-curricular engineering
+team at the University level. On a yearly basis, these teams compete in 
+competitions organized by a governing body, Formula SAE, who judge the quality
 and effectiveness of engineering ideas, designs, fabrications, and tests applied
 on a team’s vehicle.\\ 
 
-Specifically, ideal candidates who can benefit from our capstone will be For-
-mula Electric teams with 0-4 years of competition experience. Teams without
-four years of experience are ideal because they typically cannot finish com-
-prehensive tests to validate sub-team designs and overall vehicle design in a
+Specifically, ideal candidates who can benefit from our capstone will be Formula
+Electric teams with 0-4 years of competition experience. Teams without
+four years of experience are ideal because they typically cannot finish comprehensive 
+tests to validate sub-team designs and overall vehicle design in a
 competition year.\\ 
 
 As a result, our primary stakeholder will be McMaster’s Formula Electric
@@ -221,7 +221,7 @@ validating all aspects of the vehicle through comprehensive testing.
 \subsection{Use Cases} 
 \begin{enumerate}
   
-  \item \textbf{Device is turned on}\\ The device is turned on and test functioning can begin \item \textbf{Switching of testing}\\ The device would be modular so depending on what test is required the device would be able to change from testing shock, vibrations, temperature, and humidity by just switching the module into the device \item \textbf{Testing functionality}\\ The device will continually send receive information through an Arduino board, the values from the Arduino board will then get converted into a desktop application \item \textbf{Test data conversion}\\ The converted values from the desktop application will be sent to a remote database where the user will be able to access the data and use the information for what it is needed for \item \textbf{Device warning system}\\ The device will be able to tell the user if the equipment being tested is going above or is below the equipment threshold. This will allow the user to stop the testing before any important components get compromised on the unit \item \textbf{Device interrupted or turned off}\\ In event of the device turning ofF prematurely the data will be automatically saved into our local storage and stored for later use \item \textbf{User test data access}\\ The user can then access the data on a website where all the info will be stored through our database
+  \item \textbf{Device is turned on}\\ The device is turned on and test functioning can begin \item \textbf{Switching of testing}\\ The device would be modular so depending on what test is required the device would be able to change from testing shock, vibrations, temperature, and humidity by just switching the module into the device \item \textbf{Testing functionality}\\ The device will continually send receive information through an Arduino board, the values from the Arduino board will then get converted into a desktop application \item \textbf{Test data conversion}\\ The converted values from the desktop application will be sent to a remote database where the user will be able to access the data and use the information for what it is needed for \item \textbf{Device warning system}\\ The device will be able to tell the user if the equipment being tested is going above or is below the equipment threshold. This will allow the user to stop the testing before any important components get compromised on the unit \item \textbf{Device interrupted or turned off}\\ In event of the device turning off prematurely the data will be automatically saved into our local storage and stored for later use \item \textbf{User test data access}\\ The user can then access the data on a website where all the info will be stored through our database
 
 
   
@@ -268,7 +268,7 @@ This design could allow for dangerous testing conditions for an unsupervised tes
   \hline
   Connected to Application & The testing device has connected to the application \\
   \hline
-  Waiting & Waiting for sensor to be inserted so that measurements can begin \\
+  Ready to measure & Sensors for the test have been configured and device is ready to start a test and measure values \\
   \hline
   Reading/Writing & Testing device is reading raw data from sensors, converting them, and sending them to the desktop application \\
   \hline
@@ -337,7 +337,7 @@ This design could allow for dangerous testing conditions for an unsupervised tes
 \subsection{Functional Decomposition Diagram}
 \begin{figure}[h!]
   \begin{center}
-  \includegraphics[width=0.9\textwidth]{functional_decomposition}
+  \includegraphics[width=0.9\textwidth]{func_decomp_diagram}
   \caption{Functional Decomposition Diagram}
   \label{Fig_FunctionalDecomposition} 
   \end{center}
@@ -418,7 +418,7 @@ Formulate consists of 3 main components, each with its own functional requiremen
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Learning}\\
-    The user will be able to learn the device's operation quickly to integrate into their testing workflow efficiently. If the user waches an educational product video and is able to complete the test setup and navigate the user interface without re-watching the educational video, the ease of learning requirement can be considered to be accomplished
+    The user will be able to learn the device's operation quickly to integrate into their testing workflow efficiently. If the user watches an educational product video and is able to complete the test setup and navigate the user interface without any further support, the ease of learning requirement can be considered to be accomplished
 
     \item[NFR\refstepcounter{nfrnum}\thenfrnum:]
     \textbf{Ease of Use}\\
