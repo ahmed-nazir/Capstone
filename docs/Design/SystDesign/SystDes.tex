@@ -564,10 +564,10 @@ Our project mainly uses two ways to communicate. The user will either directly p
 To simplify the communication protocol, after the Arduino reads all the values from the sensors it formats them into bytestring to send to either the Wi-Fi module or the PC directly via USB. The bytestring takes the form
 
 \begin{verbatim}
-B<X-VAL>S<Y-VAL>S<Z-VAL>S<TEMP-VAL>S<HUMIDITY-VAL>E
+(A<Sensor #><Sensor Val>,B<Sensor #><Sensor Val>,C<Sensor #><Sensor Val>)
 \end{verbatim}
 
-The order in which sensor values are sent are the following order; Vibration in X, Vibration in Y, Vibration in Z, Temperature, and Humidity. Each bytestring starts with 'B' and ends with 'E', after the data is sent to the PC our python program parses through the received bytestring and only stores values from complete bytestrings, it checks for the 'B' and the 'E'.Each of the values in the bytestring is separated with 'S', our python program is then able to split the bytestring and read the correct information from it. When the device is directly plugged into the PC it sends the data over USB via serial and data is sent every second. The other way of receiving data is over Wi-Fi, the Arduino takes the bytestring and sends it using the TX and RX pins to the NodeMCU which then relays the information to the PC via a TCP connection.\\
+The order in which sensor values are sent is based on how the user configured the sensors in the sensor configuration page. Each bytestring starts with '(' and ends with ')', after the data is sent to the PC our python program parses through the received bytestring and only stores values from complete bytestrings, it checks for the '(' and the ')'.Each of the values in the bytestring is separated with a comma, our python program is then able to split the bytestring and read the correct information from it. The first value in each sensor batch is represented by a letter which corresponds to a specific sensor, the second value represents the number of which sensor is attached, the last value is the actual sensor value. The sensor number represents the number of sensors of that type which is attached, for example a user can have 2 accelerometers attached so they will have an accelerometer 1 and accelerometer 2. When the device is directly plugged into the PC it sends the data over USB via serial and data is sent every second. The other way of receiving data is over Wi-Fi, the Arduino takes the bytestring and sends it using the TX and RX pins to the NodeMCU which then relays the information to the PC via a TCP connection.\\
 
 To connect the device to our PC wirelessly there are two main methods we have implemented. The first method is to make our device act as an access point, this means the PC will directly connect to the device and they will exchange information via a TCP connection. The second method would be to connect our device to a central hub and also connect our PC to the same hub, this would require an ethernet connection to be present to plug the hub in. Using both methods our ESP8266 acts as a relay device that passes the information from the Arduino to the PC via TCP.
 
@@ -641,7 +641,7 @@ interaction with, the user interface}
 \section{Mechanical Hardware}
   \begin{figure}[h!]
     \begin{center}
-    \includegraphics[width=0.6\textwidth]{Chassis_3D_Render.png}
+    \includegraphics[width=0.4\textwidth]{Chassis_3D_Render.png}
     \caption{Chassis 3D Render}
     \label{Fig_SystemContext} 
     \end{center}
@@ -695,8 +695,6 @@ interaction with, the user interface}
   \end{figure}
   \newpage
 
-\section{Communication Protocols}
-N/A
 
 
 \newpage

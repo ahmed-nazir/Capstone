@@ -1,13 +1,15 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{fullpage}
 
-\title{Reflection Report on \progname}
+
+\title{Reflection Report \\ \progname}
 
 \author{\authname}
 
-\date{}
+\date{\today}
 
 \input{../Comments}
 \input{../Common}
@@ -18,6 +20,9 @@
 % Stephen added the above line. It increases the limit before Latex generates a warning when using the \\ command to newline. Now most paragraphs that end with a \\ command shouldn't have blue wavy lines underneath the text
 
 \maketitle
+\newpage
+\tableofcontents
+\newpage
 
 \plt{Reflection is an important component of getting the full benefits from a
 learning experience.  Besides the intrinsic benefits of reflection, this
@@ -89,7 +94,11 @@ The second iteration in electrical connections occurred between the Revision 0 a
 \subsection{Chassis Design}
 %Something Stephen added
 %Reduction of Chassis volume by 53% from rev0 to rev1
+During the design phase of the device's chassis, the team meticulously considered its size and form factor. The primary objective was to create a sturdy housing that would securely house all of the essential components, including the Arduino, ESP8266, and micro-SD card reader, while shielding them from external elements.\\
 
+The first version of the chassis was developed between the Proof of Concept and Revision 0 stages. Initially, a pre-made cardboard box was used. However, this was later replaced with a smaller, custom-designed 3D printed chassis with large holes for all the ports and connections.\\
+
+The second iteration was developed between Revision 0 and Revision 1. The aim was to create a more compact and durable chassis. With the reduction in the size of the PCB, the team was able to decrease the chassis size by 53\%. It went from $1.36*10^6 mm^3$ to $0.64*10^6mm^3$. Additionally, the second version featured a more uniform design as it was printed as a single solid piece
 \subsection{Sensor Configuration Interface}
 %Something Stephen added
 %Iterating from expecting the user to manually adjust raw Arduino code to writing code that writes code for the user to interact it. This is about how we did it (it being how did we make code that writes code)
@@ -113,6 +122,11 @@ Furthermore, PCB's provided a space effective solution to electrical connections
 \subsection{3D Printed Chassis}
 %Something Stephen added
 %Why did you choose to 3D print the chassis as opposed to purchasing an enclosure from a store? This is about why we did it
+When the team was considering the manufacturing process for the device's chassis, purchasing a preexisting enclosure was initially deemed unsuitable. This decision was driven by the realization that a ready-made chassis would not be able to hold all the essential components securely within the smallest possible form factor, which was a crucial requirement for the device. Instead, the team opted to design and print the chassis themselves, which provided the freedom to tailor it to the specific dimensions of their components.\\
+
+The custom design allowed for a perfect fit, ensuring that the major components, such as the Arduino, ESP8266, and micro-SD card reader, would be safely housed within the device. Moreover, the team was able to create custom pass-through holes and slots for ports. 3D printing allowed us to create a a very precise and strong chassis with a tolerance of 0.1mm.\\
+
+Overall, the decision to design and print the chassis in-house enabled the team to overcome the limitations of preexisting enclosures, resulting in a more compact, robust, and customized solution.m.
 
 \subsection{Code that Writes Code}
 %Something Stephen added
