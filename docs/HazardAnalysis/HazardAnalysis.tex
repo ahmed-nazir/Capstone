@@ -90,7 +90,7 @@ The device that is referred to in this document is made up of 5 major components
 \item Hardware
 \item Desktop Application
 \item Database
-\item Data Analytics Website 
+\item Data Dashboard 
 \end{enumerate}
 
 Each component has their own system boundaries based on the software and hardware we use. Since this is the case we will have to design the system based on the type of the test that is required to be performed by the MAC Formula Electric Team. An example of this would be if the client had to test the car under specific conditions, we would choose hardware components that are within that temperature range to ensure data is read correctly.
@@ -192,7 +192,7 @@ this potential failure mode.}
     & Add a cool down timer after the user submits the data to the database so they will not be able to spam test submissions\\
     \hline
 
-    Data \newline Analytics Website & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
+    Data \newline Dashboard & H4.\refstepcounter{fmeanumDAW}\thefmeanumDAW
     & User cannot login
     & User will not have access to dashboard
     & $\bullet$ User does not have an account \newline
@@ -233,8 +233,8 @@ this potential failure mode.}
     \begin{description} \item[Rationale] If the battery dies during testing, measurement values will be lost as it is the power source of the device.  \end{description}
     \begin{description} \item[Associated Hazards] H1.2  \end{description}
 
-  \item[SR \refstepcounter{reqnum}\thereqnum:] Every user should have a login when accessing the data analytics website.
-    \begin{description} \item[Rationale] This ensures that only testers have view access to values on the website.   \end{description}
+  \item[SR \refstepcounter{reqnum}\thereqnum:] Every user should have a login when accessing the data dashboard.
+    \begin{description} \item[Rationale] This ensures that only testers have view access to values on the dashboard.   \end{description}
     \begin{description} \item[Associated Hazards] H4.1, H4.2, H4.3 \end{description}
   
   \item[SR \refstepcounter{reqnum}\thereqnum:] The device should save a certain amount of values in case the connection to the application fails during testing.
