@@ -172,22 +172,22 @@ ST-DA3 and ST-DA4 are included in unit testing, refer to section 5.3 for further
 \end{table}
 
 %data analytics: Tio
-\subsection{Data Analytics Website}
+\subsection{Data Dashboard}
 \begin{table}[H]
   \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
     Test Number & Type & Input & Output & Result\\
     \hline
-    ST-DAW 1 & Manual & The user was given a username and password to login into Power BI & The user was able to view all the different data that was being recorded during the test and previous tests as well & Pass\\
+    ST-DD 1 & Manual & The user was given a username and password to login into Power BI & The user was able to view all the different data that was being recorded during the test and previous tests as well & Pass\\
     \hline
-    ST-DAW 2 & Manual & The user was given a fake username and password that is not authorized to view the data & The user was not able to view the Power BI dataset that was created to view all the different test data & Pass\\
+    ST-DD 2 & Manual & The user was given a fake username and password that is not authorized to view the data & The user was not able to view the Power BI dataset that was created to view all the different test data & Pass\\
     \hline
   \end{tabular}
   \caption{Data Analytics}
   \end{table} 
 
-We created our Data Analytics Website through a visualization tool called Power Bi and tested it to see if we were able to connect to the database which contained all our data values. We able to get all the values of our data from the database since Power Bi has a method that can connect to database that authorized users are allowed to connect to. Since this was the case we were able to pass this this requirement for our the data analytics.
+We created our Data Dashboard through a visualization tool called Power Bi and tested it to see if we were able to connect to the database which contained all our data values. We able to get all the values of our data from the database since Power Bi has a method that can connect to database that authorized users are allowed to connect to. Since this was the case we were able to pass this this requirement for our the data analytics.
 
 
 %database: Mo
@@ -603,7 +603,7 @@ There was only one failed unit test case which was U31. The test case failed bec
   \hline
   FR 7 & ST-DA 3 ST-DA 4 \\
   \hline
-  FR 8 & ST-DAW 1 \\
+  FR 8 & ST-DD 1 \\
   \hline
   FR 9 & ST-DH 3 \\
   \hline
@@ -623,11 +623,11 @@ There was only one failed unit test case which was U31. The test case failed bec
   \hline
   FR 18 & ST-DA 2 \\
   \hline
-  FR 19 & ST-DAW 2 \\
+  FR 19 & ST-DD 2 \\
   \hline
-  FR 20 & ST-DAW 1 \\
+  FR 20 & ST-DD 1 \\
   \hline
-  FR 21 & ST-DAW 1 \\
+  FR 21 & ST-DD 1 \\
   \hline
   FR 22 & ST-D 1 \\
   \hline
