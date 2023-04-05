@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[12pt,titlepage]{article}
 
 \usepackage{amsmath, mathtools}
 \usepackage{amsfonts}
@@ -84,33 +84,34 @@
 
 \begin{document}
 
-\title{Software Requirements Specification \\ \progname} 
+\title{\huge Software Requirements Specification \\ \progname} 
 
 \author{\authname}
 \date{\today}
 	
 \maketitle
 
-~\newpage
 
 \pagenumbering{arabic}
-
-\tableofcontents
-\listoftables
-\listoffigures
-
-~\newpage
-
+\newpage
 \section*{Revision History}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-October 5, 2022 & 1.0 & General edits by Ahmed, Muhanad, Tioluwalayomi, Stephen\\
+2022/10/05 & 1.0 & General edits by Ahmed, Muhanad, Tioluwalayomi, Stephen\\
+2023/04/05 & 2.0 & Revision 1\\
 \bottomrule
 \end{tabularx}
+\newpage
+
+\tableofcontents
+
+\listoffigures
 
 ~\newpage
+
+
 
 \section{Introduction}
 
@@ -133,7 +134,7 @@ Project Formulate aims to provide the McMaster Formula Electric team with a well
 \newpage
 
 \noindent
-  In of Scope Items:
+  In Scope Items:
   \begin{enumerate}
 \item Documentation for device integration into testing workflows for common tests
 \item Hardware capable of collecting data from test equipment
@@ -303,6 +304,8 @@ This design could allow for dangerous testing conditions for an unsupervised tes
     \hline
   \end{tabular}
 %\\Table 1.0: Monitored Variables
+\\
+*Note: the voltage range from the sensor varies per sensor and will range from 0V - 5V
 \\ \\ \\
 \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline
@@ -317,6 +320,8 @@ This design could allow for dangerous testing conditions for an unsupervised tes
     \hline
   \end{tabular}
   %\\Table 2.0: Controlled Variables
+  \\
+  *Note: the voltage range from the sensor varies per sensor and will range from 0V - 5V
   \\ \\ \\
   \begin{tabular}{| p{0.23\textwidth} | p{0.10\textwidth}| p{0.10\textwidth}| p{0.46\textwidth}|}
     \hline

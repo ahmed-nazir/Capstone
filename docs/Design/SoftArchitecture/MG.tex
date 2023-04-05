@@ -33,7 +33,7 @@
 
 \begin{document}
 
-\title{Module Guide for \progname{}} 
+\title{\huge Module Guide \\\progname{}} 
 \author{\authname}
 \date{\today}
 
@@ -47,6 +47,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 2023/01/18 & 1.0 & Final Version\\
+2023/04/05 & 2.0 & Revision 1\\
 \bottomrule
 \end{tabularx}
 
@@ -212,13 +213,11 @@ actually be implemented.
 \subsubsection{ui\_functions.py (\mref{ui_functions})}
 \begin{description}
 \item[Services:] A python module that imports all the necessary libraries for backend, contains class for UI functions and creates the connection to the database. This module also creates the functions that the user interacts while navigating through our user interface. It defines the function that the handle user inputs, such as button movements and mouse clicks
-\item[Implemented By:] [PyQt]
 \end{description}
 
 \subsubsection{main.py (\mref{main})}
 \begin{description}
 \item[Services:] A python module that imports backend functions and frontend setup of GUI. This is also used to start and run the desktop application and can be considered the interpreter that reads and executes the code.
-\item[Implemented By:] [PyQt]
 \end{description}
 
 \subsection{Software Decision Module}

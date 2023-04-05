@@ -15,6 +15,7 @@
 \usepackage{colortbl}
 \usepackage{longtable}
 \usepackage[table]{xcolor} 
+\usepackage{longtable}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -29,7 +30,7 @@
 
 \begin{document}
 
-\title{Verification and Validation Report: \progname} 
+\title{\huge Verification and Validation Report \\ \progname} 
 \author{\authname}
 \date{\today}
 	
@@ -204,13 +205,15 @@ We created our Data Dashboard through a visualization tool called Power Bi and t
 \caption{Database}
 \end{table}
 
+\newpage
+
 \section{Nonfunctional Requirements Evaluation}
 \subsection{Usability}
 %Stephen
 %Need a graph (that we generate) that supports data
-\newpage
-\begin{table}[H]
-  \begin{tabular}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
+
+
+  \begin{longtable}{| p{0.15\textwidth} | p{0.10\textwidth}| p{0.28\textwidth}| p{0.28\textwidth}| p{0.09\textwidth}|}
     \hline
     \rowcolor[gray]{0.9}
     Test Number & Type & Input & Output & Result\\
@@ -228,9 +231,11 @@ We created our Data Dashboard through a visualization tool called Power Bi and t
     \hline
     ST-U 3-B & Manual & Application connection to database is broken. User can connect a temperature sensor, start a test, and stop a test & Device recognizes sensor, starts test, and stops test. An average score of 4 was provided & Pass  \\
     \hline
-  \end{tabular}
-  \caption{Usability}
-  \end{table}
+    \caption{Usability}
+
+  \end{longtable}
+  
+
 
   \begin{figure}[htbp!]
     \begin{center}
@@ -582,6 +587,8 @@ Additional considerations to the GUI must be made in response to NFR1,  NFR2, an
 		
 \subsection{Unit Testing}
 There was only one failed unit test case which was U31. The test case failed because the correct error message was being displayed but, it was cut off meaning only a portion of the error message was visible. In order to fix this, the size of the UI text window for the error message was increased and the result was that the UI now correctly displays the full message.
+
+
 \section{Trace to Requirements}
 %VnV Plan has this table
 \begin{tabular}{| p{0.45\textwidth} | p{0.45\textwidth}|}
@@ -625,16 +632,6 @@ There was only one failed unit test case which was U31. The test case failed bec
   \hline
   FR 18 & ST-DA 3 \\
   \hline
-  FR 19 & ST-DD 2 \\
-  \hline
-  FR 20 & ST-DD 1 \\
-  \hline
-  FR 21 & ST-DD 1 \\
-  \hline
-  FR 22 & ST-D 1 \\
-  \hline
-  FR 23 & ST-DH 5 \\
-  \hline
   NFR 1 & ST-U 1-A, ST-U 1-B \\
   \hline
   NFR 2 & ST-U 2-A, ST-U 2-B, ST-U 3-A, ST-U 3-B \\
@@ -658,7 +655,7 @@ There was only one failed unit test case which was U31. The test case failed bec
 
 
 
-\newpage{}
+\newpage
 \section*{Appendix --- Reflection}
 
 \wss{The information in this section will be used to evaluate the team members on the
