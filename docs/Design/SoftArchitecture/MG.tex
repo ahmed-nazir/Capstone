@@ -247,17 +247,16 @@ functional requirements from our SRS document and between the modules and the an
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
 FR1 & \mref{Arduino}\\
-FR2 & \mref{Arduino}, \mref{ESP8266}\\
+FR2 & \mref{Arduino}\\
 FR3 & \mref{Arduino}, \mref{ESP8266}\\
 FR4 & \mref{Arduino}, \mref{ESP8266}\\
 FR5 & \mref{Arduino}\\
-FR6 & \mref{Arduino}\\
-FR7 & \mref{Arduino}, \mref{ui_functions}\\
+FR6 & \mref{ui_main}, \mref{ui_functions}\\
+FR7 & \mref{ui_functions}, \mref{main}\\
 FR8 & \mref{ui_functions}\\
-FR12 & \mref{Arduino}, \mref{ESP8266}\\
-FR13 & \mref{Arduino}, \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+FR12 & \mref{Arduino}, \mref{ESP8266}, \mref{ui_functions}\\
 FR14 & \mref{Arduino}, \mref{ESP8266}, \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
-FR18 & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
+FR18 & \mref{ui_functions}, \mref{main}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -270,11 +269,11 @@ FR18 & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
-\acref{acInput} & \mref{ui_main}, \mref{ui_functions}, \mref{main}\\
-\acref{acGuiInfo} & \mref{main}\\
-\acref{acDbStoring} & \mref{ui_main}, \mref{ui_functions}\\
-\acref{acAccountFields} & \mref{ui_functions}\\
+\acref{acHardware} & \mref{ui_main}\\
+\acref{acInput} & \mref{ui_main}\\
+\acref{acGuiInfo} & \mref{main}, \mref{ui_functions}\\
+\acref{acDbStoring} & \mref{ui_functions}\\
+\acref{acAccountFields} & \mref{ui_main}, \mref{ui_functions}\\
 \acref{acDataStructures} & \mref{ui_functions}\\
 \acref{acBackendFrontend} & \mref{ui_functions}, \mref{main}\\
 
