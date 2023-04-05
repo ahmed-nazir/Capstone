@@ -102,6 +102,19 @@ The second iteration was developed between Revision 0 and Revision 1. The aim wa
 \subsection{Sensor Configuration Interface}
 %Something Stephen added
 %Iterating from expecting the user to manually adjust raw Arduino code to writing code that writes code for the user to interact it. This is about how we did it (it being how did we make code that writes code)
+Automating the process of configuring sensors for each test was of utmost importance to make the user experience easy and smooth. Configuring different sensors
+for each test requires adjusting the Arduino code that is flashed on the board to accommodate the newly mounted sensors. The main
+objective of the sensor configruation interface was to create a process where users are able to configure the sensors they want to use through
+Formulate's desktop application instead of manually editing code. \\
+
+Revision 0 of Formulate expected users to manually ajust the Arduino code that is flashed onto the board every time a different configuration
+of sensors was required for a new test. \\
+
+Revision 1 completely changed this process by no longer requiring users to interact with Arduino code to configure sensors. This was achieved by creating a new
+page in the desktop application called 'Configure Sensors' where users are able to select a couple of parameters such as names of readings, pin number, and units of
+measurement for the sensors they want to configure. Once users click on 'Generate Arduino Code', the backend of the application would go and edit the Arduino
+code to reflect the new sensor configuration. This is essentially done by using Python's ability to read and write content to files, which in this case was the
+Arduino code being flashed onto the board.
 
 \subsection{Data Visualization Page}
 %Something Stephen added
@@ -131,6 +144,16 @@ Overall, the decision to design and print the chassis in-house enabled the team 
 \subsection{Code that Writes Code}
 %Something Stephen added
 %Why did you choose to write code that writes code? This is about why we did it
+During the testing session with McMaster's Forumla E members, they were asked to setup the Formulate device for a test on their own after watching Formulate
+members perform the setup. Formula E members found configuring sensors to be extremely daunting due to editing the Arduino code that was flashed on the board.
+The process of editing code not only requires previous programming experience but also knowledge of Arduino code and how it interfaces with the board. Therefore,
+it was only fair for the Formula E members to find this task challenging since that knowledge is not a prequisite for them. \\
+
+After Formula E's feedback, it became clear that there was a need for a method where users are not manually interacting with code everytime a different sensor 
+configuration is setup. The team decided to use the backend code of the application to adjust the Arduino code. This was optimal for a variety of reasons including
+the removal of manual code editing, shorter setup time, and conveniency for users as they already control the Forumlate device using the deskop application. After the
+'Configure Sensors' page was setup, the team also found it much easier to do testing as the configuration of sensors became much more streamlined. In conclusion,
+implementing the idea of 'code that writes code' was a great succcess in terms of tackling the challenges that came with manual code adjustments for sensor configuration.
 
 \subsection{Data Visualization Page}
 %Something Stephen added
