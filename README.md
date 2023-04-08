@@ -23,6 +23,12 @@ https://user-images.githubusercontent.com/31586040/229315702-d01e6bb1-cf8b-4a10-
 
 https://user-images.githubusercontent.com/31586040/229315661-3c283bd7-a839-4dc5-8188-416b881f1b61.mp4
 
+### Exploded View
+
+![Chassis Assembly  Exploded View](https://user-images.githubusercontent.com/31586040/230744843-a78a0e9c-d672-430c-876a-ee962b23f345.png)
+
+### PCB
+![PCB1](https://user-images.githubusercontent.com/31586040/230744908-07bac37a-6630-4f9e-98dd-f863b8c90d12.jpg) 
 
 
 ## Folder Structure
@@ -32,5 +38,5 @@ The folders and files for this project are as follows:
 - docs - Documentation for the project
 - refs - Reference material used for the project, including papers
 - src - Source code
-- test - Test cases
+- test - Testing
 
