@@ -1,0 +1,27 @@
+{
+    "": {
+        "Readings": "",
+        "Pins": "",
+        "Units": ""
+    },
+    "ADXL345_1": {
+        "Readings": "AccelerationX1,AccelerationY1,AccelerationZ1",
+        "Pins": "",
+        "Units": "m/s^2"
+    },
+    "LM35_1": {
+        "Readings": "Temperature1",
+        "Pins": "",
+        "Units": "Celsius"
+    },
+    "DHT11_1": {
+        "Readings": "Humidity1",
+        "Pins": "",
+        "Units": "%"
+    },
+    "DHT11_2": {
+        "Readings": "Humidity2",
+        "Pins": "",
+        "Units": "%"
+    }
+}
