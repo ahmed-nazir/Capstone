@@ -1,9 +1,10 @@
 # Formulate Source Code
 
 The folders and files for this project are as follows:
-- Desktop Application
-- Hardware
-  - Arduino
-  - ESP8266
-- Electrical
 - Chassis
+- Database
+- Desktop Application
+- Electrical
+- Formulate Application
+  - Final Portable Application
+- Power Bi
